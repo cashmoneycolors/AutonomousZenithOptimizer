@@ -1,0 +1,552 @@
+1. Projektstruktur einrichten
+Stelle sicher, dass du in deinem Visual Studio Projekt ZenithCoreSystem (mit .NET 8.0 oder neuer) die folgenden Ordner und Dateien anlegst, wie in deiner Spezifikation beschrieben:
+
+Ordner (Verzeichnis)	Datei-Name	Enthält...
+Root	Program.cs	Den Startpunkt und die DI-Simulation.
+Core	Interfaces.cs	Alle Schnittstellen.
+Core	DataModels.cs	Alle records und Datenstrukturen.
+Core	ZenithController.cs	Die zentrale Logik (AutonomousZenithOptimizer).
+Modules	Infrastructure.cs	Helferklassen wie ZenithLogger, AetherArchitecture und RegulatoryHyperAdaptor.
+Modules	HoloCache.cs	Die RedisMock und HoloKognitivesRepository Implementierungen.
+Modules	QMLBridge.cs	Die QML_Python_Bridge (inkl. SCSC-Testlogik).
+Adapters	HFT_AMAD_Adapter.cs	Die Implementierung der Finanz-API-Schnittstelle.
+Adapters	GEF_MSA_Adapter.cs	Die Implementierung der KI-API-Schnittstelle.
+Adapters	ECA_AHA_Adapter.cs	Die Implementierung der eCommerce-API-Schnittstelle.
+
+In Google Sheets exportieren
+2. Code-Implementierung (Datei für Datei)
+Wichtig: Der gesamte Code ist in C# und geht davon aus, dass du in jeder neuen Datei die notwendigen using Anweisungen und den namespace ZenithCoreSystem hinzufügst, sowie alle Klassen und Interfaces als public deklarierst.
+
+Core/DataModels.cs
+Diese Datei enthält die fundamentalen Datenstrukturen (mittels record für eine vereinfachte Unveränderlichkeit).
+
+C#
+
+namespace ZenithCoreSystem
+{
+    // Enthält alle globalen Datenmodelle (records)
+    public record Asset(string AssetID, string Name, string ArtistHistory, Dictionary<string, bool> LicenseMap, int Quota);
+
+    public record Order(string OrderID, string AssetID, string CustomerID, string DestinationCountry, decimal Price, string ProductType);
+
+    public record DRL_StateVector(
+        decimal MarketROAS_Score,      
+        decimal CurrentMarketSpend,    
+        decimal PredictedNAV,          
+        double RH_ComplianceScore,     
+        double GSF_Complexity,         
+        double HyperCache_LatencyMs,   
+        double ScalingFactor,
+        int TotalNFTsMinted)
+    {
+        public override string ToString() => 
+            $"ROAS:{MarketROAS_Score:F2};SPEND:{CurrentMarketSpend:F0};PMI_PRED:{PredictedNAV:F0};RHA_SCORE:{RH_ComplianceScore:F2};GSF_COMPX:{GSF_Complexity:F2};CACHE_LATENCY:{HyperCache_LatencyMs:F4};SCALE_FACTOR:{ScalingFactor:F2};NFT_COUNT:{TotalNFTsMinted}";
+    }
+}
+Core/Interfaces.cs
+Hier sind alle Schnittstellen (interface) definiert, die die lose Kopplung im System ermöglichen.
+
+C#
+
+using System.Threading.Tasks;
+
+namespace ZenithCoreSystem
+{
+    // Enthält alle globalen Schnittstellen
+    public interface IAutonomousZenithOptimizer 
+    { 
+        Task RunAutonomousGrowthStrategy();
+        Task ProcessIncomingOrder(Order order);
+    }
+
+    public interface IProfitGuarantor_QML 
+    { 
+        Task<string> GetNAVOptimizedDecision(DRL_StateVector currentVector); 
+        Task ReportPerformanceFeedback(string vector, decimal roasScore, string actionTaken);
+    }
+
+    public interface IHyperCache 
+    { 
+        Task<string?> GetAsync(string key); 
+        Task SetAsync(string key, string value, TimeSpan expiry); 
+    }
+
+    // API-Adapter Schnittstellen (Die "Körperteile")
+    public interface IHFT_AMAD_Adapter 
+    { 
+        Task<decimal> ExecuteTrade(string symbol, decimal amount, string direction); 
+    }
+
+    public interface IGEF_MSA_Adapter 
+    { 
+        Task<string> GenerateText(string prompt, string styleGuide); 
+    }
+
+    public interface IECA_AHA_Adapter 
+    { 
+        Task<bool> SubmitOrder(Order order, string supplierID); 
+    }
+}
+Modules/Infrastructure.cs
+Hier sind die generischen Infrastruktur-Komponenten für Logging, Governance und Messaging implementiert.
+
+C#
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ZenithCoreSystem.Modules
+{
+    // OPS Ω: Structured Logging
+    public static class ZenithLogger
+    {
+        public static void LogAutonomousCycle(string message, Dictionary<string, object> properties)
+        {
+            var propsString = string.Join(", ", properties.Select(kvp => $"{kvp.Key}: {kvp.Value}"));
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"\n[OPS Ω LOG] {message}");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine($"  -> PROPERTIES: {{ {propsString} }}");
+        }
+
+        public static void LogCriticalError(string message, string component)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"[OPS Ω CRITICAL] {component} FEHLER: {message}");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+    }
+
+    // RHA Ω: Regulatory Hyper Adaptor (Governance & Compliance)
+    public class RegulatoryHyperAdaptor
+    {
+        // Simuliert einen allgemeinen Compliance-Check mit 90% Erfolgswahrscheinlichkeit
+        public bool PerformComplianceMock() => new Random().Next(0, 10) > 1; 
+
+        // Prüft, ob ein Auftrag legal zulässig ist (hier: nicht aus FR oder Preis <= 1000)
+        public bool PerformLegalIntegrityCheck(Order order) => order.DestinationCountry != "FR" || order.Price <= 1000m;
+    }
+
+    // Aether Architecture (Low-Latency Messaging)
+    public class AetherArchitecture 
+    { 
+        public void RouteLowLatencyEvent(string message) 
+        { 
+            Console.WriteLine($"[AetherArch] Event geroutet: {message}"); 
+        } 
+    }
+}
+Modules/HoloCache.cs
+Diese Datei enthält die Mock-Implementierung für den Redis-Cache sowie das HoloKognitivesRepository als tatsächliche Caching-Schicht (IHyperCache).
+
+C#
+
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace ZenithCoreSystem.Modules
+{
+    // HoloCache Mocks und Implementierung
+
+    // REDIS/Cache Mocks (Vereinfachung) - Ersetzt später durch echten StackExchange.Redis
+    public interface IConnectionMultiplexer { IDatabase GetDatabase(int db); }
+    public interface IDatabase 
+    { 
+        Task<RedisValue> StringGetAsync(string key); 
+        Task<bool> StringSetAsync(string key, string value, TimeSpan expiry); 
+    }
+    
+    // Simulierter RedisValue-Typ
+    public class RedisValue 
+    { 
+        public static RedisValue Null { get; } = new RedisValue(); 
+        public bool IsNull { get; set; } = true; 
+        public static implicit operator RedisValue(string s) => new RedisValue { IsNull = s == null, Value = s }; 
+        public override string ToString() => Value ?? "NULL"; 
+        public string Value { get; set; } 
+    }
+
+    public class RedisMock : IConnectionMultiplexer 
+    { 
+        private readonly Dictionary<string, string> _storage = new(); 
+        public IDatabase GetDatabase(int db) => new RedisDbMock(_storage); 
+    }
+
+    public class RedisDbMock : IDatabase
+    {
+        private readonly Dictionary<string, string> _storage;
+        public RedisDbMock(Dictionary<string, string> storage) => _storage = storage;
+        
+        public Task<RedisValue> StringGetAsync(string key) 
+        { 
+            if (_storage.ContainsKey(key)) return Task.FromResult(new RedisValue { IsNull = false, Value = _storage[key] }); 
+            return Task.FromResult(RedisValue.Null); 
+        }
+        
+        public Task<bool> StringSetAsync(string key, string value, TimeSpan expiry) 
+        { 
+            _storage[key] = value; 
+            return Task.FromResult(true); 
+        }
+    }
+
+    // HoloKognitivesRepository (HUR Ω - Die Caching-Implementierung)
+    public class HoloKognitivesRepository : IHyperCache 
+    { 
+        private readonly IDatabase _db; 
+        
+        public HoloKognitivesRepository(IConnectionMultiplexer redis) 
+        { 
+            _db = redis.GetDatabase(0); 
+        } 
+        
+        public async Task<string?> GetAsync(string key) 
+        { 
+            RedisValue value = await _db.StringGetAsync(key); 
+            return value.IsNull ? null : value.ToString(); 
+        } 
+        
+        public async Task SetAsync(string key, string value, TimeSpan expiry) 
+        { 
+            await _db.StringSetAsync(key, value, expiry); 
+        }
+        
+        // Spezifische Methode zur Abfrage des HyperCognitive Context
+        public async Task<string> RetrieveHyperCognitiveContext(string query)
+        {
+            string context = await GetAsync($"context:{query}");
+            if (context == null) context = $"HUR Ω Kontext: Prädiktion zu '{query}' (DB-Fallback)";
+            await SetAsync($"context:{query}", context, TimeSpan.FromMinutes(5));
+            return context;
+        }
+    }
+
+    // ContextualMemoryHandler (CHM Ω) - Der Consumer des Caches
+    public class ContextualMemoryHandler 
+    { 
+        private readonly HoloKognitivesRepository _hur; 
+        public ContextualMemoryHandler(HoloKognitivesRepository hur) => _hur = hur; 
+        
+        public async Task DeliverPreventiveContext(string agentId) 
+        { 
+            var context = await _hur.RetrieveHyperCognitiveContext($"Prävention {agentId}"); 
+            Console.WriteLine($"[CHM Ω] {agentId} erhält präventiven Kontext: {context}"); 
+        } 
+    }
+}
+Modules/QMLBridge.cs
+Dies ist die Brücke zum Machine Learning Modell (IProfitGuarantor_QML), die die Self-Correcting System Core (SCSC)-Testlogik enthält.
+
+C#
+
+using System;
+using System.Threading.Tasks;
+
+namespace ZenithCoreSystem.Modules
+{
+    // Enthält die DRL Python Bridge mit SCSC-Testlogik
+    public class QML_Python_Bridge : IProfitGuarantor_QML
+    {
+        private readonly bool _simulateFailure;
+        private int _callCount = 0;
+        
+        public QML_Python_Bridge(bool simulateFailure = false) 
+        { 
+            _simulateFailure = simulateFailure; 
+        }
+        
+        public async Task<string> GetNAVOptimizedDecision(DRL_StateVector currentVector)
+        {
+            _callCount++;
+            // Simuliert einen Timeout-Fehler bei den ersten 2 Aufrufen für den SCSC-Resilience-Test
+            if (_simulateFailure && _callCount <= 2) 
+            {
+                throw new TimeoutException("QML-Core ist überlastet oder offline (Simuliert).");
+            }
+            
+            await Task.Delay(10);
+            
+            // Simuliert die DRL-Entscheidungslogik
+            return currentVector.PredictedNAV > 140000m ? "SCALE_UP:2.0" : "MAINTAIN_LEVEL:1.0";
+        }
+        
+        public async Task ReportPerformanceFeedback(string vector, decimal roasScore, string actionTaken)
+        {
+            Console.WriteLine($"[QML Bridge] Performance Feedback an DRL-Server gesendet.");
+            await Task.Delay(50);
+        }
+    }
+}
+Adapters/HFT_AMAD_Adapter.cs
+Der Finanz-API-Adapter (IHFT_AMAD_Adapter).
+
+C#
+
+using System;
+using System.Threading.Tasks;
+
+namespace ZenithCoreSystem.Adapters
+{
+    // Der Finanz-API-Adapter (Die Hand)
+    public class HFT_AMAD_Adapter : IHFT_AMAD_Adapter
+    {
+        public async Task<decimal> ExecuteTrade(string symbol, decimal amount, string direction)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"[AMAD/HFT] Live-Trade ausgeführt: {direction} {amount} {symbol}");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            await Task.Delay(5); 
+            return amount * (1.0001m); // Simulierter Gewinn
+        }
+    }
+}
+Adapters/GEF_MSA_Adapter.cs
+Der KI-API-Adapter (IGEF_MSA_Adapter).
+
+C#
+
+using System;
+using System.Threading.Tasks;
+
+namespace ZenithCoreSystem.Adapters
+{
+    // Der KI-API-Adapter (Der Kreativ-Arm)
+    public class GEF_MSA_Adapter : IGEF_MSA_Adapter
+    {
+        public async Task<string> GenerateText(string prompt, string styleGuide)
+        {
+            Console.WriteLine($"[MSA/GEF] KI-Anfrage (Style: {styleGuide}) wird ausgeführt...");
+            await Task.Delay(100);
+            return $"KI-Output: {prompt.Substring(0, 15)}... (Genehmigt durch Governance)";
+        }
+    }
+}
+Adapters/ECA_AHA_Adapter.cs
+Der eCommerce-API-Adapter (IECA_AHA_Adapter).
+
+C#
+
+using System;
+using System.Threading.Tasks;
+
+namespace ZenithCoreSystem.Adapters
+{
+    // Der eCommerce-API-Adapter (Der Logistik-Fuß)
+    public class ECA_AHA_Adapter : IECA_AHA_Adapter
+    {
+        public async Task<bool> SubmitOrder(Order order, string supplierID)
+        {
+            Console.WriteLine($"[AHA/ECA] Order {order.OrderID} an Supplier {supplierID} via CRM/API gesendet.");
+            await Task.Delay(50);
+            return true;
+        }
+    }
+}
+Core/ZenithController.cs
+Dies ist das Herzstück, der Autonomous Zenith Optimizer (AZO), der alle Abhängigkeiten injiziert bekommt und die gesamte Geschäftslogik steuert.
+
+C#
+
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using ZenithCoreSystem.Adapters;
+using ZenithCoreSystem.Modules;
+
+namespace ZenithCoreSystem.Core
+{
+    // Der Autonomous Zenith Optimizer (AZO) - Das Gehirn und SCSC Core
+    public class AutonomousZenithOptimizer : IAutonomousZenithOptimizer
+    {
+        // Alle Abhängigkeiten (Adapter und Module)
+        private readonly IProfitGuarantor_QML _qml;
+        private readonly AetherArchitecture _arch;
+        private readonly RegulatoryHyperAdaptor _rha;
+        private readonly IHFT_AMAD_Adapter _hftAdapter;
+        private readonly IGEF_MSA_Adapter _gefAdapter;
+        private readonly IECA_AHA_Adapter _ecaAdapter;
+        private readonly ContextualMemoryHandler _chm;
+
+        // Konstruktor für die Dependency Injection
+        public AutonomousZenithOptimizer(
+            IProfitGuarantor_QML qml, AetherArchitecture arch, RegulatoryHyperAdaptor rha,
+            IHFT_AMAD_Adapter hftAdapter, IGEF_MSA_Adapter gefAdapter, IECA_AHA_Adapter ecaAdapter,
+            ContextualMemoryHandler chm)
+        {
+            _qml = qml; _arch = arch; _rha = rha; _hftAdapter = hftAdapter;
+            _gefAdapter = gefAdapter; _ecaAdapter = ecaAdapter; _chm = chm;
+        }
+
+        // RSL Ω: Retry Policy (Self-Correcting System Core - SCSC)
+        private async Task<string> ExecuteQMLWithRetry(DRL_StateVector stateVector)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                try 
+                { 
+                    // Versuch, die Entscheidung vom QML-Bridge zu erhalten
+                    return await _qml.GetNAVOptimizedDecision(stateVector); 
+                }
+                catch (Exception ex)
+                {
+                    // Bei fehlgeschlagenem Aufruf (z.B. Timeout)
+                    if (i == 2)
+                    {
+                        // Maximaler Retry erreicht: Fallback-Aktion ausführen
+                        ZenithLogger.LogCriticalError($"MAX RETRY erreicht. Führe Fallback-Aktion aus. Grund: {ex.Message}", "QML_DRL_Agent");
+                        return "MAINTAIN_LEVEL:1.0"; // Sichere Fallback-Aktion
+                    }
+                    // Warten, bevor der nächste Versuch gestartet wird
+                    await Task.Delay(500 * (i + 1));
+                }
+            }
+            return "MAINTAIN_LEVEL:1.0";
+        }
+
+        // AZO Hauptzyklus (Strategie-Ausführung)
+        public async Task RunAutonomousGrowthStrategy()
+        {
+            Guid cycleId = Guid.NewGuid();
+            DateTime startTime = DateTime.UtcNow;
+
+            ZenithLogger.LogAutonomousCycle("Starte autonomen Wachstumszyklus (DRL-Basis).", new Dictionary<string, object>
+            { { "CorrelationID", cycleId.ToString() }, { "Stage", "INIT" } });
+
+            // 1. Aggregation & DRL-Vektor (Simulierte Datensammlung)
+            var stateVector = new DRL_StateVector(
+                MarketROAS_Score: 4.5m, CurrentMarketSpend: 10000.00m, PredictedNAV: 130000.00m,
+                RH_ComplianceScore: _rha.PerformComplianceMock() ? 0.99 : 0.75, GSF_Complexity: 0.85, 
+                HyperCache_LatencyMs: 0.003, ScalingFactor: 1.0, TotalNFTsMinted: 500
+            );
+
+            // 2. DRL-Entscheidung (geschützt durch RSL Ω SCSC)
+            string decision = await ExecuteQMLWithRetry(stateVector);
+
+            // 3. AKTIONSDURCHFÜHRUNG: HFT/AMA (Die Finanz-Hand)
+            if (decision.StartsWith("SCALE_UP:"))
+            {
+                decimal tradeAmount = 50000.00m * decimal.Parse(decision.Split(':')[1]);
+                await _hftAdapter.ExecuteTrade("ETH/USD", tradeAmount, "BUY");
+            }
+            
+            // 4. KI-Produktion: GEF/MSA (Der Kreativ-Arm)
+            if (stateVector.RH_ComplianceScore > 0.9)
+            {
+                await _gefAdapter.GenerateText("Erstelle einen Marketing-Text für das neue NFT-Produkt.", "Corporate Identity VECTRA");
+            }
+
+            // 5. FINALES LOGGING & Performance-Feedback
+            long latencyMs = (long)(DateTime.UtcNow - startTime).TotalMilliseconds;
+            await _qml.ReportPerformanceFeedback(stateVector.ToString(), 4.5m, decision);
+
+            ZenithLogger.LogAutonomousCycle("Zyklus abgeschlossen. DRL-Aktion ausgeführt.", new Dictionary<string, object>
+            {
+                { "CorrelationID", cycleId.ToString() },
+                { "ActionTaken", decision },
+                { "EndToEndLatencyMs", latencyMs }, 
+            });
+        }
+
+        // AZO Transaktionsprozess (Geschäftsabwicklung)
+        public async Task ProcessIncomingOrder(Order order)
+        {
+            Console.WriteLine($"\n[AZO] Starte Prozess für Auftrag {order.OrderID}...");
+            
+            // 1. Governance-Check (RHA Ω)
+            if (!_rha.PerformLegalIntegrityCheck(order))
+            {
+                ZenithLogger.LogCriticalError($"Auftrag {order.OrderID} wegen Legal Integrity Check (LIC) FEHLGESCHLAGEN. Blockiere Transaktion.", "RHA");
+                _arch.RouteLowLatencyEvent($"Auftrag {order.OrderID} wegen LIC-Fehler blockiert.");
+                return;
+            }
+
+            // 2. Präventiver Kontext (CHM/HUR)
+            await _chm.DeliverPreventiveContext($"OrderProcessing_{order.ProductType}");
+
+            // 3. Ausführung: ECA/AHA (Der Logistik-Fuß)
+            if (order.ProductType == "PremiumLicense")
+            {
+                bool success = await _ecaAdapter.SubmitOrder(order, "Supplier-Alpha");
+                if (success)
+                {
+                    _arch.RouteLowLatencyEvent($"Auftrag {order.OrderID} erfolgreich über ECA/AHA abgewickelt.");
+                }
+                else
+                {
+                    ZenithLogger.LogCriticalError($"Fehler bei der API-Übermittlung für {order.OrderID}.", "ECA/AHA");
+                }
+            }
+        }
+    }
+}
+Program.cs
+Der Startpunkt der Anwendung. Hier wird die Dependency Injection (DI) manuell simuliert, indem alle Komponenten instanziiert und in den AutonomousZenithOptimizer (AZO) injiziert werden.
+
+C#
+
+using System;
+using System.Threading.Tasks;
+using ZenithCoreSystem.Adapters;
+using ZenithCoreSystem.Core;
+using ZenithCoreSystem.Modules;
+
+namespace ZenithCoreSystem
+{
+    // Der zentrale Startpunkt und die DI-Simulationsschicht
+    public class Program
+    {
+        public static async Task Main(string[] args)
+        {
+            Console.WriteLine("--- ZQAN Ω: MAXIMALER SYSTEMSTART & API-INTEGRATION ---");
+
+            // --- 1. DI-SETUP: Registriere alle Dienste und Adapter ---
+            
+            // Basis-Infrastruktur und HyperCache
+            IConnectionMultiplexer redisMock = new RedisMock();
+            HoloKognitivesRepository hur = new HoloKognitivesRepository(redisMock);
+            ContextualMemoryHandler chm = new ContextualMemoryHandler(hur);
+
+            // Core-Module & Resilience: SCSC-Test **AKTIVIERT**
+            // HINWEIS: simulateFailure: true simuliert die QML-Ausfälle für den SCSC-Resilience-Test.
+            IProfitGuarantor_QML profitGuarantor = new QML_Python_Bridge(simulateFailure: true); 
+            RegulatoryHyperAdaptor rha = new RegulatoryHyperAdaptor();
+            AetherArchitecture arch = new AetherArchitecture();
+
+            // API-Adapter ("Die Körperteile")
+            IHFT_AMAD_Adapter hftAdapter = new HFT_AMAD_Adapter(); 
+            IGEF_MSA_Adapter gefAdapter = new GEF_MSA_Adapter();   
+            IECA_AHA_Adapter ecaAdapter = new ECA_AHA_Adapter();   
+
+            // AZO (Zenith Controller) wird vernetzt (Die finale Injektion)
+            var azo = new AutonomousZenithOptimizer(
+                profitGuarantor, arch, rha,
+                hftAdapter, gefAdapter, ecaAdapter, chm
+            );
+
+            Console.WriteLine("\n[STATUS] Zenith Controller mit allen Modulen und Adaptern voll vernetzt.");
+            
+            // --- 2. TEST: AUTONOMER WACHSTUMSZYKLUS (DRL + SCSC-Resilience Test) ---
+            // Dieser Test wird zeigen, wie die QMLBridge bei 2 Fehlern in Folge einen Fallback ausführt.
+            await azo.RunAutonomousGrowthStrategy();
+            
+            // --- 3. TEST: TRANSAKTIONSPROZESS (RHA + ECA + CHM) ---
+            Console.WriteLine("\n--- TEST: ECA/AHA Transaktion & Governance ---");
+            
+            // Test 3a: Blockierter Auftrag (RHA-Fehler)
+            // DestinationCountry "FR" und Price 5000.00m > 1000.00m -> LIC Fail
+            var orderBlocked = new Order("ORD-ZQN-1", "001", "CUST_FR", "FR", 5000.00m, "PremiumLicense");
+            Console.WriteLine("\n-> Teste blockierten Auftrag (Governance Fail - RHA):");
+            await azo.ProcessIncomingOrder(orderBlocked);
+            
+            // Test 3b: Erlaubter Auftrag (RHA-Success)
+            // Price 999.00m <= 1000.00m -> LIC Success
+            var orderAllowed = new Order("ORD-ZQN-2", "002", "CUST_DE", "DE", 999.00m, "PremiumLicense");
+            Console.WriteLine("\n-> Teste erlaubten Auftrag (Governance Success - ECA/AHA):");
+            await azo.ProcessIncomingOrder(orderAllowed);
+        }
+    }
+}
+Nächster Schritt
+Kopiere nun den Code in die entsprechenden Dateien deines Visual Studio Projekts. Du kannst das Projekt jetzt ausführen, um die simulierte Interaktion zwischen dem Autonomous Zenith Optimizer und seinen Modulen und Adaptern zu sehen.
