@@ -1,5 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using StackExchangeRedis = StackExchange.Redis;
 using ZenithCoreSystem;
 using ZenithCoreSystem.Adapters;
 using ZenithCoreSystem.Core;
@@ -7,11 +10,35 @@ using ZenithCoreSystem.Modules;
 
 var builder = Host.CreateApplicationBuilder(args);
 
+builder.Logging.ClearProviders();
+builder.Logging.AddSimpleConsole(options =>
+{
+	options.SingleLine = true;
+	options.TimestampFormat = "HH:mm:ss ";
+});
+
+builder.Services.Configure<OptimizerSettings>(builder.Configuration.GetSection("Optimizer"));
+
 // Core infrastructure registrations
-builder.Services.AddSingleton<IConnectionMultiplexer, RedisMock>();
+builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+{
+	var options = sp.GetRequiredService<IOptions<OptimizerSettings>>().Value;
+
+	if (!string.IsNullOrWhiteSpace(options.RedisConnectionString))
+	{
+		var multiplexer = StackExchangeRedis.ConnectionMultiplexer.Connect(options.RedisConnectionString);
+		return new StackExchangeRedisConnection(multiplexer);
+	}
+
+	return new RedisMock();
+});
 builder.Services.AddSingleton<HoloKognitivesRepository>();
 builder.Services.AddSingleton<ContextualMemoryHandler>();
-builder.Services.AddSingleton<IProfitGuarantor_QML>(_ => new QML_Python_Bridge(simulateFailure: true));
+builder.Services.AddSingleton<IProfitGuarantor_QML>(sp =>
+{
+	var settings = sp.GetRequiredService<IOptions<OptimizerSettings>>();
+	return new QML_Python_Bridge(settings.Value.SimulateQmlFailure);
+});
 builder.Services.AddSingleton<RegulatoryHyperAdaptor>();
 builder.Services.AddSingleton<AetherArchitecture>();
 

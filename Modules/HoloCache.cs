@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using StackExchangeRedis = StackExchange.Redis;
 using ZenithCoreSystem;
 
 namespace ZenithCoreSystem.Modules
@@ -58,6 +59,49 @@ namespace ZenithCoreSystem.Modules
         {
             _storage[key] = value;
             return Task.FromResult(true);
+        }
+    }
+
+    public sealed class StackExchangeRedisConnection : IConnectionMultiplexer, IDisposable
+    {
+        private readonly StackExchangeRedis.ConnectionMultiplexer _multiplexer;
+
+        public StackExchangeRedisConnection(StackExchangeRedis.ConnectionMultiplexer multiplexer)
+        {
+            _multiplexer = multiplexer;
+        }
+
+        public IDatabase GetDatabase(int db)
+        {
+            return new StackExchangeRedisDatabase(_multiplexer.GetDatabase(db));
+        }
+
+        public void Dispose()
+        {
+            _multiplexer.Dispose();
+        }
+    }
+
+    public sealed class StackExchangeRedisDatabase : IDatabase
+    {
+        private readonly StackExchangeRedis.IDatabase _database;
+
+        public StackExchangeRedisDatabase(StackExchangeRedis.IDatabase database)
+        {
+            _database = database;
+        }
+
+        public async Task<RedisValue> StringGetAsync(string key)
+        {
+            StackExchangeRedis.RedisValue value = await _database.StringGetAsync(key).ConfigureAwait(false);
+            return value.HasValue
+                ? new RedisValue { IsNull = false, Value = value.ToString() }
+                : RedisValue.Null;
+        }
+
+        public Task<bool> StringSetAsync(string key, string value, TimeSpan expiry)
+        {
+            return _database.StringSetAsync(key, value, expiry);
         }
     }
 

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using ZenithCoreSystem.Adapters;
 using ZenithCoreSystem.Modules;
 
@@ -15,6 +17,8 @@ namespace ZenithCoreSystem.Core
         private readonly IGEF_MSA_Adapter _gefAdapter;
         private readonly IECA_AHA_Adapter _ecaAdapter;
         private readonly ContextualMemoryHandler _chm;
+        private readonly ILogger<AutonomousZenithOptimizer> _logger;
+        private readonly OptimizerSettings _settings;
 
         public AutonomousZenithOptimizer(
             IProfitGuarantor_QML qml,
@@ -23,7 +27,9 @@ namespace ZenithCoreSystem.Core
             IHFT_AMAD_Adapter hftAdapter,
             IGEF_MSA_Adapter gefAdapter,
             IECA_AHA_Adapter ecaAdapter,
-            ContextualMemoryHandler chm)
+            ContextualMemoryHandler chm,
+            IOptions<OptimizerSettings> settings,
+            ILogger<AutonomousZenithOptimizer> logger)
         {
             _qml = qml;
             _arch = arch;
@@ -32,11 +38,14 @@ namespace ZenithCoreSystem.Core
             _gefAdapter = gefAdapter;
             _ecaAdapter = ecaAdapter;
             _chm = chm;
+            _settings = settings.Value;
+            _logger = logger;
         }
 
         private async Task<string> ExecuteQMLWithRetry(DRL_StateVector stateVector)
         {
-            for (int i = 0; i < 3; i++)
+            int maxAttempts = Math.Max(1, _settings.QmlRetryCount);
+            for (int i = 0; i < maxAttempts; i++)
             {
                 try
                 {
@@ -44,13 +53,17 @@ namespace ZenithCoreSystem.Core
                 }
                 catch (Exception ex)
                 {
-                    if (i == 2)
+                    if (i == maxAttempts - 1)
                     {
-                        ZenithLogger.LogCriticalError($"MAX RETRY erreicht. Fallback aktiv. Grund: {ex.Message}", "QML_DRL_Agent");
+                        _logger.LogCriticalError($"MAX RETRY erreicht. Fallback aktiv. Grund: {ex.Message}", "QML_DRL_Agent");
                         return "MAINTAIN_LEVEL:1.0";
                     }
 
-                    await Task.Delay(500 * (i + 1));
+                    int delay = Math.Max(0, _settings.QmlBaseDelayMilliseconds) * (i + 1);
+                    if (delay > 0)
+                    {
+                        await Task.Delay(delay);
+                    }
                 }
             }
 
@@ -62,7 +75,7 @@ namespace ZenithCoreSystem.Core
             Guid cycleId = Guid.NewGuid();
             DateTime startTime = DateTime.UtcNow;
 
-            ZenithLogger.LogAutonomousCycle("Starte autonomen Wachstumszyklus (DRL-Basis).", new Dictionary<string, object>
+            _logger.LogAutonomousCycle("Starte autonomen Wachstumszyklus (DRL-Basis).", new Dictionary<string, object>
             {
                 { "CorrelationID", cycleId.ToString() },
                 { "Stage", "INIT" }
@@ -87,7 +100,7 @@ namespace ZenithCoreSystem.Core
                 await _hftAdapter.ExecuteTrade("ETH/USD", tradeAmount, "BUY");
             }
 
-            if (stateVector.RH_ComplianceScore > 0.9)
+            if (stateVector.RH_ComplianceScore > _settings.ComplianceThreshold)
             {
                 await _gefAdapter.GenerateText("Erstelle einen Marketing-Text fuer das neue NFT-Produkt.", "Corporate Identity VECTRA");
             }
@@ -95,7 +108,7 @@ namespace ZenithCoreSystem.Core
             long latencyMs = (long)(DateTime.UtcNow - startTime).TotalMilliseconds;
             await _qml.ReportPerformanceFeedback(stateVector.ToString(), 4.5m, decision);
 
-            ZenithLogger.LogAutonomousCycle("Zyklus abgeschlossen. DRL-Aktion ausgefuehrt.", new Dictionary<string, object>
+            _logger.LogAutonomousCycle("Zyklus abgeschlossen. DRL-Aktion ausgefuehrt.", new Dictionary<string, object>
             {
                 { "CorrelationID", cycleId.ToString() },
                 { "ActionTaken", decision },
@@ -109,7 +122,7 @@ namespace ZenithCoreSystem.Core
 
             if (!_rha.PerformLegalIntegrityCheck(order))
             {
-                ZenithLogger.LogCriticalError($"Auftrag {order.OrderID} wegen Legal Integrity Check (LIC) fehlgeschlagen. Blockiere Transaktion.", "RHA");
+                _logger.LogCriticalError($"Auftrag {order.OrderID} wegen Legal Integrity Check (LIC) fehlgeschlagen. Blockiere Transaktion.", "RHA");
                 _arch.RouteLowLatencyEvent($"Auftrag {order.OrderID} wegen LIC-Fehler blockiert.");
                 return;
             }
@@ -125,7 +138,7 @@ namespace ZenithCoreSystem.Core
                 }
                 else
                 {
-                    ZenithLogger.LogCriticalError($"Fehler bei der API-Uebermittlung fuer {order.OrderID}.", "ECA/AHA");
+                    _logger.LogCriticalError($"Fehler bei der API-Uebermittlung fuer {order.OrderID}.", "ECA/AHA");
                 }
             }
         }

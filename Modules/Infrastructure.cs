@@ -1,28 +1,41 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace ZenithCoreSystem.Modules
 {
     public static class ZenithLogger
     {
-        public static void LogAutonomousCycle(string message, Dictionary<string, object> properties)
+        public static void LogAutonomousCycle(this ILogger logger, string message, IReadOnlyDictionary<string, object> properties)
         {
-            var propsString = string.Join(", ", properties.Select(kvp => $"{kvp.Key}: {kvp.Value}"));
-            var originalColor = Console.ForegroundColor;
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"\n[OPS OMEGA LOG] {message}");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine($"  -> PROPERTIES: {{ {propsString} }}");
-            Console.ForegroundColor = originalColor;
+            if (!logger.IsEnabled(LogLevel.Information))
+            {
+                return;
+            }
+
+            var scopeValues = new Dictionary<string, object>();
+            foreach (var kvp in properties)
+            {
+                scopeValues[kvp.Key] = kvp.Value;
+            }
+
+            using var scope = logger.BeginScope(scopeValues);
+            logger.LogInformation("OPS OMEGA LOG | {Message}", message);
         }
 
-        public static void LogCriticalError(string message, string component)
+        public static void LogCriticalError(this ILogger logger, string message, string component)
         {
-            var originalColor = Console.ForegroundColor;
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"[OPS OMEGA CRITICAL] {component} FEHLER: {message}");
-            Console.ForegroundColor = originalColor;
+            if (!logger.IsEnabled(LogLevel.Critical))
+            {
+                return;
+            }
+
+            using var scope = logger.BeginScope(new Dictionary<string, object>
+            {
+                { "Component", component }
+            });
+
+            logger.LogCritical("OPS OMEGA CRITICAL | {Message}", message);
         }
     }
 
