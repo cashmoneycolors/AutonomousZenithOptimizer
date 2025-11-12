@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ZenithCoreSystem.Adapters;
@@ -96,7 +97,7 @@ namespace ZenithCoreSystem.Core
             if (decision.StartsWith("SCALE_UP:", StringComparison.OrdinalIgnoreCase))
             {
                 decimal factor = decimal.Parse(decision.Split(':')[1]);
-                decimal tradeAmount = 50000.00m * factor;
+                decimal tradeAmount = 100000.00m * factor;
                 await _hftAdapter.ExecuteTrade("ETH/USD", tradeAmount, "BUY");
             }
 
@@ -140,6 +141,41 @@ namespace ZenithCoreSystem.Core
                 {
                     _logger.LogCriticalError($"Fehler bei der API-Uebermittlung fuer {order.OrderID}.", "ECA/AHA");
                 }
+            }
+        }
+
+        private async Task RunPythonAgent()
+        {
+            try
+            {
+                var process = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "python",
+                        Arguments = "agent.py",
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
+                    }
+                };
+
+                process.Start();
+                string output = await process.StandardOutput.ReadToEndAsync();
+                string error = await process.StandardError.ReadToEndAsync();
+                await process.WaitForExitAsync();
+
+                _logger.LogInformation($"Python Agent Output: {output}");
+                if (!string.IsNullOrEmpty(error))
+                {
+                    _logger.LogError($"Python Agent Error: {error}");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to run Python agent: {ex.Message}");
             }
         }
     }

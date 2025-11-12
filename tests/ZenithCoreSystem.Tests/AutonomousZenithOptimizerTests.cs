@@ -38,7 +38,7 @@ namespace ZenithCoreSystem.Tests
             var eca = new RecordingEcaAdapter();
             var optimizer = CreateOptimizer(qml, hft, gef, eca);
 
-            var nonCompliantOrder = new Order("ORD-TEST-1", "A-1", "CUST-FR", "FR", 5000m, "PremiumLicense");
+            var nonCompliantOrder = new Order("ORD-TEST-1", "A-1", "CUST-FR", "FR", 15000m, "PremiumLicense");
 
             await optimizer.ProcessIncomingOrder(nonCompliantOrder);
 

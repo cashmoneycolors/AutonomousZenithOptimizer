@@ -45,7 +45,7 @@ namespace ZenithCoreSystem.Modules
 
         public bool PerformComplianceMock() => _random.Next(0, 10) > 1;
 
-        public bool PerformLegalIntegrityCheck(Order order) => order.DestinationCountry != "FR" || order.Price <= 1000m;
+        public bool PerformLegalIntegrityCheck(Order order) => order.DestinationCountry != "FR" || order.Price <= 10000m;
     }
 
     public class AetherArchitecture

@@ -56,16 +56,20 @@ var optimizer = host.Services.GetRequiredService<IAutonomousZenithOptimizer>();
 Console.WriteLine("--- ZQAN Ω: MAXIMALER SYSTEMSTART & API-INTEGRATION ---");
 Console.WriteLine("[STATUS] HostBuilder hat den Zenith Controller mit allen Modulen registriert.");
 
-await optimizer.RunAutonomousGrowthStrategy();
+while (true)
+{
+    await optimizer.RunAutonomousGrowthStrategy();
 
-Console.WriteLine("\n--- TEST: ECA/AHA Transaktion & Governance ---");
+    Console.WriteLine("\n--- TEST: ECA/AHA Transaktion & Governance ---");
 
-var orderBlocked = new Order("ORD-ZQN-1", "001", "CUST_FR", "FR", 5000.00m, "PremiumLicense");
-Console.WriteLine("\n-> Teste blockierten Auftrag (Governance Fail - RHA):");
-await optimizer.ProcessIncomingOrder(orderBlocked);
+    var orderBlocked = new Order("ORD-ZQN-1", "001", "CUST_FR", "FR", 5000.00m, "PremiumLicense");
+    Console.WriteLine("\n-> Teste blockierten Auftrag (Governance Fail - RHA):");
+    await optimizer.ProcessIncomingOrder(orderBlocked);
 
-var orderAllowed = new Order("ORD-ZQN-2", "002", "CUST_DE", "DE", 999.00m, "PremiumLicense");
-Console.WriteLine("\n-> Teste erlaubten Auftrag (Governance Success - ECA/AHA):");
-await optimizer.ProcessIncomingOrder(orderAllowed);
+    var orderAllowed = new Order("ORD-ZQN-2", "002", "CUST_DE", "DE", 999.00m, "PremiumLicense");
+    Console.WriteLine("\n-> Teste erlaubten Auftrag (Governance Success - ECA/AHA):");
+    await optimizer.ProcessIncomingOrder(orderAllowed);
 
-Console.WriteLine("\n--- HostBuilder Shutdown ---");
+    Console.WriteLine("\n--- Zyklus abgeschlossen, nächste Iteration in 60 Sekunden ---");
+    await Task.Delay(60000); // 60 Sekunden warten
+}
