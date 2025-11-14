@@ -2,8 +2,6 @@
 def setup_universal_integration():
     """Richtet universelle Integration mit API-Keys und PayPal ein"""
     from pathlib import Path
-    import os
-
     # API-Keys aus .env laden
     env_file = Path('.env')
     api_keys = {}
@@ -89,6 +87,15 @@ Detaillierte Analyse aller gesammelten Mining-Daten
 VON BEGINN BIS JETZT - VOLLSTÄNDIGE STATISTIKEN
 """
 
+import sqlite3
+import json
+import os
+from datetime import datetime, timedelta
+from collections import defaultdict
+from pathlib import Path
+import matplotlib.pyplot as plt
+import numpy as np
+
 # Universal Integration Setup
 def setup_universal_integration():
     """Richtet universelle Integration mit API-Keys und PayPal ein"""
@@ -128,15 +135,6 @@ def setup_universal_integration():
 
 # Automatische Integration beim Import
 universal_config = setup_universal_integration()
-
-
-import sqlite3
-import json
-import os
-from datetime import datetime, timedelta
-from collections import defaultdict
-import matplotlib.pyplot as plt
-import numpy as np
 
 class MiningDataAnalyzer:
     """Umfassende Analyse aller Mining-Daten"""
@@ -225,14 +223,14 @@ class MiningDataAnalyzer:
         if not cycles:
             return
 
-            capital_progression = []
+        capital_progression = []
         profit_progression = []
 
         for cycle in cycles:
             capital_progression.append(cycle['capital_after'])
             profit_progression.append(cycle['cycle_profit'])
 
-            print(f"Startkapital: {cycles[0]['capital_before']:.2f} CHF")
+        print(f"Startkapital: {cycles[0]['capital_before']:.2f} CHF")
         print(f"Endkapital: {cycles[-1]['capital_after']:.2f} CHF")
         print(f"Gesamtgewinn: {sum(profit_progression):.2f} CHF")
         print(f"Durchschnittsgewinn pro Cycle: {sum(profit_progression)/len(profit_progression):.2f} CHF")
@@ -423,33 +421,30 @@ class MiningDataAnalyzer:
 
         if analytics:
             analytic = analytics[0]
-            print(""
-TAGES-ANALYTICS:")"
-    print(f"  Sessions: {analytic['total_sessions']}")
+            print("\nTAGES-ANALYTICS:")
+            print(f"  Sessions: {analytic['total_sessions']}")
             print(f"  Cycles: {analytic['total_cycles']}")
             print(f"  Profit: {analytic['total_profit']:.2f} CHF")
             print(f"  Durchschnitts-Profit/Cycle: {analytic['avg_cycle_profit']:.2f} CHF")
             print(f"  Bester Cycle: {analytic['best_cycle_profit']:.2f} CHF")
 
-            print(""
-GESAMT-LEISTUNG:")"
-    if cycles:
-            total_profit = sum(c['cycle_profit'] for c in cycles)
-            avg_profit = total_profit / len(cycles)
-            start_capital = cycles[0]['capital_before']
-            end_capital = cycles[-1]['capital_after']
+            print("\nGESAMT-LEISTUNG:")
+            if cycles:
+                total_profit = sum(c['cycle_profit'] for c in cycles)
+                avg_profit = total_profit / len(cycles)
+                start_capital = cycles[0]['capital_before']
+                end_capital = cycles[-1]['capital_after']
 
-            print(f"  Total Profit: {total_profit:.2f} CHF")
-            print(f"  Durchschnitts-Profit/Cycle: {avg_profit:.2f} CHF")
-            print(f"  Kapital-Wachstum: {start_capital:.2f} -> {end_capital:.2f} CHF")
-            print(f"  Wachstum: +{(end_capital/start_capital - 1)*100:.1f}%")
+                print(f"  Total Profit: {total_profit:.2f} CHF")
+                print(f"  Durchschnitts-Profit/Cycle: {avg_profit:.2f} CHF")
+                print(f"  Kapital-Wachstum: {start_capital:.2f} -> {end_capital:.2f} CHF")
+                print(f"  Wachstum: +{(end_capital/start_capital - 1)*100:.1f}%")
 
-            print(""
-SYSTEM-STATUS:")"
-    print("  Status: PRODUKTIONSBEREIT")
-        print("  Datenintegrität: 100%")
-        print("  Performance: OPTIMAL")
-        print("  Skalierbarkeit: AKTIVIERT")
+                print("\nSYSTEM-STATUS:")
+                print("  Status: PRODUKTIONSBEREIT")
+                print("  Datenintegrität: 100%")
+                print("  Performance: OPTIMAL")
+                print("  Skalierbarkeit: AKTIVIERT")
 
 def generate_visual_report(data):
     """Generiert visuelle Berichte"""
@@ -476,8 +471,7 @@ def generate_visual_report(data):
             bar_length = 25
             print("2d")
 
-        print(""
-PROFIT PRO CYCLE:")"
+        print("\nPROFIT PRO CYCLE:")
     max_profit = max(profit_values)
     min_profit = min(profit_values)
     range_profit = max_profit - min_profit

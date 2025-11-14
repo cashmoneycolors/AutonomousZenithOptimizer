@@ -178,7 +178,7 @@ class MiningControlPanel:
         # Title
         title_label = ttk.Label(main_frame, text="CASH MONEY COLORS ORIGINAL (R) MINING CONTROL PANEL",
             font=('Arial', 16, 'bold'), foreground='#FFD700', background='#1a1a1a')
-                               title_label.pack(pady=10)
+        title_label.pack(pady=10)
 
         # Control Panel
         control_frame = ttk.LabelFrame(main_frame, text="SYSTEM CONTROL", padding=10)
@@ -190,11 +190,11 @@ class MiningControlPanel:
 
         self.start_btn = ttk.Button(button_frame, text="START MINING", command=self.start_mining,
             style='Accent.TButton')
-                                   self.start_btn.pack(side=tk.LEFT, padx=5)
+        self.start_btn.pack(side=tk.LEFT, padx=5)
 
         self.stop_btn = ttk.Button(button_frame, text="STOP MINING", command=self.stop_mining,
             state=tk.DISABLED)
-                                  self.stop_btn.pack(side=tk.LEFT, padx=5)
+        self.stop_btn.pack(side=tk.LEFT, padx=5)
 
         self.optimize_btn = ttk.Button(button_frame, text="FORCE OPTIMIZE", command=self.force_optimize)
         self.optimize_btn.pack(side=tk.LEFT, padx=5)
@@ -267,7 +267,7 @@ class MiningControlPanel:
 
         self.log_text = scrolledtext.ScrolledText(log_frame, height=8, wrap=tk.WORD,
             bg='#2a2a2a', fg='white', font=('Consolas', 9))
-                                                 self.log_text.pack(fill=tk.BOTH, expand=True)
+        self.log_text.pack(fill=tk.BOTH, expand=True)
 
         # Initial Log
         self.log_message("CASH MONEY COLORS ORIGINAL (R) MINING CONTROL PANEL INITIALIZED")

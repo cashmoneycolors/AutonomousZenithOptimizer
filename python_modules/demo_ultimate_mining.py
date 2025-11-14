@@ -56,18 +56,23 @@ universal_config = setup_universal_integration()
 import time
 import random
 import logging
+import json
+import os
+from datetime import datetime
 
 # Logging konfigurieren
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class UltimateMiningDemo:
-    """Demo-Version des Ultimate Mining Systems"""
+    """Demo-Version des Ultimate Mining Systems mit Datenpersistenz"""
 
     def __init__(self):
-        self.capital = 100.0
+        self.capital = 100.0  # BUDGET: 100 CHF
         self.target = 1000.0  # Kleineres Ziel für Demo
         self.cycles = 0
         self.total_profit = 0.0
+        self.session_data = []
+        self.export_file = "mining_session_1_export.json"
 
         # Mining Rigs
         self.rigs = [
@@ -81,10 +86,13 @@ class UltimateMiningDemo:
         print("Autonomes Mining-System wird gestartet...")
         print(f"Startkapital: {self.capital:.2f} CHF")
         print(f"Ziel: {self.target:.2f} CHF")
+        print("DATENPERSISTENZ: AKTIVIERT")
         print()
 
     def run_demo(self):
-        """Führt die Demo aus"""
+        """Führt die Demo aus mit Datenpersistenz"""
+        start_time = datetime.now()
+
         while self.capital < self.target and self.cycles < 50:  # Max 50 Zyklen
             self.cycles += 1
 
@@ -99,12 +107,17 @@ class UltimateMiningDemo:
             self.capital += cycle_profit
             self.total_profit += cycle_profit
 
+            # Daten für Session speichern
+            self.save_cycle_data(cycle_profit)
+
             # Status anzeigen
             self.display_status(cycle_profit)
 
             time.sleep(0.5)  # Kurze Pause für bessere Lesbarkeit
 
             # Endergebnis
+        end_time = datetime.now()
+        self.export_session_data(start_time, end_time)
         self.display_final_result()
 
     def simulate_mining_cycle(self) -> float:
@@ -124,7 +137,7 @@ class UltimateMiningDemo:
                 if random.random() < 0.1:  # 10% Chance
                     self.simulate_algorithm_switch(rig)
 
-                    return total_profit
+        return total_profit
 
     def simulate_algorithm_switch(self, rig: dict):
         """Simuliert Algorithmus-Wechsel"""
@@ -144,7 +157,7 @@ class UltimateMiningDemo:
                 {'algorithm': 'sha256', 'coin': 'BCH', 'profit': 11.5}
                 ]
 
-            new_config = random.choice(new_configs)
+        new_config = random.choice(new_configs)
         rig.update(new_config)
 
         print(f"  -> {rig['id']}: {old_coin}({old_algo}) -> {rig['coin']}({rig['algorithm']})")
@@ -183,6 +196,60 @@ Total Hash Rate: {total_hash_rate:.0f} MH/s
 Fortschritt: {(self.capital/self.target)*100:.1f}%
     """)
 
+    def save_cycle_data(self, cycle_profit: float):
+        """Speichert Zyklus-Daten für die Session"""
+        cycle_data = {
+            'cycle': self.cycles,
+            'capital_before': self.capital - cycle_profit,
+            'capital_after': self.capital,
+            'cycle_profit': cycle_profit,
+            'active_rigs': len([r for r in self.rigs if r.get('active', True)]),
+            'total_rigs': len(self.rigs),
+            'timestamp': datetime.now().isoformat(),
+            'rigs': self.rigs.copy()
+        }
+        self.session_data.append(cycle_data)
+
+    def export_session_data(self, start_time: datetime, end_time: datetime):
+        """Exportiert alle Session-Daten in JSON-Datei"""
+        session_summary = {
+            'session_info': {
+                'start_time': start_time.isoformat(),
+                'end_time': end_time.isoformat(),
+                'duration': str(end_time - start_time),
+                'total_cycles': self.cycles,
+                'start_capital': 100.0,
+                'end_capital': self.capital,
+                'total_profit': self.total_profit,
+                'target_achieved': self.capital >= self.target,
+                'rigs_used': len(self.rigs)
+            },
+            'cycles': self.session_data,
+            'final_rigs': self.rigs,
+            'performance_metrics': {
+                'avg_cycle_profit': self.total_profit / self.cycles if self.cycles > 0 else 0,
+                'best_cycle': max([c['cycle_profit'] for c in self.session_data]) if self.session_data else 0,
+                'worst_cycle': min([c['cycle_profit'] for c in self.session_data]) if self.session_data else 0,
+                'profit_stability': self.calculate_profit_stability()
+            }
+        }
+
+        with open(self.export_file, 'w', encoding='utf-8') as f:
+            json.dump(session_summary, f, indent=2, ensure_ascii=False)
+
+        print(f"\n💾 SESSION-DATEN EXPORTIERT: {self.export_file}")
+        print(f"📊 {len(self.session_data)} Zyklen gespeichert")
+
+    def calculate_profit_stability(self) -> float:
+        """Berechnet Profit-Stabilität (niedrigere Werte = stabiler)"""
+        if not self.session_data:
+            return 0.0
+
+        profits = [c['cycle_profit'] for c in self.session_data]
+        avg_profit = sum(profits) / len(profits)
+        variance = sum((p - avg_profit) ** 2 for p in profits) / len(profits)
+        return variance ** 0.5  # Standardabweichung
+
     def display_final_result(self):
         """Zeigt Endergebnis an"""
         print("\n" + "=" * 65)
@@ -191,6 +258,7 @@ Fortschritt: {(self.capital/self.target)*100:.1f}%
             print(f"Endkapital: {self.capital:.2f} CHF")
             print(f"Gesamtgewinn: {self.total_profit:.2f} CHF")
             print(f"Zyklen benötigt: {self.cycles}")
+            print(f"Daten exportiert: {self.export_file}")
         else:
             print("SYSTEM GESTOPPT")
             print(f"Endkapital: {self.capital:.2f} CHF")

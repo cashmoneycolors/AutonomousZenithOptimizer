@@ -374,7 +374,7 @@ class IntegratedMiningSystem:
         """Berechnet aktuellen Profit"""
         daily_profit = sum(rig['profit_per_day'] for rig in self.mining_rigs
             if rig['status'] == 'ACTIVE')
-                          self.system_status['daily_profit'] = daily_profit
+        self.system_status['daily_profit'] = daily_profit
         self.system_status['total_profit'] += daily_profit / 24 / 60  # Pro Minute
 
     def _process_mining_data(self, data: Dict):
