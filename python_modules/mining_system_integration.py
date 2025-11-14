@@ -205,6 +205,90 @@ class IntegratedMiningSystem:
                 'temperature': 65,
                 'status': 'ACTIVE',
                 'efficiency': 0.91
+                },
+            {
+                'id': 'GPU_5',
+                'type': 'RTX 3090 Ti',
+                'algorithm': 'Ethash',
+                'coin': 'ETH',
+                'hash_rate': 112,
+                'power_consumption': 380,
+                'profit_per_day': 13.5,
+                'temperature': 72,
+                'status': 'ACTIVE',
+                'efficiency': 0.90
+                },
+            {
+                'id': 'ASIC_3',
+                'type': 'Innosilicon A11 Pro',
+                'algorithm': 'Blake256',
+                'coin': 'KDA',
+                'hash_rate': 1000,
+                'power_consumption': 3720,
+                'profit_per_day': 22.0,
+                'temperature': 70,
+                'status': 'ACTIVE',
+                'efficiency': 0.84
+                },
+            {
+                'id': 'GPU_6',
+                'type': 'RTX 4070 Ti',
+                'algorithm': 'Conflux',
+                'coin': 'CFX',
+                'hash_rate': 98,
+                'power_consumption': 300,
+                'profit_per_day': 9.8,
+                'temperature': 68,
+                'status': 'ACTIVE',
+                'efficiency': 0.89
+                },
+            {
+                'id': 'ASIC_4',
+                'type': 'Antminer S21',
+                'algorithm': 'SHA256',
+                'coin': 'BTC',
+                'hash_rate': 200,
+                'power_consumption': 4000,
+                'profit_per_day': 35.0,
+                'temperature': 75,
+                'status': 'ACTIVE',
+                'efficiency': 0.88
+                },
+            {
+                'id': 'GPU_7',
+                'type': 'RTX 4080',
+                'algorithm': 'ZHash',
+                'coin': 'BTG',
+                'hash_rate': 78,
+                'power_consumption': 320,
+                'profit_per_day': 11.2,
+                'temperature': 70,
+                'status': 'ACTIVE',
+                'efficiency': 0.87
+                },
+            {
+                'id': 'ASIC_5',
+                'type': 'Canaan AvalonMiner A1366',
+                'algorithm': 'SHA256',
+                'coin': 'BTC',
+                'hash_rate': 130,
+                'power_consumption': 3500,
+                'profit_per_day': 30.0,
+                'temperature': 66,
+                'status': 'ACTIVE',
+                'efficiency': 0.86
+                },
+            {
+                'id': 'GPU_8',
+                'type': 'RTX 4090',
+                'algorithm': 'FIRO',
+                'coin': 'FIRO',
+                'hash_rate': 25,
+                'power_consumption': 380,
+                'profit_per_day': 8.5,
+                'temperature': 67,
+                'status': 'ACTIVE',
+                'efficiency': 0.92
                 }
             ]
 
