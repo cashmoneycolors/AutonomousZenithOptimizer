@@ -1,38 +1,38 @@
 {
   "session_info": {
-    "start_time": "2025-11-14T01:18:09.229627",
-    "end_time": "2025-11-14T01:18:27.982405",
-    "duration": "0:00:18.752778",
-    "total_cycles": 30,
+    "start_time": "2025-11-15T02:38:47.933455",
+    "end_time": "2025-11-15T02:39:03.537977",
+    "duration": "0:00:15.604522",
+    "total_cycles": 29,
     "start_capital": 100.0,
-    "end_capital": 1023.2759795951058,
-    "total_profit": 923.2759795951056,
+    "end_capital": 1003.0487684393333,
+    "total_profit": 903.0487684393333,
     "target_achieved": true,
-    "rigs_used": 6
+    "rigs_used": 5
   },
   "cycles": [
     {
       "cycle": 1,
-      "capital_before": 99.99999999999999,
-      "capital_after": 130.07501295051856,
-      "cycle_profit": 30.075012950518566,
+      "capital_before": 100.0,
+      "capital_after": 133.08982376740036,
+      "cycle_profit": 33.089823767400354,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:09.229714",
+      "timestamp": "2025-11-15T02:38:47.933518",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -45,26 +45,26 @@
     },
     {
       "cycle": 2,
-      "capital_before": 130.07501295051856,
-      "capital_after": 158.43687472884247,
-      "cycle_profit": 28.361861778323913,
+      "capital_before": 133.08982376740036,
+      "capital_after": 162.82048381105614,
+      "cycle_profit": 29.730660043655778,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:09.773040",
+      "timestamp": "2025-11-15T02:38:48.434312",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -77,26 +77,26 @@
     },
     {
       "cycle": 3,
-      "capital_before": 158.4368747288425,
-      "capital_after": 184.5783530680319,
-      "cycle_profit": 26.14147833918942,
+      "capital_before": 162.82048381105614,
+      "capital_after": 190.14751587579363,
+      "cycle_profit": 27.32703206473749,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:10.341519",
+      "timestamp": "2025-11-15T02:38:48.935206",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -109,26 +109,26 @@
     },
     {
       "cycle": 4,
-      "capital_before": 184.5783530680319,
-      "capital_after": 208.55813312905656,
-      "cycle_profit": 23.97978006102467,
+      "capital_before": 190.14751587579363,
+      "capital_after": 215.97227629417372,
+      "cycle_profit": 25.824760418380087,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:11.377030",
+      "timestamp": "2025-11-15T02:38:49.451521",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -141,26 +141,26 @@
     },
     {
       "cycle": 5,
-      "capital_before": 208.55813312905656,
-      "capital_after": 237.5972516337382,
-      "cycle_profit": 29.03911850468166,
+      "capital_before": 215.97227629417372,
+      "capital_after": 241.50548120258074,
+      "cycle_profit": 25.533204908407015,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:12.156142",
+      "timestamp": "2025-11-15T02:38:50.064149",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -173,26 +173,26 @@
     },
     {
       "cycle": 6,
-      "capital_before": 237.5972516337382,
-      "capital_after": 264.035274725089,
-      "cycle_profit": 26.43802309135077,
+      "capital_before": 241.50548120258074,
+      "capital_after": 267.6800712203453,
+      "cycle_profit": 26.174590017764594,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:12.673914",
+      "timestamp": "2025-11-15T02:38:50.565861",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -205,26 +205,26 @@
     },
     {
       "cycle": 7,
-      "capital_before": 264.035274725089,
-      "capital_after": 294.05019999321377,
-      "cycle_profit": 30.0149252681248,
+      "capital_before": 267.6800712203453,
+      "capital_after": 294.7202304394691,
+      "cycle_profit": 27.040159219123787,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:13.176913",
+      "timestamp": "2025-11-15T02:38:51.067158",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -237,26 +237,26 @@
     },
     {
       "cycle": 8,
-      "capital_before": 294.05019999321377,
-      "capital_after": 323.97932308846936,
-      "cycle_profit": 29.929123095255573,
+      "capital_before": 294.7202304394691,
+      "capital_after": 317.88575252551016,
+      "cycle_profit": 23.165522086041076,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:13.679244",
+      "timestamp": "2025-11-15T02:38:51.568129",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -269,26 +269,26 @@
     },
     {
       "cycle": 9,
-      "capital_before": 323.97932308846936,
-      "capital_after": 354.5858951660282,
-      "cycle_profit": 30.606572077558823,
+      "capital_before": 317.88575252551016,
+      "capital_after": 346.9639811269126,
+      "cycle_profit": 29.078228601402444,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:14.180862",
+      "timestamp": "2025-11-15T02:38:52.084264",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -301,26 +301,26 @@
     },
     {
       "cycle": 10,
-      "capital_before": 354.5858951660282,
-      "capital_after": 379.4288345750375,
-      "cycle_profit": 24.84293940900929,
+      "capital_before": 346.9639811269126,
+      "capital_after": 370.68420350010956,
+      "cycle_profit": 23.72022237319696,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:15.035996",
+      "timestamp": "2025-11-15T02:38:52.597648",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -333,26 +333,26 @@
     },
     {
       "cycle": 11,
-      "capital_before": 379.4288345750375,
-      "capital_after": 408.04730043208394,
-      "cycle_profit": 28.618465857046438,
+      "capital_before": 370.68420350010956,
+      "capital_after": 401.33914043980843,
+      "cycle_profit": 30.654936939698846,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:15.630222",
+      "timestamp": "2025-11-15T02:38:53.102296",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -365,26 +365,26 @@
     },
     {
       "cycle": 12,
-      "capital_before": 408.04730043208394,
-      "capital_after": 435.55409370210293,
-      "cycle_profit": 27.506793270018974,
+      "capital_before": 401.33914043980843,
+      "capital_after": 428.1682472361242,
+      "cycle_profit": 26.829106796315767,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:16.131252",
+      "timestamp": "2025-11-15T02:38:53.662412",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -397,26 +397,26 @@
     },
     {
       "cycle": 13,
-      "capital_before": 435.55409370210293,
-      "capital_after": 462.28640435722633,
-      "cycle_profit": 26.732310655123392,
+      "capital_before": 428.1682472361242,
+      "capital_after": 454.1703346213214,
+      "cycle_profit": 26.002087385197164,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:16.631617",
+      "timestamp": "2025-11-15T02:38:54.163024",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -429,26 +429,26 @@
     },
     {
       "cycle": 14,
-      "capital_before": 462.28640435722633,
-      "capital_after": 490.2044504041834,
-      "cycle_profit": 27.91804604695703,
+      "capital_before": 454.17033462132133,
+      "capital_after": 481.3269205658934,
+      "cycle_profit": 27.156585944572015,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:17.147022",
+      "timestamp": "2025-11-15T02:38:54.679288",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -461,26 +461,26 @@
     },
     {
       "cycle": 15,
-      "capital_before": 490.20445040418343,
-      "capital_after": 517.1759736674584,
-      "cycle_profit": 26.97152326327496,
+      "capital_before": 481.3269205658934,
+      "capital_after": 507.8484991745961,
+      "cycle_profit": 26.521578608702697,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:18.685003",
+      "timestamp": "2025-11-15T02:38:55.343888",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -493,26 +493,26 @@
     },
     {
       "cycle": 16,
-      "capital_before": 517.1759736674584,
-      "capital_after": 543.6808291952709,
-      "cycle_profit": 26.504855527812563,
+      "capital_before": 507.84849917459616,
+      "capital_after": 534.964336243811,
+      "cycle_profit": 27.115837069214827,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:19.189894",
+      "timestamp": "2025-11-15T02:38:55.844684",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -525,26 +525,26 @@
     },
     {
       "cycle": 17,
-      "capital_before": 543.6808291952709,
-      "capital_after": 568.6376848712721,
-      "cycle_profit": 24.95685567600117,
+      "capital_before": 534.964336243811,
+      "capital_after": 559.4473422452065,
+      "cycle_profit": 24.48300600139551,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:19.691323",
+      "timestamp": "2025-11-15T02:38:56.360925",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -557,26 +557,26 @@
     },
     {
       "cycle": 18,
-      "capital_before": 568.6376848712721,
-      "capital_after": 592.1845514102989,
-      "cycle_profit": 23.54686653902679,
+      "capital_before": 559.4473422452065,
+      "capital_after": 587.4895168814605,
+      "cycle_profit": 28.042174636253964,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:20.191929",
+      "timestamp": "2025-11-15T02:38:56.914630",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -589,26 +589,26 @@
     },
     {
       "cycle": 19,
-      "capital_before": 592.184551410299,
-      "capital_after": 618.4342926335448,
-      "cycle_profit": 26.24974122324585,
+      "capital_before": 587.4895168814605,
+      "capital_after": 614.8846947908062,
+      "cycle_profit": 27.395177909345684,
       "active_rigs": 3,
       "total_rigs": 3,
-      "timestamp": "2025-11-14T01:18:20.693739",
+      "timestamp": "2025-11-15T02:38:57.481411",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -621,26 +621,26 @@
     },
     {
       "cycle": 20,
-      "capital_before": 618.4342926335448,
-      "capital_after": 642.5107057894397,
-      "cycle_profit": 24.07641315589488,
+      "capital_before": 614.8846947908062,
+      "capital_after": 639.8202194587161,
+      "cycle_profit": 24.935524667909988,
       "active_rigs": 4,
       "total_rigs": 4,
-      "timestamp": "2025-11-14T01:18:21.195586",
+      "timestamp": "2025-11-15T02:38:58.145696",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -654,33 +654,33 @@
           "type": "RTX_3090",
           "algorithm": "ethash",
           "coin": "ETH",
-          "profit": 8.5,
+          "profit": 7.5,
           "active": true
         }
       ]
     },
     {
       "cycle": 21,
-      "capital_before": 642.5107057894397,
-      "capital_after": 673.9985841289065,
-      "cycle_profit": 31.487878339466718,
+      "capital_before": 639.8202194587161,
+      "capital_after": 672.8141373180641,
+      "cycle_profit": 32.993917859347974,
       "active_rigs": 4,
       "total_rigs": 4,
-      "timestamp": "2025-11-14T01:18:21.695889",
+      "timestamp": "2025-11-15T02:38:58.754867",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -694,33 +694,33 @@
           "type": "RTX_3090",
           "algorithm": "ethash",
           "coin": "ETH",
-          "profit": 8.5,
+          "profit": 7.5,
           "active": true
         }
       ]
     },
     {
       "cycle": 22,
-      "capital_before": 673.9985841289065,
-      "capital_after": 708.9126691249257,
-      "cycle_profit": 34.91408499601924,
+      "capital_before": 672.8141373180641,
+      "capital_after": 706.1377137835052,
+      "cycle_profit": 33.323576465441036,
       "active_rigs": 4,
       "total_rigs": 4,
-      "timestamp": "2025-11-14T01:18:22.196445",
+      "timestamp": "2025-11-15T02:38:59.503206",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -734,33 +734,33 @@
           "type": "RTX_3090",
           "algorithm": "ethash",
           "coin": "ETH",
-          "profit": 8.5,
+          "profit": 7.5,
           "active": true
         }
       ]
     },
     {
       "cycle": 23,
-      "capital_before": 708.9126691249257,
-      "capital_after": 743.4786084305742,
-      "cycle_profit": 34.56593930564848,
+      "capital_before": 706.1377137835052,
+      "capital_after": 741.3018710362561,
+      "cycle_profit": 35.164157252750876,
       "active_rigs": 4,
       "total_rigs": 4,
-      "timestamp": "2025-11-14T01:18:22.697487",
+      "timestamp": "2025-11-15T02:39:00.011730",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -774,33 +774,33 @@
           "type": "RTX_3090",
           "algorithm": "ethash",
           "coin": "ETH",
-          "profit": 8.5,
+          "profit": 7.5,
           "active": true
         }
       ]
     },
     {
       "cycle": 24,
-      "capital_before": 743.4786084305742,
-      "capital_after": 775.2462223790008,
-      "cycle_profit": 31.767613948426472,
+      "capital_before": 741.3018710362561,
+      "capital_after": 780.4718948290969,
+      "cycle_profit": 39.17002379284074,
       "active_rigs": 4,
       "total_rigs": 4,
-      "timestamp": "2025-11-14T01:18:23.205355",
+      "timestamp": "2025-11-15T02:39:00.533846",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -814,33 +814,33 @@
           "type": "RTX_3090",
           "algorithm": "ethash",
           "coin": "ETH",
-          "profit": 8.5,
+          "profit": 7.5,
           "active": true
         }
       ]
     },
     {
       "cycle": 25,
-      "capital_before": 775.2462223790008,
-      "capital_after": 810.7993449770429,
-      "cycle_profit": 35.55312259804219,
+      "capital_before": 780.4718948290969,
+      "capital_after": 817.0987713687472,
+      "cycle_profit": 36.62687653965035,
       "active_rigs": 5,
       "total_rigs": 5,
-      "timestamp": "2025-11-14T01:18:24.698242",
+      "timestamp": "2025-11-15T02:39:01.034769",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -854,7 +854,7 @@
           "type": "RTX_3090",
           "algorithm": "ethash",
           "coin": "ETH",
-          "profit": 8.5,
+          "profit": 7.5,
           "active": true
         },
         {
@@ -869,26 +869,26 @@
     },
     {
       "cycle": 26,
-      "capital_before": 810.7993449770429,
-      "capital_after": 855.3239034326431,
-      "cycle_profit": 44.52455845560017,
+      "capital_before": 817.0987713687472,
+      "capital_after": 862.8359073028388,
+      "cycle_profit": 45.73713593409166,
       "active_rigs": 5,
       "total_rigs": 5,
-      "timestamp": "2025-11-14T01:18:25.233041",
+      "timestamp": "2025-11-15T02:39:01.535067",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -902,7 +902,7 @@
           "type": "RTX_3090",
           "algorithm": "ethash",
           "coin": "ETH",
-          "profit": 8.5,
+          "profit": 7.5,
           "active": true
         },
         {
@@ -917,26 +917,26 @@
     },
     {
       "cycle": 27,
-      "capital_before": 855.3239034326431,
-      "capital_after": 897.544663632143,
-      "cycle_profit": 42.22076019949996,
+      "capital_before": 862.8359073028388,
+      "capital_after": 910.1003094695806,
+      "cycle_profit": 47.26440216674181,
       "active_rigs": 5,
       "total_rigs": 5,
-      "timestamp": "2025-11-14T01:18:25.733769",
+      "timestamp": "2025-11-15T02:39:02.035841",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -950,7 +950,7 @@
           "type": "RTX_3090",
           "algorithm": "ethash",
           "coin": "ETH",
-          "profit": 8.5,
+          "profit": 7.5,
           "active": true
         },
         {
@@ -965,26 +965,26 @@
     },
     {
       "cycle": 28,
-      "capital_before": 897.544663632143,
-      "capital_after": 940.1277790945338,
-      "cycle_profit": 42.583115462390765,
+      "capital_before": 910.1003094695806,
+      "capital_after": 956.590215161414,
+      "cycle_profit": 46.489905691833414,
       "active_rigs": 5,
       "total_rigs": 5,
-      "timestamp": "2025-11-14T01:18:26.254736",
+      "timestamp": "2025-11-15T02:39:02.536391",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -998,7 +998,7 @@
           "type": "RTX_3090",
           "algorithm": "ethash",
           "coin": "ETH",
-          "profit": 8.5,
+          "profit": 7.5,
           "active": true
         },
         {
@@ -1013,26 +1013,26 @@
     },
     {
       "cycle": 29,
-      "capital_before": 940.1277790945338,
-      "capital_after": 980.8690605586462,
-      "cycle_profit": 40.74128146411242,
+      "capital_before": 956.590215161414,
+      "capital_after": 1003.0487684393333,
+      "cycle_profit": 46.45855327791931,
       "active_rigs": 5,
       "total_rigs": 5,
-      "timestamp": "2025-11-14T01:18:26.879987",
+      "timestamp": "2025-11-15T02:39:03.037333",
       "rigs": [
         {
           "id": "GPU_1",
           "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "GPU_2",
           "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
         },
         {
           "id": "ASIC_1",
@@ -1046,67 +1046,11 @@
           "type": "RTX_3090",
           "algorithm": "ethash",
           "coin": "ETH",
-          "profit": 8.5,
-          "active": true
-        },
-        {
-          "id": "GPU_5",
-          "type": "RTX_3090",
-          "algorithm": "ethash",
-          "coin": "ETH",
-          "profit": 7.5,
-          "active": true
-        }
-      ]
-    },
-    {
-      "cycle": 30,
-      "capital_before": 980.8690605586462,
-      "capital_after": 1023.2759795951058,
-      "cycle_profit": 42.406919036459556,
-      "active_rigs": 6,
-      "total_rigs": 6,
-      "timestamp": "2025-11-14T01:18:27.481876",
-      "rigs": [
-        {
-          "id": "GPU_1",
-          "type": "RTX_4090",
-          "algorithm": "randomx",
-          "coin": "XMR",
-          "profit": 6.8
-        },
-        {
-          "id": "GPU_2",
-          "type": "RTX_3090",
-          "algorithm": "kawpow",
-          "coin": "RVN",
-          "profit": 7.2
-        },
-        {
-          "id": "ASIC_1",
-          "type": "S19_Pro",
-          "algorithm": "sha256",
-          "coin": "BTC",
-          "profit": 12.8
-        },
-        {
-          "id": "GPU_4",
-          "type": "RTX_3090",
-          "algorithm": "ethash",
-          "coin": "ETH",
-          "profit": 8.5,
-          "active": true
-        },
-        {
-          "id": "GPU_5",
-          "type": "RTX_3090",
-          "algorithm": "ethash",
-          "coin": "ETH",
           "profit": 7.5,
           "active": true
         },
         {
-          "id": "GPU_6",
+          "id": "GPU_5",
           "type": "RTX_3090",
           "algorithm": "ethash",
           "coin": "ETH",
@@ -1120,16 +1064,16 @@
     {
       "id": "GPU_1",
       "type": "RTX_4090",
-      "algorithm": "randomx",
-      "coin": "XMR",
-      "profit": 6.8
+      "algorithm": "ethash",
+      "coin": "ETH",
+      "profit": 8.5
     },
     {
       "id": "GPU_2",
       "type": "RTX_3090",
-      "algorithm": "kawpow",
-      "coin": "RVN",
-      "profit": 7.2
+      "algorithm": "ethash",
+      "coin": "ETH",
+      "profit": 8.5
     },
     {
       "id": "ASIC_1",
@@ -1143,7 +1087,7 @@
       "type": "RTX_3090",
       "algorithm": "ethash",
       "coin": "ETH",
-      "profit": 8.5,
+      "profit": 7.5,
       "active": true
     },
     {
@@ -1153,20 +1097,12 @@
       "coin": "ETH",
       "profit": 7.5,
       "active": true
-    },
-    {
-      "id": "GPU_6",
-      "type": "RTX_3090",
-      "algorithm": "ethash",
-      "coin": "ETH",
-      "profit": 7.5,
-      "active": true
     }
   ],
   "performance_metrics": {
-    "avg_cycle_profit": 30.77586598650352,
-    "best_cycle": 44.52455845560017,
-    "worst_cycle": 23.54686653902679,
-    "profit_stability": 6.072390618890706
+    "avg_cycle_profit": 31.1396127048046,
+    "best_cycle": 47.26440216674181,
+    "worst_cycle": 23.165522086041076,
+    "profit_stability": 7.2200658216799924
   }
 }
