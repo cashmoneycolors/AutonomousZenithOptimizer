@@ -1,0 +1,3 @@
+2025-11-15 02:17:12 | INFO     | MiningSystem | MINING_CYCLE_COMPLETED | MINING_DATA: Cycle_1 | Capital: 130.08 CHF | Profit: 30.08 CHF
+2025-11-15 02:17:12 | INFO     | MiningSystem | PROFIT_CALCULATION | ETH | PROFIT: Algorithm: ethash | Expected: 3440.03 CHF/day
+2025-11-15 02:17:12 | INFO     | MiningSystem | RIG_STATUS_UPDATE | RIG: GPU_1 | RTX 4090 | Temp: 72°C | Status: ACTIVE

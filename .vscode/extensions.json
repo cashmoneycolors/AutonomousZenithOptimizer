@@ -6,6 +6,12 @@
         "ms-vscode.anycode-python",
         "ms-azuretools.vscode-azurecontainerapps",
         "wallabyjs.quokka-vscode",
-        "openai.chatgpt"
+        "openai.chatgpt",
+        "github.copilot-chat",
+        "redis.redis-for-vscode",
+        "kilocode.kilo-code",
+        "ms-dotnettools.vscode-dotnet-runtime",
+        "grokjs.grok-js",
+        "uponatime2025.kp-chatbot-search"
     ]
 }
