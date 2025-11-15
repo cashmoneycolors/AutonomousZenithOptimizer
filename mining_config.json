@@ -1,0 +1,23 @@
+{
+  "system": {
+    "name": "CASH MONEY COLORS ORIGINAL (R)",
+    "version": "2.0"
+  },
+  "optimization": {
+    "algorithm_switching": true,
+    "market_based_decisions": true
+  },
+  "thresholds": {
+    "temperature_warning": 75,
+    "temperature_critical": 85,
+    "power_efficiency_target": 0.8,
+    "maintenance_interval_days": 30
+  },
+  "algorithms": {
+    "ethash": {
+      "coins": [
+        "ETH"
+      ]
+    }
+  }
+}
