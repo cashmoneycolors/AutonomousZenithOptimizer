@@ -3,3 +3,5 @@
 2025-11-15 02:17:12 | INFO     | MiningSystem | RIG_STATUS_UPDATE | RIG: GPU_1 | RTX 4090 | Temp: 72°C | Status: ACTIVE
 2025-11-15 02:17:12 | DEBUG    | MiningSystem | MARKET_BTC | USD: $95000.00 | CHF: CHF 89000.00 | Change: -2.5%
 2025-11-15 02:17:12 | DEBUG    | MiningSystem | MARKET_ETH | USD: $2800.00 | CHF: CHF 2620.00 | Change: +1.2%
+2025-11-15 18:07:57 | INFO     | MiningSystem | EVENT_TEMPERATURE_OVERHEAT | {"rig_id": "GPU_1", "temperature": 78.5, "max_temp": 75, "severity": "minor", "actions_taken": ["fan_speed_94%"]}
+2025-11-15 18:07:57 | INFO     | MiningSystem | EVENT_TEMPERATURE_OPTIMIZATION_DECISION | {"rig_id": "GPU_1", "actions": [{"action": "overtemperature_handling", "severity": "minor", "temp_over": 3.5, "actions_taken": ["fan_speed_94%"], "fan_speed": 94}], "efficiency_gain": 0, "temperature": 78.5, "hash_rate": 115.0}

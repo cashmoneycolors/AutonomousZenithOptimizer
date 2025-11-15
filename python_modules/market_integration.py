@@ -86,8 +86,8 @@ class MarketIntegration:
             'kheavyhash': ['KAS']
         }
 
-        print("🪙 MARKET INTEGRATION INITIALIZED")
-        print("📊 Live Crypto-Preise für realistische Mining-Kalkulation")
+        print("[COIN] MARKET INTEGRATION INITIALIZED")
+        print("[STATS] Live Crypto-Preise für realistische Mining-Kalkulation")
 
     def get_crypto_prices(self, coins: List[str] = None) -> Dict[str, float]:
         """Holt aktuelle Krypto-Preise von CoinGecko"""
@@ -140,11 +140,11 @@ class MarketIntegration:
             self.market_data = prices
             self.last_update = datetime.now()
 
-            print(f"💰 Preise aktualisiert für {len(prices)} Coins")
+            print(f"[MONEY] Preise aktualisiert für {len(prices)} Coins")
             return prices
 
         except Exception as e:
-            print(f"❌ Fehler beim Laden der Markt-Daten: {e}")
+            print(f"[ERROR] Fehler beim Laden der Markt-Daten: {e}")
             # Fallback auf Cache oder simulierte Daten
             return self._get_fallback_prices(coins)
 
@@ -298,7 +298,7 @@ class MarketIntegration:
                 prices[coin] = fallback_prices[coin]
                 prices[coin]['last_update'] = datetime.now().isoformat()
 
-        print("⚠️ Fallback-Preise verwendet (API nicht verfügbar)")
+        print("[WARN] Fallback-Preise verwendet (API nicht verfügbar)")
         return prices
 
 # Globale Instanz
@@ -332,12 +332,12 @@ if __name__ == "__main__":
         print(f"  {coin}: ${data['usd']:.2f} | CHF {data['chf']:.2f} ({data['change_24h']:+.1f}%)")
 
     # Profit-Kalkulation testen
-    print("\n💰 Teste Profit-Kalkulation...")
+    print("\n[MONEY] Teste Profit-Kalkulation...")
     profit = calculate_mining_profit('ethash', 120, 450, 0.15)
     if 'best_coin' in profit:
         print(f"Optimal für Ethash: {profit['best_coin']} mit CHF {profit['best_profit_chf']:.2f}/Tag")
 
-    print("\n✅ MARKET INTEGRATION BEREIT!")
+    print("\n[OK] MARKET INTEGRATION BEREIT!")
     print("Verwende get_crypto_prices(), calculate_mining_profit(), get_optimal_algorithm()")
 
 

@@ -344,7 +344,7 @@ if __name__ == "__main__":
 
     # Performance-Analyse
     analysis = analyze_algorithms()
-    print(f"✅ {len(analysis)} Algorithmen analysiert")
+    print(f"[OK] {len(analysis)} Algorithmen analysiert")
 
     if analysis:
         # Sortiere nach Score
@@ -366,7 +366,7 @@ if __name__ == "__main__":
             print(f"Not Switch verfügbar")
             print(f"Grund: {reason}")
 
-    print("\n✅ ALGORITHM SWITCHER BEREIT!")
+    print("\n[OK] ALGORITHM SWITCHER BEREIT!")
     print("Verwende start_algorithm_monitoring() für kontinuierliche Optimierung")
     print(f"   Aktueller Algorithmus: {algorithm_switcher.current_algorithm.upper()}")
     print(f"   Risiko-Toleranz: {algorithm_switcher.switch_config.get('RiskTolerance', 'medium')}")

@@ -55,7 +55,7 @@ class ConfigManager:
             if value:
                 self.env_vars[key] = value
 
-        print(f"🔑 Loaded {len(self.env_vars)} environment variables")
+        print(f"[API] Loaded {len(self.env_vars)} environment variables")
 
     def load_config(self):
         """Lädt Konfiguration aus JSON-Datei"""

@@ -747,6 +747,9 @@ try:  # pragma: no cover - Fallback für Direktaufruf
 except ModuleNotFoundError:  # pragma: no cover - Unterstützung für Namespace-Pakete
     from mining_system_integration import IntegratedMiningSystem  # type: ignore
 
+from python_modules.algorithm_switcher import switch_to_best_algorithm
+from python_modules.enhanced_logging import log_event
+
 
 @dataclass(slots=True)
 class SessionSummary:
@@ -1000,6 +1003,24 @@ class MiningDataCollector:
                 ),
             )
 
+    def _evaluate_market_algorithm_switch(self) -> Optional[Dict[str, Any]]:
+        try:
+            result = switch_to_best_algorithm()
+        except Exception as exc:
+            log_event('MARKET_ALGO_SWITCH_ERROR', {'error': str(exc), 'timestamp': datetime.now().isoformat()})
+            return None
+
+        if result.get('success'):
+            analysis = result.get('analysis', {})
+            log_event('MARKET_ALGO_SWITCH_COMPLETED', {
+                'algorithm': analysis.get('algorithm', 'unknown'),
+                'improvement': analysis.get('improvement', 0),
+                'risk_factor': analysis.get('risk_factor', 0),
+                'timestamp': datetime.now().isoformat(),
+            })
+
+        return result
+
     def run_session(
         self,
         duration_seconds: float = 60.0,
@@ -1033,6 +1054,7 @@ class MiningDataCollector:
 
                 if snapshots % optimize_every == 0:
                     system.optimize_mining_strategy()
+                    self._evaluate_market_algorithm_switch()
 
                 time.sleep(snapshot_interval)
         except Exception as exc:  # pragma: no cover - rethrow nach Logging

@@ -35,7 +35,7 @@ class RiskManager:
                 'MaxConsecutiveFailures': 3
             }
 
-        print("🛡️ RISK MANAGEMENT SYSTEM INITIALIZED")
+        print("[SHIELD] RISK MANAGEMENT SYSTEM INITIALIZED")
         print("Stop-Loss Protection:", "ENABLED" if self.stop_loss_config.get('StopLossEnabled') else "DISABLED")
 
     def start_monitoring(self):
@@ -310,12 +310,12 @@ class RiskManager:
         if diversification_analysis.get('status') == 'high_risk':
             send_custom_alert("Portfolio Risk Alert",
                             f"Hohes Risiko durch Überallokation in {len(diversification_analysis['over_allocated_coins'])} Coins",
-                            "⚠️")
+                            "[WARN]")
 
         if portfolio_optimization.get('overall_risk_score', 0) > 30:
             send_custom_alert("Market Risk Alert",
                             f"Hochvolatiles Markt-Environment - Risiko-Score: {portfolio_optimization['overall_risk_score']:.1f}",
-                            "📊")
+                            "[STATS]")
 
     def _find_backup_rig(self, failed_rig: Dict[str, Any],
                         available_backups: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
@@ -428,6 +428,6 @@ if __name__ == "__main__":
     portfolio_opt = optimize_portfolio_diversification(test_allocations, test_market)
     print(f"Portfolio-Optimierung: Risk Score={portfolio_opt.get('overall_risk_score', 0):.1f}")
 
-    print("\n✅ RISK MANAGEMENT SYSTEM BEREIT!")
+    print("\n[OK] RISK MANAGEMENT SYSTEM BEREIT!")
     print("Verwende start_risk_monitoring(), check_stop_loss(), analyze_diversification(), etc.")
     print("Konfiguriere Risiko-Schwelle in settings.json unter 'RiskManagement'")
