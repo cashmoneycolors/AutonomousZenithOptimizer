@@ -346,5 +346,3 @@ def run():
     print(f"Modul {__name__} wurde ausgeführt")
     print("Implementiere hier deine spezifische Logik...")
 
-if __name__ == "__main__":
-    run()
