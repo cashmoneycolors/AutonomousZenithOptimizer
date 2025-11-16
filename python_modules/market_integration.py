@@ -6,16 +6,18 @@ CoinGecko API Integration für Live-Krypto-Preise
 """
 import requests
 import json
-import time
-import logging
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Dict, List
 import os
 from pathlib import Path
 
 # Universal Integration Setup
 def setup_universal_integration():
-    """Richtet universelle Integration mit API-Keys und PayPal ein"""
+    """Richtet universelle Integration mit API-Keys und PayPal ein
+    
+    Note: This function loads sensitive data. Consider using environment variables
+    and accessing credentials only when needed rather than storing globally.
+    """
 
     # API-Keys aus .env laden
     env_file = Path('.env')
@@ -51,6 +53,7 @@ def setup_universal_integration():
         }
 
 # Automatische Integration beim Import
+# WARNING: Credentials stored in global scope - consider refactoring for production
 universal_config = setup_universal_integration()
 
 class MarketIntegration:
@@ -174,11 +177,13 @@ class MarketIntegration:
 
             # Simulierte Block-Belohnung und Schwierigkeit
             if coin == 'BTC':
-                block_reward = 6.25  # ca. 2023
+                block_reward = 6.25  # Current as of 2024 (next halving ~2024)
                 difficulty_factor = 1.0
                 blocks_per_day = 144  # ca.
             elif coin == 'ETH':
-                block_reward = 2.0  # ca. nach Merge
+                # Note: ETH mining ended in Sept 2022 with The Merge (PoS transition)
+                # This is for historical/simulation purposes only
+                block_reward = 2.0  # Historical pre-merge value
                 difficulty_factor = 0.8
                 blocks_per_day = 7200  # ca.
             elif coin == 'RVN':
@@ -268,7 +273,7 @@ class MarketIntegration:
         try:
             with open(self.cache_file, 'r') as f:
                 return json.load(f)
-        except:
+        except (FileNotFoundError, json.JSONDecodeError, IOError):
             return {}
 
     def _save_cache(self, data: Dict):

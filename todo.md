@@ -12,7 +12,7 @@
 - [x] settings.json Konfigurationsdatei für alle Parameter erstellen - config_manager.py und settings.json implementiert
 
 ### Algorithmus-Optimierungen:
-- [x] Marktbasierte Algorithmus-Wechsel statt zufällig
+- [x] Marktbasierte Algorithmus-Wechsel statt zufällig - algorithm_optimizer.py implementiert
 - [x] Predictive Maintenance für Mining-Rigs
 - [x] Energieeffizienz-Optimierung
 - [x] Temperatur-basierte automatische Übertaktung
