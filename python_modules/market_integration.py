@@ -6,9 +6,7 @@ CoinGecko API Integration für Live-Krypto-Preise
 """
 import requests
 import json
-import time
-import logging
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Dict, List
 import os
 from pathlib import Path
@@ -174,11 +172,13 @@ class MarketIntegration:
 
             # Simulierte Block-Belohnung und Schwierigkeit
             if coin == 'BTC':
-                block_reward = 6.25  # ca. 2023
+                block_reward = 6.25  # Nach Halving 2020, nächstes Halving ca. 2024
                 difficulty_factor = 1.0
                 blocks_per_day = 144  # ca.
             elif coin == 'ETH':
-                block_reward = 2.0  # ca. nach Merge
+                # HINWEIS: ETH ist seit September 2022 Proof-of-Stake (nicht mehr minbar)
+                # Diese Werte sind nur für Legacy-Berechnungen/Simulationen
+                block_reward = 2.0  # Historischer Wert vor The Merge
                 difficulty_factor = 0.8
                 blocks_per_day = 7200  # ca.
             elif coin == 'RVN':
@@ -268,7 +268,7 @@ class MarketIntegration:
         try:
             with open(self.cache_file, 'r') as f:
                 return json.load(f)
-        except:
+        except (FileNotFoundError, json.JSONDecodeError, IOError):
             return {}
 
     def _save_cache(self, data: Dict):

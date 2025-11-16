@@ -4,23 +4,24 @@ CASH MONEY COLORS ORIGINAL (R) - ALGORITHM OPTIMIZER
 Maximale Profit-Optimierung mit KI-basierten Entscheidungen
 """
 import json
-import time
 import random
-import logging
-from datetime import datetime, timedelta
-from typing import Dict, List, Any, Optional, Tuple
+from datetime import datetime
+from typing import Dict, List, Any, Optional
 from collections import defaultdict
-import statistics
 
 # Markt-Integration importieren (fallback wenn nicht verfügbar)
 try:
-    from market_integration import get_crypto_prices, calculate_mining_profit, get_optimal_algorithm
+    from market_integration import get_optimal_algorithm
     MARKET_AVAILABLE = True
 except ImportError:
     MARKET_AVAILABLE = False
 
 class AlgorithmOptimizer:
     """KI-basierte Algorithmus-Optimierung für maximalen Mining-Profit"""
+    
+    # Effizienz-Konstanten
+    MIN_EFFICIENCY = 0.7
+    MAX_EFFICIENCY = 0.9
 
     def __init__(self, config_file: str = "mining_config.json"):
         self.config = self.load_config(config_file)
@@ -76,7 +77,6 @@ class AlgorithmOptimizer:
     def optimize_rig_configuration(self, rig: Dict[str, Any], market_data: Optional[Dict] = None) -> Dict[str, Any]:
         """Optimiert eine einzelne Rig-Konfiguration für maximalen Profit"""
         rig_id = rig['id']
-        rig_type = rig['type']
 
         # Sammle historische Performance-Daten
         historical_performance = self.performance_history.get(rig_id, [])
@@ -167,7 +167,8 @@ class AlgorithmOptimizer:
         temp_threshold = self.config['thresholds']['temperature_warning']
 
         # Simuliere Temperatur-Daten (in echter Implementierung von Hardware-Sensoren)
-        current_temp = self.temperature_data[rig_id][-1] if self.temperature_data[rig_id] else random.uniform(60, 80)
+        temp_list = self.temperature_data.get(rig_id, [])
+        current_temp = temp_list[-1] if temp_list else random.uniform(60, 80)
 
         # Temperatur-basierte Anpassungen
         if current_temp > temp_threshold:
@@ -190,7 +191,7 @@ class AlgorithmOptimizer:
         target_efficiency = self.config['thresholds']['power_efficiency_target']
 
         # Simuliere Effizienz-Berechnung
-        current_efficiency = random.uniform(0.7, 0.9)  # 70-90% Effizienz
+        current_efficiency = random.uniform(self.MIN_EFFICIENCY, self.MAX_EFFICIENCY)
 
         if current_efficiency < target_efficiency:
             # Verbessere Effizienz durch Software-Optimierung
