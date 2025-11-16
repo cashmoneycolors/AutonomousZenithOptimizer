@@ -1,0 +1,1172 @@
+{
+  "session_info": {
+    "start_time": "2025-11-14T05:16:16.733062",
+    "end_time": "2025-11-14T05:16:48.231025",
+    "duration": "0:00:31.497963",
+    "total_cycles": 30,
+    "start_capital": 100.0,
+    "end_capital": 1038.7770868191878,
+    "total_profit": 938.7770868191878,
+    "target_achieved": true,
+    "rigs_used": 6
+  },
+  "cycles": [
+    {
+      "cycle": 1,
+      "capital_before": 100.0,
+      "capital_after": 130.01892504221874,
+      "cycle_profit": 30.018925042218733,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:16.733262",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 2,
+      "capital_before": 130.01892504221877,
+      "capital_after": 157.88691395833513,
+      "cycle_profit": 27.867988916116374,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:17.293260",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 3,
+      "capital_before": 157.88691395833513,
+      "capital_after": 182.67558410909413,
+      "cycle_profit": 24.788670150759017,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:18.166864",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 4,
+      "capital_before": 182.67558410909413,
+      "capital_after": 212.02787791284754,
+      "cycle_profit": 29.352293803753415,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:19.189632",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 5,
+      "capital_before": 212.02787791284754,
+      "capital_after": 239.57019736266085,
+      "cycle_profit": 27.542319449813295,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:20.489625",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 6,
+      "capital_before": 239.57019736266088,
+      "capital_after": 265.35372370865304,
+      "cycle_profit": 25.783526345992165,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:21.646282",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 7,
+      "capital_before": 265.35372370865304,
+      "capital_after": 293.70168940483774,
+      "cycle_profit": 28.347965696184687,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:23.042139",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 8,
+      "capital_before": 293.70168940483774,
+      "capital_after": 319.93233984452945,
+      "cycle_profit": 26.23065043969172,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:23.796040",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 9,
+      "capital_before": 319.93233984452945,
+      "capital_after": 345.4594755663734,
+      "cycle_profit": 25.527135721843944,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:24.466824",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 10,
+      "capital_before": 345.4594755663734,
+      "capital_after": 374.3801232648945,
+      "cycle_profit": 28.92064769852114,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:25.966171",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 11,
+      "capital_before": 374.3801232648945,
+      "capital_after": 399.6356259211483,
+      "cycle_profit": 25.25550265625379,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:26.909023",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 12,
+      "capital_before": 399.6356259211483,
+      "capital_after": 425.05977389388147,
+      "cycle_profit": 25.424147972733152,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:28.269471",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 13,
+      "capital_before": 425.05977389388147,
+      "capital_after": 453.97745724571143,
+      "cycle_profit": 28.917683351829986,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:30.135946",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 14,
+      "capital_before": 453.97745724571143,
+      "capital_after": 482.0965586023855,
+      "cycle_profit": 28.1191013566741,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:30.935211",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 15,
+      "capital_before": 482.0965586023855,
+      "capital_after": 511.81713436295206,
+      "cycle_profit": 29.720575760566526,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:31.769081",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 16,
+      "capital_before": 511.81713436295206,
+      "capital_after": 539.6119554348338,
+      "cycle_profit": 27.79482107188174,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:32.429762",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 17,
+      "capital_before": 539.6119554348338,
+      "capital_after": 567.0880536151236,
+      "cycle_profit": 27.47609818028983,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:33.763280",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 18,
+      "capital_before": 567.0880536151236,
+      "capital_after": 593.3549361959344,
+      "cycle_profit": 26.266882580810865,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:34.728892",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 19,
+      "capital_before": 593.3549361959344,
+      "capital_after": 620.5540859222224,
+      "cycle_profit": 27.199149726287995,
+      "active_rigs": 3,
+      "total_rigs": 3,
+      "timestamp": "2025-11-14T05:16:35.381833",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        }
+      ]
+    },
+    {
+      "cycle": 20,
+      "capital_before": 620.5540859222224,
+      "capital_after": 650.3177728259794,
+      "cycle_profit": 29.763686903757065,
+      "active_rigs": 4,
+      "total_rigs": 4,
+      "timestamp": "2025-11-14T05:16:36.925811",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        },
+        {
+          "id": "GPU_4",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5,
+          "active": true
+        }
+      ]
+    },
+    {
+      "cycle": 21,
+      "capital_before": 650.3177728259794,
+      "capital_after": 685.4218533333815,
+      "cycle_profit": 35.104080507401996,
+      "active_rigs": 4,
+      "total_rigs": 4,
+      "timestamp": "2025-11-14T05:16:37.605610",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        },
+        {
+          "id": "GPU_4",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5,
+          "active": true
+        }
+      ]
+    },
+    {
+      "cycle": 22,
+      "capital_before": 685.4218533333815,
+      "capital_after": 716.8585352022062,
+      "cycle_profit": 31.436681868824678,
+      "active_rigs": 4,
+      "total_rigs": 4,
+      "timestamp": "2025-11-14T05:16:38.454472",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        },
+        {
+          "id": "GPU_4",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5,
+          "active": true
+        }
+      ]
+    },
+    {
+      "cycle": 23,
+      "capital_before": 716.8585352022062,
+      "capital_after": 753.4950938216099,
+      "cycle_profit": 36.63655861940367,
+      "active_rigs": 4,
+      "total_rigs": 4,
+      "timestamp": "2025-11-14T05:16:39.688119",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        },
+        {
+          "id": "GPU_4",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5,
+          "active": true
+        }
+      ]
+    },
+    {
+      "cycle": 24,
+      "capital_before": 753.4950938216099,
+      "capital_after": 785.6988960962649,
+      "cycle_profit": 32.203802274654976,
+      "active_rigs": 4,
+      "total_rigs": 4,
+      "timestamp": "2025-11-14T05:16:40.362872",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        },
+        {
+          "id": "GPU_4",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5,
+          "active": true
+        }
+      ]
+    },
+    {
+      "cycle": 25,
+      "capital_before": 785.6988960962649,
+      "capital_after": 823.1048381043087,
+      "cycle_profit": 37.405942008043766,
+      "active_rigs": 5,
+      "total_rigs": 5,
+      "timestamp": "2025-11-14T05:16:41.420148",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        },
+        {
+          "id": "GPU_4",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5,
+          "active": true
+        },
+        {
+          "id": "GPU_5",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 7.5,
+          "active": true
+        }
+      ]
+    },
+    {
+      "cycle": 26,
+      "capital_before": 823.1048381043087,
+      "capital_after": 867.1512101547769,
+      "cycle_profit": 44.04637205046819,
+      "active_rigs": 5,
+      "total_rigs": 5,
+      "timestamp": "2025-11-14T05:16:42.075826",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        },
+        {
+          "id": "GPU_4",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5,
+          "active": true
+        },
+        {
+          "id": "GPU_5",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 7.5,
+          "active": true
+        }
+      ]
+    },
+    {
+      "cycle": 27,
+      "capital_before": 867.1512101547769,
+      "capital_after": 909.452534320392,
+      "cycle_profit": 42.30132416561517,
+      "active_rigs": 5,
+      "total_rigs": 5,
+      "timestamp": "2025-11-14T05:16:42.789764",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        },
+        {
+          "id": "GPU_4",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5,
+          "active": true
+        },
+        {
+          "id": "GPU_5",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 7.5,
+          "active": true
+        }
+      ]
+    },
+    {
+      "cycle": 28,
+      "capital_before": 909.452534320392,
+      "capital_after": 954.4901823150105,
+      "cycle_profit": 45.037647994618496,
+      "active_rigs": 5,
+      "total_rigs": 5,
+      "timestamp": "2025-11-14T05:16:43.550682",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        },
+        {
+          "id": "GPU_4",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5,
+          "active": true
+        },
+        {
+          "id": "GPU_5",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 7.5,
+          "active": true
+        }
+      ]
+    },
+    {
+      "cycle": 29,
+      "capital_before": 954.4901823150105,
+      "capital_after": 995.4534673347823,
+      "cycle_profit": 40.963285019771774,
+      "active_rigs": 5,
+      "total_rigs": 5,
+      "timestamp": "2025-11-14T05:16:45.683996",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        },
+        {
+          "id": "GPU_4",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5,
+          "active": true
+        },
+        {
+          "id": "GPU_5",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 7.5,
+          "active": true
+        }
+      ]
+    },
+    {
+      "cycle": 30,
+      "capital_before": 995.4534673347823,
+      "capital_after": 1038.7770868191878,
+      "cycle_profit": 43.32361948440548,
+      "active_rigs": 6,
+      "total_rigs": 6,
+      "timestamp": "2025-11-14T05:16:47.444274",
+      "rigs": [
+        {
+          "id": "GPU_1",
+          "type": "RTX_4090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "GPU_2",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5
+        },
+        {
+          "id": "ASIC_1",
+          "type": "S19_Pro",
+          "algorithm": "sha256",
+          "coin": "BCH",
+          "profit": 11.5
+        },
+        {
+          "id": "GPU_4",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 8.5,
+          "active": true
+        },
+        {
+          "id": "GPU_5",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 7.5,
+          "active": true
+        },
+        {
+          "id": "GPU_6",
+          "type": "RTX_3090",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 7.5,
+          "active": true
+        }
+      ]
+    }
+  ],
+  "final_rigs": [
+    {
+      "id": "GPU_1",
+      "type": "RTX_4090",
+      "algorithm": "ethash",
+      "coin": "ETH",
+      "profit": 8.5
+    },
+    {
+      "id": "GPU_2",
+      "type": "RTX_3090",
+      "algorithm": "ethash",
+      "coin": "ETH",
+      "profit": 8.5
+    },
+    {
+      "id": "ASIC_1",
+      "type": "S19_Pro",
+      "algorithm": "sha256",
+      "coin": "BCH",
+      "profit": 11.5
+    },
+    {
+      "id": "GPU_4",
+      "type": "RTX_3090",
+      "algorithm": "ethash",
+      "coin": "ETH",
+      "profit": 8.5,
+      "active": true
+    },
+    {
+      "id": "GPU_5",
+      "type": "RTX_3090",
+      "algorithm": "ethash",
+      "coin": "ETH",
+      "profit": 7.5,
+      "active": true
+    },
+    {
+      "id": "GPU_6",
+      "type": "RTX_3090",
+      "algorithm": "ethash",
+      "coin": "ETH",
+      "profit": 7.5,
+      "active": true
+    }
+  ],
+  "performance_metrics": {
+    "avg_cycle_profit": 31.292569560639595,
+    "best_cycle": 45.037647994618496,
+    "worst_cycle": 24.788670150759017,
+    "profit_stability": 6.136136659712436
+  }
+}
