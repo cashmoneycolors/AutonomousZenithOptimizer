@@ -7,7 +7,6 @@ CoinGecko API Integration für Live-Krypto-Preise
 import requests
 import json
 import time
-import logging
 from datetime import datetime, timedelta
 from typing import Dict, List
 import os
@@ -268,7 +267,7 @@ class MarketIntegration:
         try:
             with open(self.cache_file, 'r') as f:
                 return json.load(f)
-        except:
+        except (FileNotFoundError, json.JSONDecodeError, IOError):
             return {}
 
     def _save_cache(self, data: Dict):
