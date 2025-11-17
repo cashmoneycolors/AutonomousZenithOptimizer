@@ -7,7 +7,6 @@ CoinGecko API Integration für Live-Krypto-Preise
 import requests
 import json
 import time
-import logging
 from datetime import datetime, timedelta
 from typing import Dict, List
 import os
