@@ -267,7 +267,7 @@ class MarketIntegration:
         try:
             with open(self.cache_file, 'r') as f:
                 return json.load(f)
-        except:
+        except (FileNotFoundError, json.JSONDecodeError, IOError):
             return {}
 
     def _save_cache(self, data: Dict):
