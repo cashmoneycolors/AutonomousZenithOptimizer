@@ -748,6 +748,10 @@ def run_full_system_diagnostics():
     """Führt vollständige System-Diagnose aus"""
     return zenith_integrations.execute_unified_command('system_diagnostics')
 
+def get_maintenance_status():
+    """Gibt Wartungsstatus zurück"""
+    return zenith_integrations.execute_unified_command('system_diagnostics')
+
 if __name__ == "__main__":
     print("=" * 70)
     print("🤖 AUTONOMOUS ZENITH OPTIMIZER v5.0 - MAIN INTEGRATION MODULE")

@@ -5,7 +5,12 @@ Analysiert Hashrate vs. Leistungsaufnahme und gibt Optimierungsanweisungen.
 """
 from __future__ import annotations
 
-from typing import Dict, Any
+import os
+import time
+import random
+import logging
+import requests
+from typing import Dict, Any, List
 
 from python_modules.config_manager import get_config, get_rigs_config
 from python_modules.enhanced_logging import log_event
