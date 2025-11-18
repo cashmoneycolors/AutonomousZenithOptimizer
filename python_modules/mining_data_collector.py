@@ -7,6 +7,7 @@ ECHTE PRODUKTIONS-DATENBANK für Mining-Operationen
 import sys
 
 from pathlib import Path
+from auto_error_fixing import attempt_error_fix
 
 
 # Universal Integration Setup
@@ -325,7 +326,7 @@ class MiningDataCollector:
         self.log_system_event(session_id, 'SESSION_END', 'Mining session completed',
             {'cycles': session_cycles, 'profit': session_profit})
 
-                            print(f"MINING SESSION {session_id} BEENDET")
+        print(f"MINING SESSION {session_id} BEENDET")
         print(f"Cycles: {session_cycles}, Profit: {session_profit:.2f} CHF")
 
     def log_system_event(self, session_id, event_type, description, event_data=None):

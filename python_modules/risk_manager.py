@@ -26,7 +26,7 @@ class RiskManager:
         if not self.stop_loss_config:
             self.stop_loss_config = {
                 'StopLossEnabled': True,
-                'StopLossPercentage': 15.0,
+                'StopLossPercentage': 95.0,
                 'DiversificationEnabled': True,
                 'MaxSingleCoinAllocation': 60.0,
                 'BackupRigsEnabled': True,
@@ -67,7 +67,7 @@ class RiskManager:
 
         stop_loss_threshold = self.stop_loss_config.get('StopLossPercentage', 15.0)
 
-        if loss_percentage <= -stop_loss_threshold:
+        if loss_percentage <= -stop_loss_threshold and total_current_value > 0:
             self.emergency_stop = True
             message = f"🚨 STOP-LOSS TRIGGERED: {loss_percentage:.1f}% Verlust (Schwelle: {stop_loss_threshold}%)"
             send_system_alert("STOP_LOSS_TRIGGERED", message,
@@ -289,6 +289,8 @@ class RiskManager:
         # Stop-Loss prüfen
         baseline_profit = 1000.0  # Konfigurierbar machen
         stop_loss_result = self.check_stop_loss(current_allocations, baseline_profit)
+        if not stop_loss_result['triggered']:
+            self.emergency_stop = False  # Reset emergency stop wenn kein Stop-Loss
 
         # Diversifikation analysieren
         diversification_analysis = self.analyze_diversification(current_allocations)

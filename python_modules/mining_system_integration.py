@@ -803,7 +803,7 @@ def stop_mining_system() -> None:
     integrated_mining_system.stop_integrated_mining()
 
 
-def get_mining_status() -> Dict[str, Any]:
+def get_system_status() -> Dict[str, Any]:
     return integrated_mining_system.get_system_status()
 
 

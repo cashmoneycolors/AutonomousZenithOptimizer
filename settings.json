@@ -2,202 +2,29 @@
   "System": {
     "Name": "Autonomous Zenith Optimizer",
     "Version": "2.0.0",
-    "Environment": "production",
+    "Environment": "development",
     "LogLevel": "INFO"
   },
   "Mining": {
     "DefaultAlgorithm": "ethash",
     "DefaultCoin": "ETH",
-    "TargetProfitPerMonth": 10000.0,
+    "TargetProfitPerMonth": 5000.0,
     "ElectricityCostPerKwh": 0.15,
     "MaxTemperature": 85.0,
-    "MinTemperature": 40.0,
-    "PowerConsumptionThreshold": 1000.0
+    "MinTemperature": 40.0
   },
-  "Rigs": [
-    {
-      "id": "ASIC_1",
-      "type": "Antminer S19 Pro",
-      "algorithm": "sha256",
-      "coin": "BTC",
-      "hash_rate": 110,
-      "power_consumption": 3250,
-      "temperature_min": 60,
-      "temperature_max": 90,
-      "profit_per_day": 25.0,
-      "status": "ACTIVE"
-    },
-    {
-      "id": "ASIC_2",
-      "type": "Whatsminer M50",
-      "algorithm": "sha256",
-      "coin": "BTC",
-      "hash_rate": 118,
-      "power_consumption": 3300,
-      "temperature_min": 65,
-      "temperature_max": 92,
-      "profit_per_day": 28.0,
-      "status": "ACTIVE"
-    },
-    {
-      "id": "GPU_1",
-      "type": "RTX 4090",
-      "algorithm": "ethash",
-      "coin": "ETH",
-      "hash_rate": 120,
-      "power_consumption": 450,
-      "temperature_min": 60,
-      "temperature_max": 84,
-      "profit_per_day": 15.0,
-      "status": "ACTIVE"
-    },
-    {
-      "id": "GPU_2",
-      "type": "RTX 4090",
-      "algorithm": "kawpow",
-      "coin": "RVN",
-      "hash_rate": 110,
-      "power_consumption": 450,
-      "temperature_min": 58,
-      "temperature_max": 82,
-      "profit_per_day": 18.0,
-      "status": "ACTIVE"
-    },
-    {
-      "id": "GPU_3",
-      "type": "RTX 3090",
-      "algorithm": "ethash",
-      "coin": "ETH",
-      "hash_rate": 100,
-      "power_consumption": 350,
-      "temperature_min": 55,
-      "temperature_max": 80,
-      "profit_per_day": 12.0,
-      "status": "ACTIVE"
-    },
-    {
-      "id": "GPU_4",
-      "type": "RTX 3090",
-      "algorithm": "randomx",
-      "coin": "XMR",
-      "hash_rate": 8,
-      "power_consumption": 350,
-      "temperature_min": 50,
-      "temperature_max": 75,
-      "profit_per_day": 10.0,
-      "status": "ACTIVE"
-    }
-  ],
+  "Rigs": [],
   "Market": {
     "PrimaryApi": "coingecko",
     "CacheDurationMinutes": 5,
-    "FallbackEnabled": true,
-    "CoinsToTrack": ["BTC", "ETH", "RVN", "XMR", "ERG", "CFX", "KAS", "ETC"],
-    "ProfitCalculationMode": "realtime"
+    "FallbackEnabled": true
   },
   "Backup": {
     "Enabled": true,
-    "IntervalHours": 1,
-    "MaxBackups": 50,
-    "SessionFile": "mining_session_1_export.json",
-    "BackupDir": "backups"
+    "IntervalHours": 1
   },
   "Logging": {
-    "LogDir": "logs",
-    "MaxBytesPerFile": 10485760,
-    "BackupCount": 5,
-    "Level": "INFO",
-    "MiningCycleLog": true,
-    "ProfitLog": true,
-    "MarketDataLog": true,
-    "BackupLog": true
-  },
-  "Monitoring": {
     "Enabled": true,
-    "IntervalSeconds": 1,
-    "CollectionIntervalSeconds": 5,
-    "AnalysisIntervalSeconds": 7,
-    "ShutdownTimeoutSeconds": 5,
-    "AutoOptimization": true,
-    "LogPerformanceMetrics": true
-  },
-  "API": {
-    "OpenRouter": {
-      "Enabled": true,
-      "Key": "${OPENROUTER_API_KEY}",
-      "Models": ["gpt-4-turbo", "gpt-4", "claude-3-opus"]
-    },
-    "Gemini": {
-      "Enabled": true,
-      "Key": "${GEMINI_API_KEY}",
-      "Models": ["gemini-pro", "gemini-pro-vision"]
-    },
-    "XAI": {
-      "Enabled": true,
-      "Key": "${XAI_API_KEY}"
-    },
-    "Blackbox": {
-      "Enabled": true,
-      "Key": "${BLACKBOX_API_KEY}"
-    }
-  },
-  "Payment": {
-    "PayPal": {
-      "Enabled": true,
-      "ClientId": "${PAYPAL_CLIENT_ID}",
-      "ClientSecret": "${PAYPAL_CLIENT_SECRET}",
-      "Mode": "sandbox",
-      "Currency": "CHF"
-    },
-    "AutoTransfer": true,
-    "MinTransferAmount": 100.0
-  },
-  "RiskManagement": {
-    "StopLossEnabled": true,
-    "StopLossPercentage": 10.0,
-    "DiversificationEnabled": true,
-    "MaxSingleCoinAllocation": 50.0,
-    "BackupRigsEnabled": true,
-    "AutoRestartOnFailure": true
-  },
-  "Alerts": {
-    "Telegram": {
-      "Enabled": true,
-      "BotToken": "${TELEGRAM_BOT_TOKEN}",
-      "ChatId": "${TELEGRAM_CHAT_ID}",
-      "AlertOnErrors": true,
-      "AlertOnHighTemperature": true,
-      "TemperatureThreshold": 85.0,
-      "AlertTypes": ["PROFIT", "TEMPERATURE", "RIG_FAILURE", "MARKET", "SYSTEM_STARTUP"]
-    },
-    "Discord": {
-      "Enabled": true,
-      "WebhookUrl": "${DISCORD_WEBHOOK_URL}",
-      "AlertOnProfit": true,
-      "MinProfitAlert": 50.0,
-      "AlertTypes": ["PROFIT", "TEMPERATURE", "RIG_FAILURE", "MARKET", "SYSTEM_STARTUP"]
-    }
-  },
-  "Pools": {
-    "NiceHash": {
-      "Enabled": false,
-      "ApiKey": "${NICEHASH_API_KEY}",
-      "ApiSecret": "${NICEHASH_API_SECRET}",
-      "OrganizationId": "${NICEHASH_ORG_ID}"
-    },
-    "MiningPoolHub": {
-      "Enabled": false,
-      "ApiKey": "${MININGPOOLHUB_API_KEY}"
-    }
-  },
-  "Azure": {
-    "SubscriptionId": "${AZURE_SUBSCRIPTION_ID}",
-    "ResourceGroup": "rg-azo-production",
-    "Location": "switzerlandnorth",
-    "CognitiveServices": {
-      "AccountName": "azo-openai-prod",
-      "DeploymentName": "gpt4-turbo-prod",
-      "Sku": "S0"
-    }
+    "LogDir": "logs"
   }
 }

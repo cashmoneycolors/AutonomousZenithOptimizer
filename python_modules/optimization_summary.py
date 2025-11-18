@@ -4,9 +4,20 @@ OPTIMIZATION SUMMARY MODULE v5.0
 Systemweite Zusammenfassung aller Optimierungen - VEREINFACHT UND ROBUST
 """
 import json
-from datetime import datetime
-from typing import Dict, List, Any, Optional
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Dict, List, Any, Optional, Callable, cast
 import os
+
+# Import required functions from other modules
+from python_modules.predictive_maintenance import analyze_rig_health, predict_rig_failures
+from python_modules.algorithm_switcher import get_algorithm_analytics
+from python_modules.electricity_cost_manager import electricity_cost_manager
+from python_modules.energy_efficiency import evaluate_all_rigs
+from python_modules.temperature_optimizer import get_thermal_status, get_thermal_efficiency_report
+from python_modules.config_manager import get_rigs_config
+from python_modules.main_integration_module import get_maintenance_status
+from python_modules.enhanced_logging import log_event
 
 
 AnalyzeRigHealthFn = Callable[[Dict[str, Any]], Dict[str, Any]]

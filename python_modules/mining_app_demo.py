@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
+from __future__ import annotations
 """
 CASH MONEY COLORS ORIGINAL (R) - MINING CONTROL PANEL DEMO
 Textbasierte Simulation der echten Desktop-App
 MIT UNIVERSAL INTEGRATION - API-Keys & PayPal
 """
 import json
-
-
 import time
 import random
 import os
@@ -267,23 +266,7 @@ def run():
 
 
 if __name__ == "__main__":
-    run()#!/usr/bin/env python3
-"""Konsolenanwendung zur Steuerung und Auswertung des Mining-Systems."""
-
-from __future__ import annotations
-
-import argparse
-import json
-import sys
-from datetime import datetime
-from pathlib import Path
-from typing import Any, Dict, List, Optional
-
-try:  # pragma: no cover - Unterstützung für Modulimporte im Repo-Kontext
-    from python_modules.mining_data_collector import MiningDataCollector, SessionSummary
-except ModuleNotFoundError:  # pragma: no cover - Direktaufruf aus demselben Verzeichnis
-    from mining_data_collector import MiningDataCollector, SessionSummary  # type: ignore
-
+    run()
 
 def _format_currency(value: float) -> str:
     return f"{value:,.2f} CHF".replace(",", "'")

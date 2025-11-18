@@ -295,6 +295,60 @@ class ElectricityCostManager:
             'alerts_active': len(recommendations) > 0
         }
 
+
+# Zusätzliche Utility-Funktionen laut Spezifikation
+
+def get_cost_for_rig(rig: Dict[str, Any], region: str | None = None) -> Dict[str, Any]:
+    """Berechnet Stromkosten pro Stunde für ein einzelnes Rig."""
+    power_w = float(rig.get('power_consumption', 0) or 0)
+    cost_per_kwh = electricity_cost_manager.get_current_electricity_cost(region)
+    kwh_per_hour = power_w / 1000.0
+    return {
+        'rig_id': rig.get('id', 'unknown'),
+        'cost_per_hour': kwh_per_hour * cost_per_kwh,
+        'kwh_per_hour': kwh_per_hour,
+        'cost_per_kwh': cost_per_kwh,
+        'region': region or electricity_cost_manager.current_region,
+    }
+
+
+def calculate_net_profit(rig: Dict[str, Any], hours: int = 24, region: str | None = None) -> Dict[str, Any]:
+    """Berechnet Nettoprofit eines Rigs (Einnahmen - Stromkosten). Sendet Alert bei negativem Profit."""
+    power_w = float(rig.get('power_consumption', 0) or 0)
+    # Einnahmen-Schätzung: bevorzugt profit_per_day, sonst einfache Hashrate-Schätzung
+    profit_per_day = rig.get('profit_per_day')
+    if profit_per_day is None:
+        hashrate = float(rig.get('hash_rate', 0) or 0)
+        # sehr konservative Faustformel (CHF) – Platzhalter bis echte API-Daten genutzt werden
+        profit_per_day = hashrate * 0.015
+    revenue = float(profit_per_day) * (hours / 24.0)
+
+    cost_snapshot = get_cost_for_rig(rig, region)
+    electricity_cost = cost_snapshot['cost_per_hour'] * hours
+    net = revenue - electricity_cost
+
+    result = {
+        'rig_id': rig.get('id', 'unknown'),
+        'hours': hours,
+        'revenue': revenue,
+        'electricity_cost': electricity_cost,
+        'net_profit': net,
+        'region': cost_snapshot['region'],
+        'cost_per_kwh': cost_snapshot['cost_per_kwh'],
+    }
+
+    if net < 0:
+        try:
+            send_custom_alert(
+                'Negative Net Profit',
+                f"Rig {result['rig_id']} Nettoprofit negativ: CHF {net:.2f} in {hours}h",
+                '[POWER]'
+            )
+        except Exception:
+            pass
+
+    return result
+
 # Globale Electricity Cost Manager Instanz
 electricity_cost_manager = ElectricityCostManager()
 

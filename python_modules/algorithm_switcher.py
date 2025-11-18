@@ -181,7 +181,7 @@ class AlgorithmSwitcher:
                 'recommendation': recommendation
             }
 
-        # Führe Switch durch
+        # Führe Switch durch (INTEGRATION MIT ECHTEN MINING APIs!)
         result = self._execute_algorithm_switch(optimal_algo, recommendation)
 
         if result['success']:
@@ -335,6 +335,37 @@ def switch_to_best_algorithm():
 def get_algorithm_analytics():
     """Holt Analytics-Daten"""
     return algorithm_switcher.get_algorithm_analytics()
+
+
+def get_algorithm_performance_report() -> Dict[str, Any]:
+    """Gibt Performance-Report für alle Algorithmen zurück"""
+    analytics = get_algorithm_analytics()
+    performance = analytics.get('performance_data', {})
+    
+    # Berechne durchschnittliche Profit-Verbesserung
+    total_profit_improvement = 0
+    profit_count = 0
+    
+    for algo_name, algo_data in performance.items():
+        improvement = algo_data.get('profit_improvement_percent', 0)
+        if improvement > 0:
+            total_profit_improvement += improvement
+            profit_count += 1
+    
+    avg_profit_improvement = total_profit_improvement / profit_count if profit_count > 0 else 0
+    
+    # Sammle Switch-History (letzte 20)
+    switch_history = algorithm_switcher.switch_history[-20:] if algorithm_switcher.switch_history else []
+    
+    return {
+        'total_switches': analytics.get('total_switches', 0),
+        'current_best_algorithm': analytics.get('best_algorithm', 'unknown'),
+        'avg_profit_improvement': avg_profit_improvement,
+        'switch_history': switch_history,
+        'algorithm_count': len(performance),
+        'monitoring_active': analytics.get('monitoring_active', False)
+    }
+
 
 if __name__ == "__main__":
     print("CASH MONEY COLORS ORIGINAL (R) - ALGORITHM SWITCHER")

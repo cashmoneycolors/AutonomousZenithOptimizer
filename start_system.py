@@ -7,7 +7,7 @@ import time
 import threading
 from datetime import datetime
 
-print("🚀 AUTONOMOUS ZENITH OPTIMIZER - SYSTEM STARTUP")
+print("AUTONOMOUS ZENITH OPTIMIZER - SYSTEM STARTUP")
 print("=" * 60)
 print(f"⏰ Startup Zeit: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 

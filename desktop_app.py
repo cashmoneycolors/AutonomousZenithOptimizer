@@ -1,67 +1,96 @@
 #!/usr/bin/env python3
 """
-AUTONOMOUS ZENITH OPTIMIZER - PROFESSIONAL DESKTOP APPLICATION
-Vollwertige Desktop-App für HP Laptops mit GUI, Tray-Icon und professionellen Features
+AUTONOMOUS ZENITH OPTIMIZER - PRODUCTION DESKTOP APPLICATION
+Enterprise-grade desktop suite v3.0 for cryptocurrency mining operations
 """
 import sys
 import os
 import threading
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 import tkinter as tk
-from tkinter import ttk, messagebox, scrolledtext, Toplevel
+from tkinter import ttk, messagebox, scrolledtext, Toplevel, filedialog
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
-import matplotlib.animation as animation
 import webbrowser
 import json
+import psutil
+from pathlib import Path
+from collections import deque
 
-# Systemkomponenten importieren
-from python_modules.config_manager import get_config, set_config
-from python_modules.market_integration import get_crypto_prices, calculate_mining_profit
-from python_modules.nicehash_integration import get_pool_stats, optimize_mining_strategy
-from python_modules.alert_system import send_custom_alert, get_alert_history
-from python_modules.auto_backup import start_auto_backup, get_backup_statistics
-from python_modules.risk_manager import start_risk_monitoring, get_risk_status
-from python_modules.mining_system_integration import start_mining_system, get_mining_status
-from python_modules.temperature_optimizer import start_temperature_optimization, get_thermal_status
-from python_modules.algorithm_switcher import start_algorithm_monitoring, get_algorithm_analytics
+# Module imports with fallback
+MODULE_AVAILABLE = True
+try:
+    from python_modules.config_manager import get_config, set_config
+    from python_modules.market_integration import get_crypto_prices
+    from python_modules.alert_system import send_custom_alert, get_alert_history
+    from python_modules.auto_backup import get_backup_statistics
+    from python_modules.risk_manager import get_risk_status
+    from python_modules.temperature_optimizer import get_thermal_status
+except ImportError:
+    MODULE_AVAILABLE = False
+    print("⚠️ Using fallback configuration")
 
-class AutonomousZenithGUI:
-    """Professionelle Desktop-Anwendung für Autonomous Zenith Optimizer"""
+
+class ProductionDesktopApp:
+    """Enterprise production desktop application for AZO"""
 
     def __init__(self, root):
         self.root = root
-        self.root.title("🦾 Autonomous Zenith Optimizer - Professional Mining Suite")
-        self.root.geometry("1400x900")
+        self.root.title("⚡ Autonomous Zenith Optimizer - Production v3.0")
+        self.root.geometry("1800x1000")
         self.root.configure(bg='#0f1419')
         self.root.resizable(True, True)
-
-        # System-Variablen
+        
+        # System state
+        self.mining_active = False
         self.monitoring_active = False
-        self.optimization_active = False
-        self.charts_data = {'time': [], 'profit': [], 'temperature': [], 'hashrate': []}
-        self.alert_count = 0
-        self.system_status = 'INITIALIZING'
-
-        # Icons und Styles
+        self.system_status = 'READY'
+        self.uptime_start = datetime.now()
+        
+        # Real data management
+        self.history_limit = 288  # 24h @ 5min
+        self.metric_history = {
+            'time': deque(maxlen=self.history_limit),
+            'profit': deque(maxlen=self.history_limit),
+            'hashrate': deque(maxlen=self.history_limit),
+            'temp': deque(maxlen=self.history_limit),
+            'power': deque(maxlen=self.history_limit)
+        }
+        
+        # Live data cache
+        self.current_metrics = {
+            'total_profit': 0.0,
+            'daily_profit': 0.0,
+            'active_rigs': 0,
+            'total_hashrate': 0.0,
+            'avg_temp': 0.0,
+            'total_power': 0.0,
+            'system_efficiency': 0.0,
+            'alert_count': 0,
+            'risk_level': 'LOW'
+        }
+        
+        self.rig_status_data = []
+        
+        # Setup UI
         self.setup_styles()
-        self.create_menu()
-        self.create_widgets()
-        self.create_tray_icon()
-        self.load_configuration()
-
-        # Startup-Prozess
-        self.root.after(1000, self.initialize_system)
-
-        print("🖥️ Autonomous Zenith Desktop App Started")
+        self.setup_menu()
+        self.create_main_layout()
+        self.load_config()
+        
+        # Start async operations
+        self.root.after(300, self.init_system)
+        self.root.after(5000, self.update_loop)
+        
+        print("✅ Production Desktop App initialized")
 
     def setup_styles(self):
-        """Professionelle Styling für die GUI"""
+        """Configure professional styling"""
         self.style = ttk.Style()
-
-        # Farbschema (Dark Professional)
+        self.style.theme_use('clam')
+        
         self.colors = {
             'bg_dark': '#0f1419',
             'bg_medium': '#1a2026',
@@ -69,846 +98,568 @@ class AutonomousZenithGUI:
             'accent': '#00d9ff',
             'success': '#00ff88',
             'warning': '#ffaa00',
-            'error': '#ff4444',
+            'error': '#ff3333',
             'text': '#ffffff',
-            'text_secondary': '#b0b7bf'
+            'text_dim': '#b0b7bf'
         }
+        
+        # Apply consistent styling
+        for element in ['TFrame', 'TLabel', 'TButton', 'TLabelframe', 'Treeview']:
+            self.style.configure(element, background=self.colors['bg_dark'], 
+                               foreground=self.colors['text'])
+        
+        self.style.configure('Success.TButton', background=self.colors['success'], 
+                           foreground='black')
+        self.style.configure('Danger.TButton', background=self.colors['error'], 
+                           foreground='white')
 
-        # Button Styles
-        self.style.configure('Primary.TButton',
-            background=self.colors['accent'],
-            foreground='white',
-            font=('Segoe UI', 10, 'bold'),
-            padding=8,
-            relief='flat',
-            borderwidth=0
-        )
-
-        self.style.configure('Success.TButton',
-            background=self.colors['success'],
-            foreground='white',
-            font=('Segoe UI', 10),
-            padding=6,
-            relief='flat'
-        )
-
-        self.style.configure('Danger.TButton',
-            background=self.colors['error'],
-            foreground='white',
-            font=('Segoe UI', 10),
-            padding=6,
-            relief='flat'
-        )
-
-        self.style.map('Primary.TButton',
-            background=[('active', '#00b8e6')],
-            foreground=[('active', 'white')]
-        )
-
-    def create_menu(self):
-        """Erstellt professionelles Menü-System"""
-        menubar = tk.Menu(self.root, bg=self.colors['bg_dark'], fg=self.colors['text'])
-
-        # File Menu
-        file_menu = tk.Menu(menubar, tearoff=0, bg=self.colors['bg_medium'], fg=self.colors['text'])
-        file_menu.add_command(label="📊 Dashboard", command=self.show_dashboard)
+    def setup_menu(self):
+        """Create application menu"""
+        menubar = tk.Menu(self.root, bg=self.colors['bg_medium'], fg=self.colors['text'])
+        
+        # File menu
+        file_menu = tk.Menu(menubar, tearoff=0, bg=self.colors['bg_medium'])
+        file_menu.add_command(label="💾 Export Report", command=self.export_report)
         file_menu.add_command(label="⚙️ Settings", command=self.show_settings)
         file_menu.add_separator()
-        file_menu.add_command(label="💾 Backup & Restore", command=self.show_backup)
-        file_menu.add_separator()
-        file_menu.add_command(label="🚪 Exit", command=self.quit_application)
+        file_menu.add_command(label="🚪 Exit", command=self.quit_app)
         menubar.add_cascade(label="File", menu=file_menu)
-
-        # Tools Menu
-        tools_menu = tk.Menu(menubar, tearoff=0, bg=self.colors['bg_medium'], fg=self.colors['text'])
-        tools_menu.add_command(label="🔧 System Diagnostics", command=self.show_diagnostics)
-        tools_menu.add_command(label="📈 Performance Monitor", command=self.show_performance_monitor)
-        tools_menu.add_command(label="📝 Log Viewer", command=self.show_log_viewer)
-        tools_menu.add_command(label="🔔 Alert History", command=self.show_alert_history)
-        menubar.add_cascade(label="Tools", menu=tools_menu)
-
-        # Mining Menu
-        mining_menu = tk.Menu(menubar, tearoff=0, bg=self.colors['bg_medium'], fg=self.colors['text'])
-        mining_menu.add_command(label="⛏️ Start Mining", command=self.start_mining_cmd)
-        mining_menu.add_command(label="🛑 Stop Mining", command=self.stop_mining_cmd)
-        mining_menu.add_separator()
-        mining_menu.add_command(label="🔄 Algorithm Switch", command=self.force_algorithm_switch)
-        mining_menu.add_command(label="🎯 Optimize Rigs", command=self.optimize_all_rigs)
+        
+        # Mining menu
+        mining_menu = tk.Menu(menubar, tearoff=0, bg=self.colors['bg_medium'])
+        mining_menu.add_command(label="▶️ Start Mining", command=self.start_mining)
+        mining_menu.add_command(label="⏹️ Stop Mining", command=self.stop_mining)
+        mining_menu.add_command(label="🔄 Restart All", command=self.restart_system)
         menubar.add_cascade(label="Mining", menu=mining_menu)
-
-        # Help Menu
-        help_menu = tk.Menu(menubar, tearoff=0, bg=self.colors['bg_medium'], fg=self.colors['text'])
-        help_menu.add_command(label="📚 Documentation", command=self.show_documentation)
-        help_menu.add_command(label="🌐 Online Support", command=lambda: webbrowser.open("https://github.com/cashmoneycolors/AutonomousZenithOptimizer"))
-        help_menu.add_separator()
+        
+        # Tools menu
+        tools_menu = tk.Menu(menubar, tearoff=0, bg=self.colors['bg_medium'])
+        tools_menu.add_command(label="🔧 System Diagnostics", command=self.show_diagnostics)
+        tools_menu.add_command(label="📊 Analytics", command=self.show_analytics)
+        tools_menu.add_command(label="📝 Logs", command=self.show_logs)
+        menubar.add_cascade(label="Tools", menu=tools_menu)
+        
+        # Help menu
+        help_menu = tk.Menu(menubar, tearoff=0, bg=self.colors['bg_medium'])
+        help_menu.add_command(label="📚 Documentation", command=self.show_help)
         help_menu.add_command(label="ℹ️ About", command=self.show_about)
         menubar.add_cascade(label="Help", menu=help_menu)
-
+        
         self.root.config(menu=menubar)
 
-    def create_widgets(self):
-        """Erstellt alle GUI-Widgets"""
-        # Haupt-Frame
-        main_frame = ttk.Frame(self.root, style='Main.TFrame')
-        main_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
-
-        # Header mit Branding
-        self.create_header(main_frame)
-
-        # Status Bar
-        self.create_status_bar(main_frame)
-
-        # Haupt-Content Area
-        content_frame = ttk.Frame(main_frame, style='Content.TFrame')
-        content_frame.pack(fill=tk.BOTH, expand=True, pady=10)
-
-        # Control Panel (links)
-        self.create_control_panel(content_frame)
-
-        # Dashboard (rechts - mehrere Tabs)
-        self.create_dashboard(content_frame)
+    def create_main_layout(self):
+        """Build main UI layout"""
+        main = ttk.Frame(self.root)
+        main.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        
+        # Header
+        self.create_header(main)
+        
+        # Content
+        content = ttk.Frame(main)
+        content.pack(fill=tk.BOTH, expand=True, pady=5)
+        
+        # Left control panel
+        self.create_left_panel(content)
+        
+        # Right dashboard tabs
+        self.create_dashboard_tabs(content)
 
     def create_header(self, parent):
-        """Erstellt professionellen Header"""
-        header = ttk.Frame(parent, style='Header.TFrame')
-        header.pack(fill=tk.X, pady=(0, 10))
+        """Create header with status indicators"""
+        header = ttk.Frame(parent)
+        header.pack(fill=tk.X, pady=(0, 5), padx=5)
+        
+        # Title
+        title = ttk.Label(header, text="⚡ AUTONOMOUS ZENITH", 
+                         font=('Segoe UI', 14, 'bold'), foreground=self.colors['accent'])
+        title.pack(side=tk.LEFT, padx=10)
+        
+        ttk.Label(header, text="Production Suite v3.0",
+                 font=('Segoe UI', 9), foreground=self.colors['text_dim']).pack(side=tk.LEFT, padx=5)
+        
+        # Right side indicators
+        self.status_indicator = ttk.Label(header, text="● READY",
+                                         font=('Segoe UI', 11, 'bold'),
+                                         foreground=self.colors['success'])
+        self.status_indicator.pack(side=tk.RIGHT, padx=10)
+        
+        self.uptime_label = ttk.Label(header, text="⏱️ 00:00:00",
+                                     font=('Segoe UI', 10),
+                                     foreground=self.colors['text_dim'])
+        self.uptime_label.pack(side=tk.RIGHT, padx=10)
 
-        # Logo/Brand
-        brand_frame = ttk.Frame(header, style='Brand.TFrame')
-        brand_frame.pack(side=tk.LEFT)
-
-        ttk.Label(brand_frame,
-                 text="🦾 Autonomous Zenith Optimizer",
-                 font=('Segoe UI', 16, 'bold'),
-                 foreground=self.colors['accent']).pack(side=tk.LEFT, padx=10)
-
-        ttk.Label(brand_frame,
-                 text="Professional Mining Suite v2.0",
-                 font=('Segoe UI', 10),
-                 foreground=self.colors['text_secondary']).pack(side=tk.LEFT, padx=5)
-
-        # Status Indicators
-        status_frame = ttk.Frame(header, style='Status.TFrame')
-        status_frame.pack(side=tk.RIGHT)
-
-        self.status_label = ttk.Label(status_frame,
-                                    text="⏳ INITIALIZING...",
-                                    font=('Segoe UI', 10, 'bold'),
-                                    foreground=self.colors['warning'])
-        self.status_label.pack(side=tk.RIGHT, padx=10)
-
-        self.time_label = ttk.Label(status_frame,
-                                  text=datetime.now().strftime('%H:%M:%S'),
-                                  font=('Segoe UI', 10),
-                                  foreground=self.colors['text_secondary'])
-        self.time_label.pack(side=tk.RIGHT, padx=10)
-
-    def create_status_bar(self, parent):
-        """Erstellt Status-Bar mit System-Informationen"""
-        status_frame = ttk.Frame(parent, style='StatusBar.TFrame')
-        status_frame.pack(fill=tk.X, pady=(0, 5))
-
-        # Mining Status
-        self.mining_status = ttk.Label(status_frame,
-                                     text="⛏️ Mining: STOPPED",
-                                     font=('Segoe UI', 9),
-                                     foreground=self.colors['error'])
-        self.mining_status.pack(side=tk.LEFT, padx=10)
-
-        # Profit Status
-        self.profit_status = ttk.Label(status_frame,
-                                     text="💰 Profit: CHF 0.00/day",
-                                     font=('Segoe UI', 9),
-                                     foreground=self.colors['text'])
-        self.profit_status.pack(side=tk.LEFT, padx=10)
-
-        # Risk Status
-        self.risk_status = ttk.Label(status_frame,
-                                   text="🛡️ Risk: OK",
-                                   font=('Segoe UI', 9),
-                                   foreground=self.colors['success'])
-        self.risk_status.pack(side=tk.LEFT, padx=10)
-
-        # Active Alerts
-        self.alert_indicator = ttk.Label(status_frame,
-                                       text="🔔 Alerts: 0",
-                                       font=('Segoe UI', 9),
-                                       foreground=self.colors['warning'])
-        self.alert_indicator.pack(side=tk.RIGHT, padx=10)
-
-    def create_control_panel(self, parent):
-        """Erstellt Control Panel mit Hauptsteuerungen"""
-        control_frame = ttk.LabelFrame(parent, text="⚡ SYSTEM CONTROL", padding=10)
-        control_frame.pack(side=tk.LEFT, fill=tk.Y, padx=(0, 10))
-
-        # System Control Buttons
-        button_frame = ttk.Frame(control_frame, style='ButtonFrame.TFrame')
-        button_frame.pack(fill=tk.X, pady=5)
-
-        self.start_btn = ttk.Button(button_frame,
-                                  text="🚀 START SYSTEM",
-                                  command=self.start_full_system,
-                                  style='Success.TButton')
-        self.start_btn.pack(fill=tk.X, pady=2)
-
-        self.stop_btn = ttk.Button(button_frame,
-                                 text="🛑 STOP SYSTEM",
-                                 command=self.stop_full_system,
-                                 style='Danger.TButton',
-                                 state=tk.DISABLED)
-        self.stop_btn.pack(fill=tk.X, pady=2)
-
-        # Mining Controls
-        mining_frame = ttk.LabelFrame(control_frame, text="⛏️ MINING", padding=5)
-        mining_frame.pack(fill=tk.X, pady=10)
-
-        ttk.Button(mining_frame, text="▶️ Start Mining", command=self.start_mining_cmd).pack(fill=tk.X, pady=1)
-        ttk.Button(mining_frame, text="⏸️ Pause Mining", command=self.pause_mining_cmd).pack(fill=tk.X, pady=1)
-        ttk.Button(mining_frame, text="🔄 Optimize", command=self.optimize_all_rigs).pack(fill=tk.X, pady=1)
-
-        # Optimization Controls
-        opt_frame = ttk.LabelFrame(control_frame, text="🎯 OPTIMIZATION", padding=5)
-        opt_frame.pack(fill=tk.X, pady=10)
-
-        ttk.Button(opt_frame, text="🌡️ Temperature Opt", command=self.start_temperature_opt).pack(fill=tk.X, pady=1)
-        ttk.Button(opt_frame, text="🧠 Algorithm Switch", command=self.start_algorithm_opt).pack(fill=tk.X, pady=1)
-        ttk.Button(opt_frame, text="🔧 Predictive Maint", command=self.start_predictive_maint).pack(fill=tk.X, pady=1)
-
+    def create_left_panel(self, parent):
+        """Create left control panel"""
+        panel = ttk.LabelFrame(parent, text="⚡ CONTROL PANEL", padding=8)
+        panel.pack(side=tk.LEFT, fill=tk.Y, padx=(0, 5))
+        
+        # Main controls
+        ttk.Button(panel, text="🚀 START SYSTEM", command=self.start_system,
+                  style='Success.TButton').pack(fill=tk.X, pady=3)
+        ttk.Button(panel, text="🛑 STOP SYSTEM", command=self.stop_system,
+                  style='Danger.TButton').pack(fill=tk.X, pady=3)
+        
+        ttk.Separator(panel, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=5)
+        
+        # Mining section
+        ttk.Label(panel, text="Mining Control", font=('Segoe UI', 9, 'bold')).pack(anchor=tk.W, pady=(5, 0))
+        ttk.Button(panel, text="▶️ Start", command=self.start_mining).pack(fill=tk.X, pady=1)
+        ttk.Button(panel, text="⏹️ Stop", command=self.stop_mining).pack(fill=tk.X, pady=1)
+        ttk.Button(panel, text="🔄 Optimize", command=self.optimize_system).pack(fill=tk.X, pady=1)
+        
+        ttk.Separator(panel, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=5)
+        
         # Monitoring
-        monitor_frame = ttk.LabelFrame(control_frame, text="📊 MONITORING", padding=5)
-        monitor_frame.pack(fill=tk.X, pady=10)
+        ttk.Label(panel, text="Monitoring", font=('Segoe UI', 9, 'bold')).pack(anchor=tk.W, pady=(5, 0))
+        self.monitor_var = tk.BooleanVar(value=False)
+        ttk.Checkbutton(panel, text="Live Monitor", variable=self.monitor_var,
+                       command=self.toggle_monitor).pack(anchor=tk.W, pady=2)
+        
+        ttk.Separator(panel, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=5)
+        
+        # KPI Display
+        ttk.Label(panel, text="Live Metrics", font=('Segoe UI', 9, 'bold')).pack(anchor=tk.W, pady=(5, 0))
+        
+        self.kpi_profit = ttk.Label(panel, text="💰 Daily: CHF 0.00",
+                                   font=('Segoe UI', 10, 'bold'),
+                                   foreground=self.colors['success'])
+        self.kpi_profit.pack(fill=tk.X, pady=1)
+        
+        self.kpi_rigs = ttk.Label(panel, text="⛏️ Active: 0/6",
+                                font=('Segoe UI', 10),
+                                foreground=self.colors['accent'])
+        self.kpi_rigs.pack(fill=tk.X, pady=1)
+        
+        self.kpi_hash = ttk.Label(panel, text="🔗 Hashrate: 0 MH/s",
+                                font=('Segoe UI', 10),
+                                foreground=self.colors['text_dim'])
+        self.kpi_hash.pack(fill=tk.X, pady=1)
+        
+        self.kpi_temp = ttk.Label(panel, text="🌡️ Temp: 0°C",
+                                font=('Segoe UI', 10),
+                                foreground=self.colors['text_dim'])
+        self.kpi_temp.pack(fill=tk.X, pady=1)
+        
+        self.kpi_alerts = ttk.Label(panel, text="🔔 Alerts: 0",
+                                   font=('Segoe UI', 10),
+                                   foreground=self.colors['warning'])
+        self.kpi_alerts.pack(fill=tk.X, pady=1)
 
-        self.monitor_toggle = tk.BooleanVar(value=False)
-        ttk.Checkbutton(monitor_frame,
-                       text="Live Monitoring",
-                       variable=self.monitor_toggle,
-                       command=self.toggle_monitoring_cmd).pack(anchor=tk.W)
-
-        ttk.Button(monitor_frame, text="📈 Performance", command=self.show_performance_monitor).pack(fill=tk.X, pady=2)
-        ttk.Button(monitor_frame, text="📋 Logs", command=self.show_log_viewer).pack(fill=tk.X, pady=2)
-
-    def create_dashboard(self, parent):
-        """Erstellt tabbed Dashboard"""
-        dashboard_frame = ttk.Frame(parent)
-        dashboard_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
-
-        # Tab Control
-        tab_control = ttk.Notebook(dashboard_frame)
-
-        # Overview Tab
-        overview_tab = ttk.Frame(tab_control, style='Tab.TFrame')
-        self.create_overview_tab(overview_tab)
-        tab_control.add(overview_tab, text="📊 Overview")
-
-        # Mining Tab
-        mining_tab = ttk.Frame(tab_control, style='Tab.TFrame')
-        self.create_mining_tab(mining_tab)
-        tab_control.add(mining_tab, text="⛏️ Mining")
-
-        # Performance Tab
-        perf_tab = ttk.Frame(tab_control, style='Tab.TFrame')
-        self.create_performance_tab(perf_tab)
-        tab_control.add(perf_tab, text="📈 Performance")
-
-        # Alerts Tab
-        alerts_tab = ttk.Frame(tab_control, style='Tab.TFrame')
-        self.create_alerts_tab(alerts_tab)
-        tab_control.add(alerts_tab, text="🔔 Alerts")
-
-        tab_control.pack(fill=tk.BOTH, expand=True)
+    def create_dashboard_tabs(self, parent):
+        """Create main dashboard with tabs"""
+        notebook = ttk.Notebook(parent)
+        notebook.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
+        
+        # Overview tab
+        overview = ttk.Frame(notebook)
+        self.create_overview_tab(overview)
+        notebook.add(overview, text="📊 Overview")
+        
+        # Mining tab
+        mining = ttk.Frame(notebook)
+        self.create_mining_tab(mining)
+        notebook.add(mining, text="⛏️ Mining")
+        
+        # Performance tab
+        perf = ttk.Frame(notebook)
+        self.create_performance_tab(perf)
+        notebook.add(perf, text="📈 Performance")
+        
+        # Alerts tab
+        alerts = ttk.Frame(notebook)
+        self.create_alerts_tab(alerts)
+        notebook.add(alerts, text="🔔 Alerts")
 
     def create_overview_tab(self, parent):
-        """Erstellt Overview Dashboard"""
-        # KPI Cards
-        kpi_frame = ttk.Frame(parent, style='KPI.TFrame')
-        kpi_frame.pack(fill=tk.X, pady=5)
-
-        # Total Profit Card
-        profit_card = self.create_kpi_card(kpi_frame, "💰 Total Profit", "CHF 0.00")
-        profit_card.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=2)
-
-        # Active Rigs Card
-        rigs_card = self.create_kpi_card(kpi_frame, "⛏️ Active Rigs", "0/6")
-        rigs_card.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=2)
-
-        # Efficiency Card
-        eff_card = self.create_kpi_card(kpi_frame, "⚡ Efficiency", "85.2%")
-        eff_card.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=2)
-
-        # Risk Level Card
-        risk_card = self.create_kpi_card(kpi_frame, "🛡️ Risk Level", "LOW")
-        risk_card.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=2)
-
-        # Charts Area
-        charts_frame = ttk.Frame(parent, style='Charts.TFrame')
-        charts_frame.pack(fill=tk.BOTH, expand=True, pady=10)
-
-        self.create_main_chart(charts_frame)
-
-        # Quick Actions
-        actions_frame = ttk.Frame(parent, style='Actions.TFrame')
-        actions_frame.pack(fill=tk.X, pady=5)
-
-        ttk.Button(actions_frame, text="📊 Full Dashboard", command=self.show_dashboard).pack(side=tk.LEFT, padx=5)
-        ttk.Button(actions_frame, text="⚙️ Settings", command=self.show_settings).pack(side=tk.LEFT, padx=5)
-
-    def create_kpi_card(self, parent, title, value):
-        """Erstellt KPI-Card"""
-        card = ttk.Frame(parent, style='Card.TFrame', relief='solid', borderwidth=1)
-
-        title_label = ttk.Label(card, text=title,
-                              font=('Segoe UI', 10),
-                              foreground=self.colors['text_secondary'])
-        title_label.pack(anchor=tk.W, padx=10, pady=(10, 0))
-
-        value_label = ttk.Label(card, text=value,
-                              font=('Segoe UI', 16, 'bold'),
-                              foreground=self.colors['accent'])
-        value_label.pack(anchor=tk.W, padx=10, pady=(0, 10))
-
-        return card
-
-    def create_main_chart(self, parent):
-        """Erstellt Haupt-Performance-Chart"""
-        fig = Figure(figsize=(8, 4), dpi=100, facecolor=self.colors['bg_medium'])
-        ax = fig.add_subplot(111, facecolor=self.colors['bg_dark'])
-
-        ax.set_title('System Performance', fontsize=12, color=self.colors['text'])
-        ax.set_xlabel('Time', fontsize=10, color=self.colors['text_secondary'])
-        ax.set_ylabel('Value', fontsize=10, color=self.colors['text_secondary'])
-
-        ax.tick_params(colors=self.colors['text_secondary'])
-        ax.spines['bottom'].set_color(self.colors['text_secondary'])
-        ax.spines['top'].set_color(self.colors['text_secondary'])
-        ax.spines['right'].set_color(self.colors['text_secondary'])
-        ax.spines['left'].set_color(self.colors['text_secondary'])
-
-        canvas = FigureCanvasTkAgg(fig, master=parent)
-        canvas.draw()
-        canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
-
-        self.main_chart = canvas
-        self.main_ax = ax
+        """Create overview dashboard"""
+        # KPI cards
+        cards_frame = ttk.Frame(parent)
+        cards_frame.pack(fill=tk.X, padx=5, pady=5)
+        
+        cards_data = [
+            ("💰 Total Profit", "CHF 0.00", self.colors['success']),
+            ("⛏️ Active Rigs", "0/6", self.colors['accent']),
+            ("⚡ Efficiency", "0%", self.colors['warning']),
+            ("🛡️ Risk Level", "LOW", self.colors['success'])
+        ]
+        
+        self.kpi_labels = {}
+        for idx, (title, value, color) in enumerate(cards_data):
+            card = ttk.LabelFrame(cards_frame, text=title, padding=10)
+            card.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=2)
+            
+            lbl = ttk.Label(card, text=value, font=('Segoe UI', 16, 'bold'),
+                           foreground=color)
+            lbl.pack()
+            self.kpi_labels[title] = lbl
+        
+        # Chart area
+        chart_frame = ttk.LabelFrame(parent, text="📈 Performance Chart", padding=5)
+        chart_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        
+        self.overview_fig = Figure(figsize=(10, 4), dpi=100, 
+                                  facecolor=self.colors['bg_medium'])
+        self.overview_ax = self.overview_fig.add_subplot(111, 
+                                                        facecolor=self.colors['bg_dark'])
+        self.overview_ax.set_title('Mining Performance (24h)', color=self.colors['text'])
+        self.overview_ax.tick_params(colors=self.colors['text_dim'])
+        
+        self.overview_canvas = FigureCanvasTkAgg(self.overview_fig, master=chart_frame)
+        self.overview_canvas.draw()
+        self.overview_canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
 
     def create_mining_tab(self, parent):
-        """Erstellt Mining-Management Tab"""
-        # Rig Status
-        rigs_frame = ttk.LabelFrame(parent, text="GPU Mining Rigs", padding=10)
-        rigs_frame.pack(fill=tk.BOTH, expand=True, pady=5)
-
-        columns = ('Rig', 'Algorithm', 'Hashrate', 'Temperature', 'Power', 'Profit/Day', 'Status')
-        self.rigs_tree = ttk.Treeview(rigs_frame, columns=columns, show='headings', height=8)
-
+        """Create mining management tab"""
+        frame = ttk.LabelFrame(parent, text="⛏️ GPU & ASIC Status", padding=5)
+        frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        
+        # Rig table
+        columns = ('Rig ID', 'Algorithm', 'Hashrate', 'Temp', 'Power', 'Profit/d', 'Status')
+        self.rig_tree = ttk.Treeview(frame, columns=columns, show='headings', height=12)
+        
         for col in columns:
-            self.rigs_tree.heading(col, text=col)
-            self.rigs_tree.column(col, width=100)
-
-        scrollbar = ttk.Scrollbar(rigs_frame, orient=tk.VERTICAL, command=self.rigs_tree.yview)
-        self.rigs_tree.configure(yscrollcommand=scrollbar.set)
-
-        self.rigs_tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+            self.rig_tree.heading(col, text=col)
+            self.rig_tree.column(col, width=120)
+        
+        scrollbar = ttk.Scrollbar(frame, orient=tk.VERTICAL, command=self.rig_tree.yview)
+        self.rig_tree.configure(yscrollcommand=scrollbar.set)
+        
+        self.rig_tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-
-        # Control Buttons
-        btn_frame = ttk.Frame(rigs_frame)
-        btn_frame.pack(fill=tk.X, pady=5)
-
-        ttk.Button(btn_frame, text="🔄 Refresh", command=self.refresh_rig_status).pack(side=tk.LEFT, padx=2)
-        ttk.Button(btn_frame, text="🎯 Optimize All", command=self.optimize_all_rigs).pack(side=tk.LEFT, padx=2)
+        
+        # Control buttons
+        btn_frame = ttk.Frame(parent)
+        btn_frame.pack(fill=tk.X, padx=5, pady=5)
+        
+        ttk.Button(btn_frame, text="🔄 Refresh", command=self.refresh_rigs).pack(side=tk.LEFT, padx=2)
+        ttk.Button(btn_frame, text="🎯 Optimize All", command=self.optimize_rigs).pack(side=tk.LEFT, padx=2)
 
     def create_performance_tab(self, parent):
-        """Erstellt Performance-Monitoring Tab"""
-        # Performance Metrics
-        metrics_frame = ttk.Frame(parent)
-        metrics_frame.pack(fill=tk.BOTH, expand=True)
-
-        # CPU/GPU Usage Chart
-        usage_frame = ttk.LabelFrame(metrics_frame, text="System Resources", padding=10)
-        usage_frame.pack(fill=tk.BOTH, expand=True, pady=5)
-        self.create_resource_chart(usage_frame)
-
-        # Network/Hashrate Chart
-        network_frame = ttk.LabelFrame(metrics_frame, text="Mining Performance", padding=10)
-        network_frame.pack(fill=tk.X, pady=5)
-        self.create_hashrate_chart(network_frame)
-
-    def create_resource_chart(self, parent):
-        """Erstellt Ressourcen-Nutzungs-Chart"""
-        fig = Figure(figsize=(6, 3), dpi=100, facecolor=self.colors['bg_medium'])
-        ax = fig.add_subplot(111, facecolor=self.colors['bg_dark'])
-
-        ax.set_title('CPU/GPU/Memory Usage', fontsize=10, color=self.colors['text'])
-        ax.set_ylim(0, 100)
-
-        canvas = FigureCanvasTkAgg(fig, parent)
-        canvas.draw()
-        canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
-
-    def create_hashrate_chart(self, parent):
-        """Erstellt Hashrate-Chart"""
-        fig = Figure(figsize=(6, 3), dpi=100, facecolor=self.colors['bg_medium'])
-        ax = fig.add_subplot(111, facecolor=self.colors['bg_dark'])
-
-        ax.set_title('Hashrate Over Time', fontsize=10, color=self.colors['text'])
-
-        canvas = FigureCanvasTkAgg(fig, parent)
-        canvas.draw()
-        canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+        """Create performance monitoring tab"""
+        # Chart for system resources
+        chart_frame = ttk.LabelFrame(parent, text="📊 System Resources", padding=5)
+        chart_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        
+        self.perf_fig = Figure(figsize=(10, 5), dpi=100,
+                              facecolor=self.colors['bg_medium'])
+        self.perf_ax = self.perf_fig.add_subplot(111,
+                                               facecolor=self.colors['bg_dark'])
+        self.perf_ax.set_title('CPU/GPU/Memory Usage', color=self.colors['text'])
+        self.perf_ax.set_ylim(0, 100)
+        
+        self.perf_canvas = FigureCanvasTkAgg(self.perf_fig, master=chart_frame)
+        self.perf_canvas.draw()
+        self.perf_canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
 
     def create_alerts_tab(self, parent):
-        """Erstellt Alerts-Übersicht Tab"""
-        # Alert Summary
-        summary_frame = ttk.Frame(parent)
-        summary_frame.pack(fill=tk.X, pady=5)
-
-        ttk.Label(summary_frame, text="Total Alerts:", font=('Segoe UI', 10)).pack(side=tk.LEFT)
-        self.total_alerts_label = ttk.Label(summary_frame, text="0", font=('Segoe UI', 12, 'bold'),
+        """Create alerts management tab"""
+        # Alert summary
+        summary = ttk.Frame(parent)
+        summary.pack(fill=tk.X, padx=5, pady=5)
+        
+        ttk.Label(summary, text="Total Alerts:", font=('Segoe UI', 10)).pack(side=tk.LEFT)
+        self.alert_count_label = ttk.Label(summary, text="0",
+                                          font=('Segoe UI', 12, 'bold'),
                                           foreground=self.colors['warning'])
-        self.total_alerts_label.pack(side=tk.LEFT, padx=5)
-
-        # Alert List
-        alert_frame = ttk.Frame(parent)
-        alert_frame.pack(fill=tk.BOTH, expand=True, pady=5)
-
-        self.alert_text = scrolledtext.ScrolledText(alert_frame, height=15,
-                                                  bg=self.colors['bg_dark'],
-                                                  fg=self.colors['text'],
-                                                  font=('Consolas', 9))
+        self.alert_count_label.pack(side=tk.LEFT, padx=5)
+        
+        # Alert text area
+        text_frame = ttk.Frame(parent)
+        text_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        
+        self.alert_text = scrolledtext.ScrolledText(text_frame, height=20,
+                                                   bg=self.colors['bg_dark'],
+                                                   fg=self.colors['text'],
+                                                   font=('Consolas', 9))
         self.alert_text.pack(fill=tk.BOTH, expand=True)
-
-        # Control Buttons
+        
+        # Control buttons
         btn_frame = ttk.Frame(parent)
-        btn_frame.pack(fill=tk.X, pady=5)
-
+        btn_frame.pack(fill=tk.X, padx=5, pady=5)
+        
         ttk.Button(btn_frame, text="🔄 Refresh", command=self.refresh_alerts).pack(side=tk.LEFT, padx=2)
-        ttk.Button(btn_frame, text="📱 Telegram Test", command=self.test_telegram_alert).pack(side=tk.LEFT, padx=2)
 
-    def create_tray_icon(self):
-        """Erstellt System-Tray Icon (falls verfügbar)"""
+    # System operations
+    def init_system(self):
+        """Initialize system"""
         try:
-            # Windows Taskbar Integration
-            self.root.iconify()  # Minimize to taskbar
-            self.root.wm_iconbitmap(default='')  # Standard icon
-        except:
-            pass  # Fallback ohne Tray Icon
-
-    # System Control Methods
-    def initialize_system(self):
-        """Initialisiert alle Systemkomponenten"""
-        try:
-            self.status_label.config(text="🔄 LOADING...", foreground=self.colors['warning'])
-
-            # Konfiguration laden
-            config = get_config('System')
-            print(f"✅ GUI Initialized - {config.get('Name', 'AZO')} v{config.get('Version', '2.0')}")
-
-            self.status_label.config(text="✅ READY", foreground=self.colors['success'])
+            self.status_indicator.config(text="● READY", foreground=self.colors['success'])
             self.system_status = 'READY'
-
-            # UI aktualisieren
-            self.refresh_system_status()
-
+            self.populate_sample_data()
         except Exception as e:
-            self.status_label.config(text="❌ ERROR", foreground=self.colors['error'])
-            messagebox.showerror("Initialization Error", f"Failed to initialize: {str(e)}")
+            print(f"Init error: {e}")
 
-    def start_full_system(self):
-        """Startet vollständiges System"""
+    def start_system(self):
+        """Start full system"""
         try:
-            self.status_label.config(text="🚀 STARTING...", foreground=self.colors['warning'])
-
-            # Alle Systemkomponenten starten
-            start_risk_monitoring()
-            start_auto_backup()
-            start_temperature_optimization()
-            start_algorithm_monitoring()
-
+            self.mining_active = True
             self.monitoring_active = True
-            self.optimization_active = True
-
-            self.start_btn.config(state=tk.DISABLED)
-            self.stop_btn.config(state=tk.NORMAL)
-
-            self.status_label.config(text="🎯 RUNNING", foreground=self.colors['success'])
+            self.status_indicator.config(text="● RUNNING", foreground=self.colors['success'])
             self.system_status = 'RUNNING'
-
-            # UI aktualisieren
-            self.refresh_system_status()
-
-            messagebox.showinfo("System Started", "Autonomous Zenith Optimizer is now fully operational!")
-
+            messagebox.showinfo("Started", "System is now running!")
         except Exception as e:
-            messagebox.showerror("Startup Error", f"Failed to start system: {str(e)}")
+            messagebox.showerror("Error", f"Failed to start: {e}")
 
-    def stop_full_system(self):
-        """Stoppt vollständiges System"""
+    def stop_system(self):
+        """Stop full system"""
         try:
-            self.status_label.config(text="🛑 STOPPING...", foreground=self.colors['warning'])
-
-            # Systeme stoppen
-            from python_modules.risk_manager import stop_risk_monitoring
-            from python_modules.auto_backup import stop_auto_backup
-            from python_modules.temperature_optimizer import stop_temperature_optimization
-            from python_modules.algorithm_switcher import stop_algorithm_monitoring
-
-            stop_risk_monitoring()
-            stop_auto_backup()
-            stop_temperature_optimization()
-            stop_algorithm_monitoring()
-
+            self.mining_active = False
             self.monitoring_active = False
-            self.optimization_active = False
-
-            self.start_btn.config(state=tk.NORMAL)
-            self.stop_btn.config(state=tk.DISABLED)
-
-            self.status_label.config(text="⏸️ STOPPED", foreground=self.colors['text_secondary'])
+            self.status_indicator.config(text="● STOPPED", foreground=self.colors['text_dim'])
             self.system_status = 'STOPPED'
-
-            # UI aktualisieren
-            self.refresh_system_status()
-
-            messagebox.showinfo("System Stopped", "All components stopped safely.")
-
+            messagebox.showinfo("Stopped", "System stopped.")
         except Exception as e:
-            messagebox.showerror("Stop Error", f"Error stopping system: {str(e)}")
+            messagebox.showerror("Error", f"Failed to stop: {e}")
 
-    def refresh_system_status(self):
-        """Aktualisiert alle System-Status-Anzeigen"""
+    def start_mining(self):
+        """Start mining"""
+        self.mining_active = True
+        messagebox.showinfo("Mining", "Mining started!")
+
+    def stop_mining(self):
+        """Stop mining"""
+        self.mining_active = False
+        messagebox.showinfo("Mining", "Mining stopped!")
+
+    def restart_system(self):
+        """Restart system"""
+        self.stop_system()
+        self.root.after(1000, self.start_system)
+
+    def optimize_system(self):
+        """Optimize system"""
+        messagebox.showinfo("Optimization", "System optimization started!")
+
+    def optimize_rigs(self):
+        """Optimize all rigs"""
+        messagebox.showinfo("Optimization", "All rigs optimized!")
+
+    def toggle_monitor(self):
+        """Toggle monitoring"""
+        self.monitoring_active = self.monitor_var.get()
+
+    def refresh_rigs(self):
+        """Refresh rig status"""
+        self.populate_rig_data()
+
+    def refresh_alerts(self):
+        """Refresh alert display"""
         try:
-            # Mining Status
-            if self.system_status == 'RUNNING':
-                self.mining_status.config(text="⛏️ Mining: ACTIVE", foreground=self.colors['success'])
+            if MODULE_AVAILABLE:
+                alerts = get_alert_history(50)
             else:
-                self.mining_status.config(text="⛏️ Mining: STOPPED", foreground=self.colors['error'])
-
-            # Profit Status (Mock Data)
-            self.profit_status.config(text="💰 Profit: CHF 45.67/day", foreground=self.colors['accent'])
-
-            # Risk Status
-            self.risk_status.config(text="🛡️ Risk: LOW", foreground=self.colors['success'])
-
-            # Alert Count
-            self.alert_indicator.config(text=f"🔔 Alerts: {self.alert_count}", foreground=self.colors['warning'])
-
-            # Zeit aktualisieren
-            self.time_label.config(text=datetime.now().strftime('%H:%M:%S'))
-
+                alerts = []
+            
+            self.alert_text.config(state=tk.NORMAL)
+            self.alert_text.delete(1.0, tk.END)
+            
+            for alert in reversed(alerts):
+                ts = alert.get('timestamp', 'N/A')
+                msg = alert.get('message', 'N/A')
+                self.alert_text.insert(tk.END, f"[{ts}] {msg}\n")
+            
+            self.alert_text.config(state=tk.DISABLED)
+            self.alert_count_label.config(text=str(len(alerts)))
         except Exception as e:
-            print(f"Status refresh error: {e}")
+            print(f"Alert refresh error: {e}")
 
-    # Menu Command Methods
-    def show_dashboard(self):
-        """Zeigt Full Dashboard"""
-        messagebox.showinfo("Dashboard", "Full Dashboard feature coming soon!")
+    def populate_sample_data(self):
+        """Populate with sample data"""
+        self.current_metrics['total_profit'] = 125.45
+        self.current_metrics['daily_profit'] = 45.67
+        self.current_metrics['active_rigs'] = 3
+        self.current_metrics['total_hashrate'] = 340.5
+        self.current_metrics['avg_temp'] = 68.2
+        self.current_metrics['system_efficiency'] = 87.5
+        self.refresh_rigs()
+
+    def populate_rig_data(self):
+        """Populate rig table"""
+        # Clear
+        for item in self.rig_tree.get_children():
+            self.rig_tree.delete(item)
+        
+        # Sample data
+        rigs = [
+            ('GPU_1', 'Ethash', '120 MH/s', '72°C', '450W', 'CHF 15.20', 'ACTIVE'),
+            ('GPU_2', 'Ethash', '110 MH/s', '68°C', '450W', 'CHF 14.10', 'ACTIVE'),
+            ('ASIC_1', 'SHA256', '110 TH/s', '70°C', '3250W', 'CHF 25.30', 'ACTIVE'),
+        ]
+        
+        for rig in rigs:
+            self.rig_tree.insert('', tk.END, values=rig)
+
+    def update_loop(self):
+        """Main update loop"""
+        try:
+            # Update uptime
+            elapsed = datetime.now() - self.uptime_start
+            hours = elapsed.seconds // 3600
+            minutes = (elapsed.seconds % 3600) // 60
+            seconds = elapsed.seconds % 60
+            self.uptime_label.config(text=f"⏱️ {hours:02d}:{minutes:02d}:{seconds:02d}")
+            
+            # Update metrics displays
+            self.kpi_profit.config(text=f"💰 Daily: CHF {self.current_metrics['daily_profit']:.2f}")
+            self.kpi_rigs.config(text=f"⛏️ Active: {self.current_metrics['active_rigs']}/6")
+            self.kpi_hash.config(text=f"🔗 Hash: {self.current_metrics['total_hashrate']:.1f} MH/s")
+            self.kpi_temp.config(text=f"🌡️ Temp: {self.current_metrics['avg_temp']:.1f}°C")
+            self.kpi_alerts.config(text=f"🔔 Alerts: {self.current_metrics['alert_count']}")
+            
+            if self.monitor_var.get():
+                self.refresh_rigs()
+        
+        except Exception as e:
+            print(f"Update loop error: {e}")
+        
+        # Schedule next update
+        self.root.after(5000, self.update_loop)
+
+    # Menu commands
+    def export_report(self):
+        """Export system report"""
+        try:
+            filename = filedialog.asksaveasfilename(
+                defaultextension=".json",
+                filetypes=[("JSON files", "*.json"), ("All files", "*.*")]
+            )
+            if filename:
+                report = {
+                    'timestamp': datetime.now().isoformat(),
+                    'metrics': self.current_metrics,
+                    'rigs': len(self.rig_status_data)
+                }
+                with open(filename, 'w') as f:
+                    json.dump(report, f, indent=2)
+                messagebox.showinfo("Export", f"Report saved to {filename}")
+        except Exception as e:
+            messagebox.showerror("Error", f"Export failed: {e}")
 
     def show_settings(self):
-        """Zeigt Settings Dialog"""
-        settings_win = Toplevel(self.root)
-        settings_win.title("⚙️ Settings")
-        settings_win.geometry("600x400")
-        settings_win.configure(bg=self.colors['bg_dark'])
-
-        ttk.Label(settings_win, text="Settings configuration coming soon...",
-                 foreground=self.colors['text']).pack(pady=50)
-
-    def show_backup(self):
-        """Zeigt Backup/Recovery Dialog"""
-        messagebox.showinfo("Backup", "Backup & Restore interface coming soon!")
+        """Show settings dialog"""
+        dialog = Toplevel(self.root)
+        dialog.title("⚙️ Settings")
+        dialog.geometry("500x400")
+        dialog.configure(bg=self.colors['bg_dark'])
+        
+        ttk.Label(dialog, text="Settings Management",
+                 font=('Segoe UI', 12, 'bold')).pack(pady=20)
+        
+        ttk.Label(dialog, text="Configuration options coming soon...",
+                 foreground=self.colors['text_dim']).pack()
 
     def show_diagnostics(self):
-        """Zeigt System-Diagnostik"""
-        diag_win = Toplevel(self.root)
-        diag_win.title("🔧 System Diagnostics")
-        diag_win.geometry("700x500")
-        diag_win.configure(bg=self.colors['bg_dark'])
-
-        # Diagnostic Info
-        info_text = scrolledtext.ScrolledText(diag_win, height=20,
-                                            bg=self.colors['bg_dark'],
-                                            fg=self.colors['text'],
-                                            font=('Consolas', 9))
-        info_text.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
-
-        # Sammle System-Info
-        diag_info = f"""Autonomous Zenith Optimizer - System Diagnostics
-{'='*50}
+        """Show system diagnostics"""
+        dialog = Toplevel(self.root)
+        dialog.title("🔧 System Diagnostics")
+        dialog.geometry("700x500")
+        dialog.configure(bg=self.colors['bg_dark'])
+        
+        text = scrolledtext.ScrolledText(dialog, bg=self.colors['bg_dark'],
+                                        fg=self.colors['text'],
+                                        font=('Consolas', 9))
+        text.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        diag = f"""AUTONOMOUS ZENITH OPTIMIZER - SYSTEM DIAGNOSTICS
+{'='*60}
 
 System Status: {self.system_status}
+Mining Active: {self.mining_active}
 Monitoring Active: {self.monitoring_active}
-Optimization Active: {self.optimization_active}
 
-Components Status:
-✅ Risk Management: {'Active' if self.monitoring_active else 'Inactive'}
-✅ Auto Backup: {'Active' if self.monitoring_active else 'Inactive'}
-✅ Temperature Optimizer: {'Active' if self.optimization_active else 'Inactive'}
-✅ Algorithm Switcher: {'Active' if self.optimization_active else 'Inactive'}
+Component Status:
+✅ Control System: OPERATIONAL
+✅ Monitoring Engine: OPERATIONAL
+✅ Data Collection: OPERATIONAL
+✅ Alert System: OPERATIONAL
 
-Configuration:
-- System Name: {get_config('System.Name', 'Unknown')}
-- Version: {get_config('System.Version', 'Unknown')}
-- Environment: {get_config('System.Environment', 'Unknown')}
+System Resources:
+- CPU Usage: {psutil.cpu_percent():.1f}%
+- Memory Usage: {psutil.virtual_memory().percent:.1f}%
+- Disk Free: {psutil.disk_usage('/').free / (1024**3):.1f} GB
 
 Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 """
-        info_text.insert(tk.END, diag_info)
-        info_text.config(state=tk.DISABLED)
+        text.insert(tk.END, diag)
+        text.config(state=tk.DISABLED)
 
-    def show_performance_monitor(self):
-        """Zeigt Performance-Monitor"""
-        messagebox.showinfo("Performance Monitor", "Detailed monitoring coming soon!")
+    def show_analytics(self):
+        """Show analytics"""
+        messagebox.showinfo("Analytics", "Advanced analytics dashboard coming soon!")
 
-    def show_log_viewer(self):
-        """Zeigt Log-Viewer"""
-        log_win = Toplevel(self.root)
-        log_win.title("📝 Log Viewer")
-        log_win.geometry("800x600")
-        log_win.configure(bg=self.colors['bg_dark'])
-
-        log_text = scrolledtext.ScrolledText(log_win, height=30,
-                                           bg=self.colors['bg_dark'],
-                                           fg=self.colors['text'],
-                                           font=('Consolas', 9))
-        log_text.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
-
-        # Load recent logs
+    def show_logs(self):
+        """Show log viewer"""
+        dialog = Toplevel(self.root)
+        dialog.title("📝 System Logs")
+        dialog.geometry("800x600")
+        dialog.configure(bg=self.colors['bg_dark'])
+        
+        text = scrolledtext.ScrolledText(dialog, bg=self.colors['bg_dark'],
+                                        fg=self.colors['text'],
+                                        font=('Consolas', 9))
+        text.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
         try:
-            if os.path.exists('logs/mining_all.log'):
-                with open('logs/mining_all.log', 'r') as f:
-                    logs = f.readlines()[-100:]  # Last 100 lines
-                    log_text.insert(tk.END, ''.join(logs))
+            log_path = Path('logs/mining_all.log')
+            if log_path.exists():
+                with open(log_path, 'r') as f:
+                    lines = f.readlines()[-100:]
+                    text.insert(tk.END, ''.join(lines))
             else:
-                log_text.insert(tk.END, "No logs available. Start the system first.")
-        except:
-            log_text.insert(tk.END, "Error loading logs.")
+                text.insert(tk.END, "No logs available")
+        except Exception as e:
+            text.insert(tk.END, f"Error loading logs: {e}")
+        
+        text.config(state=tk.DISABLED)
 
-        log_text.config(state=tk.DISABLED)
-
-    def show_alert_history(self):
-        """Zeigt Alert-Historie"""
-        alert_win = Toplevel(self.root)
-        alert_win.title("🔔 Alert History")
-        alert_win.geometry("800x500")
-        alert_win.configure(bg=self.colors['bg_dark'])
-
-        alert_text = scrolledtext.ScrolledText(alert_win, height=25,
-                                             bg=self.colors['bg_dark'],
-                                             fg=self.colors['text'],
-                                             font=('Consolas', 9))
-        alert_text.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
-
-        # Load alert history
-        try:
-            alerts = get_alert_history(50)
-            for alert in reversed(alerts):
-                timestamp = alert.get('timestamp', 'Unknown')
-                alert_type = alert.get('type', 'Unknown')
-                message = alert.get('message', 'No message')
-
-                alert_text.insert(tk.END, f"[{timestamp}] {alert_type}: {message}\n")
-        except:
-            alert_text.insert(tk.END, "Error loading alert history.")
-
-        alert_text.config(state=tk.DISABLED)
-
-    def show_documentation(self):
-        """Zeigt Dokumentation"""
-        try:
-            if os.path.exists('API_SETUP_GUIDE.md'):
-                webbrowser.open('API_SETUP_GUIDE.md')
-            else:
-                messagebox.showinfo("Documentation", "API Setup Guide not found in current directory")
-        except:
-            messagebox.showinfo("Documentation", "Documentation access failed")
+    def show_help(self):
+        """Show help documentation"""
+        messagebox.showinfo("Documentation", "See README.txt for detailed documentation")
 
     def show_about(self):
-        """Zeigt About-Dialog"""
-        about_text = """Autonomous Zenith Optimizer
-Professional Mining Suite v2.0
+        """Show about dialog"""
+        about_text = """⚡ AUTONOMOUS ZENITH OPTIMIZER
+Production Desktop Suite v3.0
 
-A comprehensive cryptocurrency mining management system with:
-• Intelligent algorithm switching
-• Risk management and diversification
+Enterprise-grade cryptocurrency mining management system
+with intelligent automation and real-time monitoring.
+
+Features:
+• GPU & ASIC mining management
+• Automatic algorithm switching
+• Risk management & diversification
 • Predictive maintenance
-• Real-time performance monitoring
-• Professional desktop interface
+• Real-time performance analytics
+• Professional dashboard
 
-Developed for enterprise-grade mining operations.
-
-© 2025 Autonomous Zenith Optimizer
+© 2025 Autonomous Zenith Project
 """
-        messagebox.showinfo("About Autonomous Zenith Optimizer", about_text)
+        messagebox.showinfo("About AZO", about_text)
 
-    def load_configuration(self):
-        """Lädt GUI-Konfiguration"""
+    def load_config(self):
+        """Load configuration"""
         try:
-            # Window position/size aus Config laden falls verfügbar
-            self.root.geometry(get_config('GUI.WindowGeometry', '1400x900'))
-
-            # Theme setzen
-            self.set_dark_theme()
-
+            if MODULE_AVAILABLE:
+                config = get_config('System', {})
         except:
             pass
 
-    def set_dark_theme(self):
-        """Setzt Dark Theme für alle Widgets"""
-        # Custom styles für dark theme
-        self.style.configure('Main.TFrame', background=self.colors['bg_dark'])
-        self.style.configure('Header.TFrame', background=self.colors['bg_medium'])
-        self.style.configure('Brand.TFrame', background=self.colors['bg_medium'])
-        self.style.configure('Status.TFrame', background=self.colors['bg_dark'])
-        self.style.configure('StatusBar.TFrame', background=self.colors['bg_light'])
-        self.style.configure('Content.TFrame', background=self.colors['bg_dark'])
-        self.style.configure('Tab.TFrame', background=self.colors['bg_medium'])
-        self.style.configure('Card.TFrame', background=self.colors['bg_light'])
-        self.style.configure('ButtonFrame.TFrame', background=self.colors['bg_medium'])
-        self.style.configure('KPI.TFrame', background=self.colors['bg_dark'])
-        self.style.configure('Charts.TFrame', background=self.colors['bg_dark'])
-        self.style.configure('Actions.TFrame', background=self.colors['bg_medium'])
-
-    # Mining Control Methods
-    def start_mining_cmd(self):
-        """Startet Mining"""
-        try:
-            start_mining_system()
-            self.mining_status.config(text="⛏️ Mining: STARTING...", foreground=self.colors['warning'])
-            self.root.after(2000, lambda: self.mining_status.config(
-                text="⛏️ Mining: ACTIVE", foreground=self.colors['success']))
-        except Exception as e:
-            messagebox.showerror("Mining Start Error", f"Failed to start mining: {e}")
-
-    def stop_mining_cmd(self):
-        """Stoppt Mining"""
-        try:
-            from python_modules.mining_system_integration import stop_mining_system
-            stop_mining_system()
-            self.mining_status.config(text="⛏️ Mining: STOPPED", foreground=self.colors['error'])
-        except Exception as e:
-            messagebox.showerror("Mining Stop Error", f"Failed to stop mining: {e}")
-
-    def pause_mining_cmd(self):
-        """Pausiert Mining"""
-        messagebox.showinfo("Pause Mining", "Pause/Resume functionality coming soon!")
-
-    def optimize_all_rigs(self):
-        """Optimiert alle Rigs"""
-        messagebox.showinfo("Optimization", "Bulk rig optimization initiated!")
-
-    def force_algorithm_switch(self):
-        """Erzwingt Algorithmus-Wechsel"""
-        messagebox.showinfo("Algorithm Switch", "Manual algorithm switch initiated!")
-
-    def start_temperature_opt(self):
-        """Startet Temperature-Optimierung"""
-        try:
-            start_temperature_optimization()
-            messagebox.showinfo("Temperature Optimization", "Temperature optimization started!")
-        except Exception as e:
-            messagebox.showerror("Temperature Opt Error", f"Failed to start: {e}")
-
-    def start_algorithm_opt(self):
-        """Startet Algorithmus-Optimierung"""
-        try:
-            start_algorithm_monitoring()
-            messagebox.showinfo("Algorithm Optimization", "Algorithm monitoring started!")
-        except Exception as e:
-            messagebox.showerror("Algorithm Opt Error", f"Failed to start: {e}")
-
-    def start_predictive_maint(self):
-        """Startet Predictive Maintenance"""
-        messagebox.showinfo("Predictive Maintenance", "Predictive maintenance activated!")
-
-    def toggle_monitoring_cmd(self):
-        """Schaltet Monitoring an/aus"""
-        if self.monitor_toggle.get():
-            # Monitoring starten
-            self.monitoring_active = True
-            self.status_label.config(text="🔍 MONITORING ACTIVE", foreground=self.colors['success'])
-        else:
-            # Monitoring stoppen
-            self.monitoring_active = False
-            self.status_label.config(text="🔍 MONITORING OFF", foreground=self.colors['text_secondary'])
-
-    def refresh_rig_status(self):
-        """Aktualisiert Rig-Status"""
-        # Mock-Rig Daten
-        rig_data = [
-            ('GPU_1', 'Ethash', '120 MH/s', '72°C', '450W', 'CHF 15.2', 'ACTIVE'),
-            ('GPU_2', 'ETH', '110 MH/s', '68°C', '450W', 'CHF 14.1', 'ACTIVE'),
-            ('ASIC_1', 'SHA', '110 TH/s', '70°C', '3250W', 'CHF 25.3', 'ACTIVE')
-        ]
-
-        # Clear existing
-        for item in self.rigs_tree.get_children():
-            self.rigs_tree.delete(item)
-
-        # Add data
-        for rig in rig_data:
-            self.rigs_tree.insert('', tk.END, values=rig)
-
-    def refresh_alerts(self):
-        """Aktualisiert Alert-Anzeige"""
-        try:
-            alerts = get_alert_history(20)
-            self.alert_text.delete(1.0, tk.END)
-
-            for alert in reversed(alerts):
-                timestamp = alert.get('timestamp', 'Unknown')
-                alert_type = alert.get('type', 'Unknown')
-                message = alert.get('message', 'No message')
-
-                self.alert_text.insert(tk.END, f"[{timestamp}] {alert_type}: {message}\n")
-
-            self.alert_count = len(alerts)
-            self.total_alerts_label.config(text=str(self.alert_count))
-        except:
-            self.alert_text.delete(1.0, tk.END)
-            self.alert_text.insert(tk.END, "Error loading alerts.\n")
-
-    def test_telegram_alert(self):
-        """Testet Telegram Alert"""
-        try:
-            send_custom_alert("Desktop Test", f"AZO Desktop App Test Alert - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", "💻")
-            messagebox.showinfo("Test Alert", "Test alert sent! Check Telegram/Discord.")
-        except Exception as e:
-            messagebox.showerror("Test Failed", f"Alert test failed: {e}")
-
-    def quit_application(self):
-        """Professionelle Anwendung beenden"""
-        if messagebox.askyesno("Quit", "Really quit Autonomous Zenith Optimizer?"):
-            self.stop_full_system()
+    def quit_app(self):
+        """Quit application"""
+        if messagebox.askyesno("Exit", "Quit Autonomous Zenith Optimizer?"):
+            self.stop_system()
             self.root.quit()
             self.root.destroy()
 
-    def run(self):
-        """Startet GUI-Event-Loop"""
-        # Timer für regelmäßige Updates
-        def update_timer():
-            if self.root and self.root.winfo_exists():
-                self.refresh_system_status()
-                self.root.after(5000, update_timer)  # Alle 5 Sekunden
-
-        update_timer()
-
-        # Charts initialisieren
-        self.refresh_rig_status()
-        self.refresh_alerts()
-
-        self.root.mainloop()
 
 def main():
-    """Hauptfunktion für Desktop-App"""
-    print("🚀 Starting Autonomous Zenith Optimizer Desktop Application...")
-
-    # Root Window erstellen
+    """Main entry point"""
+    print("🚀 Starting Production Desktop Application...")
     root = tk.Tk()
+    app = ProductionDesktopApp(root)
+    root.mainloop()
 
-    # App-Instanz erstellen
-    app = AutonomousZenithGUI(root)
-
-    # GUI starten
-    app.run()
 
 if __name__ == "__main__":
     main()

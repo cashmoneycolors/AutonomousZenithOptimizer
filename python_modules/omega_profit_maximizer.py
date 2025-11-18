@@ -9,20 +9,37 @@ import time
 import math
 import random
 import logging
+import io
 from datetime import datetime, timedelta
 from typing import Dict, List, Any, Optional, Tuple
 from dataclasses import dataclass, asdict
 from pathlib import Path
 import sys
 
+def _build_unicode_stdout() -> Any:
+    try:
+        return io.TextIOWrapper(
+            sys.stdout.buffer,
+            encoding='utf-8',
+            errors='replace',
+            line_buffering=True,
+            write_through=True
+        )
+    except (AttributeError, ValueError):
+        # Fallback if stdout doesn't expose a buffer (e.g., unit tests)
+        return sys.stdout
+
+
 # Logging Setup
+formatter = logging.Formatter('%(asctime)s | %(levelname)-8s | %(message)s')
+file_handler = logging.FileHandler('logs/omega_profit.log', encoding='utf-8')
+file_handler.setFormatter(formatter)
+console_handler = logging.StreamHandler(_build_unicode_stdout())
+console_handler.setFormatter(formatter)
+
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s | %(levelname)-8s | %(message)s',
-    handlers=[
-        logging.FileHandler('logs/omega_profit.log'),
-        logging.StreamHandler(sys.stdout)
-    ]
+    handlers=[file_handler, console_handler]
 )
 logger = logging.getLogger(__name__)
 
