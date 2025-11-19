@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimization Dashboard Report - 2025-11-16T07:23:04.146175</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .kpi-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .kpi-title {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .kpi-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .recommendation {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #ffa500;
+        }
+        .recommendation.CRITICAL {
+            background: #ffe6e6;
+            border-left-color: #ff0000;
+        }
+        .recommendation.HIGH {
+            background: #fff4e6;
+            border-left-color: #ff6600;
+        }
+        .recommendation.MEDIUM {
+            background: #fffce6;
+            border-left-color: #ffa500;
+        }
+        .health-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: white;
+        }
+        .health-excellent { background: #28a745; }
+        .health-good { background: #17a2b8; }
+        .health-fair { background: #ffc107; color: #333; }
+        .health-poor { background: #dc3545; }
+        .timestamp {
+            text-align: right;
+            color: #999;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 OPTIMIZATION DASHBOARD</h1>
+        <div class="subtitle">Comprehensive System Report</div>
+        <div class="timestamp">Generiert: 2025-11-16T07:23:04.146175</div>
+
+        <div class="section">
+            <h2>📊 System-Übersicht</h2>
+            <p><strong>Uptime:</strong> 0.00 Stunden</p>
+            <p><strong>Gesamt-Gesundheit:</strong> 
+                <span class="health-badge health-good">
+                    GOOD
+                </span>
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>💰 Key Performance Indicators</h2>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-title">Tägliche Betriebskosten</div>
+                    <div class="kpi-value">CHF 39.12</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title">Potenzielle tägliche Ersparnis</div>
+                    <div class="kpi-value">CHF 0.72</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title">Monatliche Ersparnis (geschätzt)</div>
+                    <div class="kpi-value">CHF 21.60</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title">Durchschnittliche Effizienz</div>
+                    <div class="kpi-value">67.4%</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title">Stromverbrauch</div>
+                    <div class="kpi-value">8150 W</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title">Überwachte Rigs</div>
+                    <div class="kpi-value">6</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Modul-Status</h2>
+            <h3>Predictive Maintenance</h3>
+            <p><strong>Rigs überwacht:</strong> 6</p>
+            <p><strong>Rigs mit Risiko:</strong> 0</p>
+            <p><strong>Kritische Rigs:</strong> 0</p>
+
+            <h3>Energy Efficiency</h3>
+            <p><strong>Ø Effizienz-Score:</strong> 67.4%</p>
+            <p><strong>Tägliche Kosten:</strong> CHF 39.12</p>
+
+            <h3>Temperature Optimization</h3>
+            <p><strong>Durchgeführte Optimierungen:</strong> 0</p>
+            <p><strong>Gesamt-Effizienzgewinn:</strong> 0.00%</p>
+
+            <h3>Algorithm Switching</h3>
+            <p><strong>Algorithmus-Wechsel:</strong> 0</p>
+            <p><strong>Aktuell bester Algorithmus:</strong> ethash</p>
+        </div>
+
+        <div class="section">
+            <h2>💡 Empfehlungen</h2>
+
+            <div class="recommendation MEDIUM">
+                <strong>[MEDIUM] Energy Efficiency</strong><br>
+                Energie-Effizienz-Optimierung durchführen<br>
+                <em>Impact: medium</em>
+            </div>
+
+            <div class="recommendation LOW">
+                <strong>[LOW] Temperature Optimization</strong><br>
+                Temperatur-basierte Übertaktung aktivieren<br>
+                <em>Impact: low-medium</em>
+            </div>
+
+        </div>
+
+        <div class="timestamp">
+            <small>CASH MONEY COLORS ORIGINAL (R) - Optimization Dashboard v1.0.0</small>
+        </div>
+    </div>
+</body>
+</html>

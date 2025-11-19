@@ -1,0 +1,29 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.0, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Laptop\Desktop\Autonomous Zenith Optimizer\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Laptop\Desktop\Autonomous Zenith Optimizer\tests
+plugins: anyio-4.11.0
+collecting ... collected 4 items / 2 errors
+
+=================================== ERRORS ====================================
+____________ ERROR collecting python/test_optimization_summary.py _____________
+python\test_optimization_summary.py:8: in <module>
+    from python_modules.optimization_summary import OptimizationSummaryAggregator
+..\python_modules\optimization_summary.py:18: in <module>
+    _analyze_rig_health: AnalyzeRigHealthFn = analyze_rig_health
+E   NameError: name 'analyze_rig_health' is not defined
+_____________ ERROR collecting python/test_pricefeed_and_power.py _____________
+python\test_pricefeed_and_power.py:3: in <module>
+    from python_modules import realtime_pricefeed as rtp
+..\python_modules\realtime_pricefeed.py:26: in <module>
+    from python_modules.optimization_summary import OptimizationSummaryAggregator
+..\python_modules\optimization_summary.py:18: in <module>
+    _analyze_rig_health: AnalyzeRigHealthFn = analyze_rig_health
+E   NameError: name 'analyze_rig_health' is not defined
+------------------------------- Captured stdout -------------------------------
+[API] Loaded 2 environment variables\n\u2705 Config loaded from settings.json\n\u2699\ufe0f CONFIG MANAGER INITIALIZED\n\U0001f4c1 Config File: settings.json\n\U0001f527 Loaded 6 configuration sections\n\u26a0\ufe0f Keine Alert-Services aktiviert. Konfiguriere Telegram oder Discord in settings.json\n\U0001f6a8 ALERT SYSTEM INITIALIZED\n\U0001f4dd ENHANCED LOGGING SYSTEM INITIALIZED\n\U0001f4c1 Log-Verzeichnis: logs\n\U0001f504 Log-Rotation: Aktiviert\n[FEED] Realtime Market Feed initialized\n[FEED] Connected Exchanges: 3\n[FEED] Arbitrage Threshold: 0.5%\n[COIN] MARKET INTEGRATION INITIALIZED\n[STATS] Live Crypto-Preise f\xfcr realistische Mining-Kalkulation\n\u26a0\ufe0f NiceHash nicht konfiguriert - Verwende Demo-Modus\nSetze POOLS_NICEHASH_API_KEY, POOLS_NICEHASH_API_SECRET, POOLS_NICEHASH_ORG_ID\n\U0001f9e0 ALGORITHM SWITCHER INITIALIZED\n   Switching Enabled: True\n   Risk Tolerance: medium\n[SHIELD] RISK MANAGEMENT SYSTEM INITIALIZED\nStop-Loss Protection: ENABLED
+=========================== short test summary info ===========================
+ERROR python/test_optimization_summary.py - NameError: name 'analyze_rig_heal...
+ERROR python/test_pricefeed_and_power.py - NameError: name 'analyze_rig_healt...
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!
+============================== 2 errors in 1.58s ==============================

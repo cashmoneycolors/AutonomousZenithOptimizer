@@ -1,0 +1,23 @@
+{
+    "editor.aiStats.enabled": true,
+    "editor.allowVariableFontsInAccessibilityMode": true,
+    "editor.autoIndentOnPaste": true,
+    "editor.codeActions.triggerOnFocusChange": true,
+    "editor.codeLensFontFamily": "Python",
+    "editor.codeLensFontSize": 1,
+    "editor.columnSelection": true,
+    "editor.definitionLinkOpensInPeek": true,
+    "editor.experimental.asyncTokenizationLogging": true,
+    "editor.experimental.asyncTokenizationVerification": true,
+    "editor.experimental.preferTreeSitter.ini": true,
+    "editor.experimental.preferTreeSitter.regex": true,
+    "editor.experimental.preferTreeSitter.typescript": true,
+    "editor.experimental.treeSitterTelemetry": true,
+    "editor.foldingImportsByDefault": true,
+    "editor.gotoLocation.alternativeReferenceCommand": "editor.action.peekImplementation",
+    "editor.inertialScroll": true,
+    "editor.linkedEditing": true,
+    "editor.mouseWheelZoom": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modificationsIfAvailable"
+}

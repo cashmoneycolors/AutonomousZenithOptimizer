@@ -1,0 +1,13 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.0, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Laptop\Desktop\Autonomous Zenith Optimizer\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Laptop\Desktop\Autonomous Zenith Optimizer\tests
+plugins: anyio-4.11.0
+collecting ... collected 4 items
+
+python/test_mining_system.py::IntegratedMiningSystemTests::test_context_manager_starts_and_stops_cleanly PASSED [ 25%]
+python/test_mining_system.py::IntegratedMiningSystemTests::test_evaluate_operational_health_reports_metrics PASSED [ 50%]
+python/test_mining_system.py::IntegratedMiningSystemTests::test_optimize_mining_strategy_reduces_hashrate_on_high_risk PASSED [ 75%]
+python/test_mining_system.py::IntegratedMiningSystemTests::test_risk_assessment_detects_overheating PASSED [100%]
+
+============================== 4 passed in 0.60s ==============================

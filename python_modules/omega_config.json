@@ -1,0 +1,52 @@
+{
+  "omega_settings": {
+    "start_capital_chf": 100.0,
+    "target_capital_chf": 10000.0,
+    "cycle_duration_minutes": 60,
+    "max_cycles": 1000,
+    "auto_export": true,
+    "real_time_logging": true
+  },
+  "optimization": {
+    "reinvestment_rate": 0.95,
+    "risk_factor": 0.15,
+    "scaling_threshold_chf": 150.0,
+    "algorithm_switching": true,
+    "market_based_decisions": true,
+    "hardware_auto_scaling": true,
+    "temperature_management": true,
+    "power_efficiency_optimization": true
+  },
+  "market_simulation": {
+    "price_variance_percent": 2.0,
+    "difficulty_adjustment": true,
+    "realistic_fluctuations": true
+  },
+  "hardware_pool": {
+    "max_rigs": 12,
+    "gpu_priority": ["RTX_4090", "RTX_3090", "RTX_4080"],
+    "asic_priority": ["S19_Pro", "E9_Pro", "S19j_Pro"],
+    "enable_cpu_mining": true,
+    "enable_fpga": true
+  },
+  "risk_management": {
+    "stop_loss_enabled": true,
+    "stop_loss_percent": -10.0,
+    "diversification_enabled": true,
+    "max_single_coin_allocation": 0.6,
+    "emergency_shutdown_temp": 90
+  },
+  "performance_targets": {
+    "min_profit_per_cycle_chf": 5.0,
+    "target_roi_per_hour": 0.15,
+    "efficiency_threshold": 0.8
+  },
+  "logging": {
+    "level": "INFO",
+    "console_output": true,
+    "file_output": true,
+    "detailed_rig_stats": true,
+    "cycle_summaries": true,
+    "milestone_logging": true
+  }
+}

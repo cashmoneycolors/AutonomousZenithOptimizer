@@ -1,0 +1,36 @@
+{
+  "session_info": {
+    "start_time": "2025-11-16T02:42:31.416972",
+    "end_time": "2025-11-16T02:42:32.710310",
+    "total_cycles": 1,
+    "start_capital": 100.0,
+    "current_capital": 269836.7382117472,
+    "total_profit": 269736.7382117472,
+    "target": 10000.0,
+    "target_achieved": true
+  },
+  "cycles": [
+    {
+      "cycle": 1,
+      "timestamp": "2025-11-16T02:42:31.582136",
+      "duration_minutes": 60.0,
+      "capital_before": 100.0,
+      "capital_after": 269836.7382117472,
+      "cycle_profit": 269736.7382117472,
+      "total_profit": 269736.7382117472,
+      "active_rigs": 1,
+      "rigs": [
+        {
+          "id": "ASIC_3",
+          "type": "E9_Pro",
+          "algorithm": "ethash",
+          "coin": "ETH",
+          "profit": 269736.7382117472,
+          "hashrate": 3000.0,
+          "temperature": 66.08118180442207
+        }
+      ],
+      "target_progress": 2698.367382117472
+    }
+  ]
+}

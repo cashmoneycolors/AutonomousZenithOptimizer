@@ -1,0 +1,152 @@
+{
+  "report_metadata": {
+    "generated_at": "2025-11-16T07:23:04.146175",
+    "report_type": "comprehensive_optimization",
+    "version": "1.0.0",
+    "uptime_hours": 0.0003073822222222222
+  },
+  "summary": {
+    "predictive_maintenance": {
+      "rigs_at_risk": 0,
+      "critical_rigs": 0,
+      "total_monitored": 6
+    },
+    "energy_efficiency": {
+      "potential_savings_daily": 0.72,
+      "current_daily_cost": 39.120000000000005,
+      "avg_efficiency": 0.6737121212121212
+    },
+    "temperature_optimization": {
+      "total_optimizations": 0,
+      "total_efficiency_gains": 0
+    },
+    "algorithm_switching": {
+      "total_switches": 0,
+      "current_algorithm": "ethash"
+    },
+    "overall_system_health": "good"
+  },
+  "key_performance_indicators": {
+    "cost_metrics": {
+      "daily_operating_cost": 39.120000000000005,
+      "potential_daily_savings": 0.72,
+      "monthly_savings_estimate": 21.599999999999998
+    },
+    "efficiency_metrics": {
+      "avg_power_efficiency": 0.6737121212121212,
+      "power_consumption_watt": 8150,
+      "efficiency_gain_from_temp_optimization": 0
+    },
+    "reliability_metrics": {
+      "rigs_monitored": 6,
+      "data_points_collected": 12,
+      "predicted_failure_count": 0
+    },
+    "optimization_metrics": {
+      "total_temperature_optimizations": 0,
+      "total_algorithm_switches": 0
+    }
+  },
+  "module_metrics": {
+    "predictive_maintenance": {
+      "status": "inactive",
+      "rigs_monitored": 6,
+      "total_data_points": 12,
+      "last_check": "2025-11-16T07:23:04.126949",
+      "rig_predictions": [
+        {
+          "rig_id": "ASIC_1",
+          "risk_level": "low",
+          "immediate_action_required": false,
+          "predictions_count": 0,
+          "temperature_status": "normal",
+          "hashrate_status": "normal",
+          "efficiency": 0.033846153846153845
+        },
+        {
+          "rig_id": "ASIC_2",
+          "risk_level": "low",
+          "immediate_action_required": false,
+          "predictions_count": 0,
+          "temperature_status": "normal",
+          "hashrate_status": "normal",
+          "efficiency": 0.03575757575757576
+        },
+        {
+          "rig_id": "GPU_1",
+          "risk_level": "low",
+          "immediate_action_required": false,
+          "predictions_count": 0,
+          "temperature_status": "normal",
+          "hashrate_status": "normal",
+          "efficiency": 0.26666666666666666
+        },
+        {
+          "rig_id": "GPU_2",
+          "risk_level": "low",
+          "immediate_action_required": false,
+          "predictions_count": 0,
+          "temperature_status": "normal",
+          "hashrate_status": "normal",
+          "efficiency": 0.24444444444444444
+        },
+        {
+          "rig_id": "GPU_3",
+          "risk_level": "low",
+          "immediate_action_required": false,
+          "predictions_count": 0,
+          "temperature_status": "normal",
+          "hashrate_status": "normal",
+          "efficiency": 0.2857142857142857
+        },
+        {
+          "rig_id": "GPU_4",
+          "risk_level": "low",
+          "immediate_action_required": false,
+          "predictions_count": 0,
+          "temperature_status": "normal",
+          "hashrate_status": "normal",
+          "efficiency": 0.022857142857142857
+        }
+      ]
+    },
+    "energy_efficiency": {
+      "total_rigs_analyzed": 6,
+      "avg_efficiency_score": 0.6737121212121212,
+      "power_savings_potential_watt": 150,
+      "cost_savings_potential_hourly": 0.03,
+      "total_power_consumption_watt": 8150,
+      "total_hourly_cost": 1.6300000000000001,
+      "total_daily_cost": 39.120000000000005
+    },
+    "temperature_optimization": {
+      "total_optimizations": 0,
+      "total_efficiency_gains": 0,
+      "avg_efficiency_gain": 0,
+      "optimizations_by_action": {}
+    },
+    "algorithm_switching": {
+      "total_switches": 0,
+      "current_best_algorithm": "ethash",
+      "avg_profit_improvement": 0,
+      "switch_history": []
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "MEDIUM",
+      "category": "Energy Efficiency",
+      "action": "Energie-Effizienz-Optimierung durchführen",
+      "impact": "medium",
+      "estimated_monthly_savings": 21.599999999999998
+    },
+    {
+      "priority": "LOW",
+      "category": "Temperature Optimization",
+      "action": "Temperatur-basierte Übertaktung aktivieren",
+      "impact": "low-medium",
+      "potential_hashrate_gain": "5-10%"
+    }
+  ],
+  "alerts": []
+}

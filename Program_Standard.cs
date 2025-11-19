@@ -1,12 +1,15 @@
-using System;
+// Legacy entry point - disabled to avoid CS7022 warning
+// The primary entry point is now in Program.cs using top-level statements
 
-namespace ZenithCoreSystem
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello, World!");
-        }
-    }
-}
+//using System;
+//
+//namespace ZenithCoreSystem
+//{
+//    class Program
+//    {
+//        static void Main(string[] args)
+//        {
+//            Console.WriteLine("Hello, World!");
+//        }
+//    }
+//}

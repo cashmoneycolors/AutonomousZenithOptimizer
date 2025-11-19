@@ -1,0 +1,41 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.0, pytest-8.3.4, pluggy-1.6.0 -- C:\Users\Laptop\Desktop\Autonomous Zenith Optimizer\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Laptop\Desktop\Autonomous Zenith Optimizer\tests
+plugins: anyio-4.11.0
+collecting ... collected 0 items / 3 errors
+
+=================================== ERRORS ====================================
+________________ ERROR collecting python/test_mining_system.py ________________
+ImportError while importing test module 'C:\Users\Laptop\Desktop\Autonomous Zenith Optimizer\tests\python\test_mining_system.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Python314\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+python\test_mining_system.py:4: in <module>
+    from python_modules.mining_system_integration import IntegratedMiningSystem
+E   ModuleNotFoundError: No module named 'python_modules'
+____________ ERROR collecting python/test_optimization_summary.py _____________
+ImportError while importing test module 'C:\Users\Laptop\Desktop\Autonomous Zenith Optimizer\tests\python\test_optimization_summary.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Python314\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+python\test_optimization_summary.py:8: in <module>
+    from python_modules.optimization_summary import OptimizationSummaryAggregator
+E   ModuleNotFoundError: No module named 'python_modules'
+_____________ ERROR collecting python/test_pricefeed_and_power.py _____________
+ImportError while importing test module 'C:\Users\Laptop\Desktop\Autonomous Zenith Optimizer\tests\python\test_pricefeed_and_power.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Python314\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+python\test_pricefeed_and_power.py:3: in <module>
+    from python_modules import realtime_pricefeed as rtp
+E   ModuleNotFoundError: No module named 'python_modules'
+=========================== short test summary info ===========================
+ERROR python/test_mining_system.py
+ERROR python/test_optimization_summary.py
+ERROR python/test_pricefeed_and_power.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 3 errors during collection !!!!!!!!!!!!!!!!!!!
+============================== 3 errors in 1.17s ==============================

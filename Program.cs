@@ -26,8 +26,15 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 
 	if (!string.IsNullOrWhiteSpace(options.RedisConnectionString))
 	{
-		var multiplexer = StackExchangeRedis.ConnectionMultiplexer.Connect(options.RedisConnectionString);
-		return new StackExchangeRedisConnection(multiplexer);
+		try
+		{
+			var multiplexer = StackExchangeRedis.ConnectionMultiplexer.Connect(options.RedisConnectionString + ",abortConnect=false");
+			return new StackExchangeRedisConnection(multiplexer);
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"[REDIS-FALLBACK] Verbindung fehlgeschlagen -> RedisMock genutzt. Grund: {ex.Message}");
+		}
 	}
 
 	return new RedisMock();
