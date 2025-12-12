@@ -52,24 +52,87 @@ builder.Services.AddSingleton<IAutonomousZenithOptimizer, AutonomousZenithOptimi
 
 using var host = builder.Build();
 var optimizer = host.Services.GetRequiredService<IAutonomousZenithOptimizer>();
+var settings = host.Services.GetRequiredService<IOptions<OptimizerSettings>>().Value;
+var logger = host.Services.GetRequiredService<ILogger<Program>>();
 
 Console.WriteLine("--- ZQAN Ω: MAXIMALER SYSTEMSTART & API-INTEGRATION ---");
-Console.WriteLine("[STATUS] HostBuilder hat den Zenith Controller mit allen Modulen registriert.");
+logger.LogInformation("[STATUS] HostBuilder hat den Zenith Controller mit allen Modulen registriert.");
 
-while (true)
+var cts = new CancellationTokenSource();
+Console.CancelKeyPress += (s, e) =>
 {
-    await optimizer.RunAutonomousGrowthStrategy();
+    logger.LogWarning("Shutdown-Signal empfangen. Graceful Shutdown wird initiiert...");
+    e.Cancel = true;
+    cts.Cancel();
+};
 
-    Console.WriteLine("\n--- TEST: ECA/AHA Transaktion & Governance ---");
+var iterationCount = 0;
+var errorCount = 0;
+const int maxConsecutiveErrors = 5;
 
-    var orderBlocked = new Order("ORD-ZQN-1", "001", "CUST_FR", "FR", 5000.00m, "PremiumLicense");
-    Console.WriteLine("\n-> Teste blockierten Auftrag (Governance Fail - RHA):");
-    await optimizer.ProcessIncomingOrder(orderBlocked);
+try
+{
+    while (!cts.Token.IsCancellationRequested)
+    {
+        iterationCount++;
+        logger.LogInformation($"\n========== ITERATION #{iterationCount} ==========");
 
-    var orderAllowed = new Order("ORD-ZQN-2", "002", "CUST_DE", "DE", 999.00m, "PremiumLicense");
-    Console.WriteLine("\n-> Teste erlaubten Auftrag (Governance Success - ECA/AHA):");
-    await optimizer.ProcessIncomingOrder(orderAllowed);
+        try
+        {
+            await optimizer.RunAutonomousGrowthStrategy();
 
-    Console.WriteLine("\n--- Zyklus abgeschlossen, nächste Iteration in 60 Sekunden ---");
-    await Task.Delay(60000); // 60 Sekunden warten
+            if (settings.EnableDemoScenarios)
+            {
+                logger.LogInformation("\n--- TEST: ECA/AHA Transaktion & Governance ---");
+
+                var orderBlocked = new Order("ORD-ZQN-1", "001", "CUST_FR", "FR", 5000.00m, "PremiumLicense");
+                logger.LogInformation("\n-> Teste blockierten Auftrag (Governance Fail - RHA):");
+                await optimizer.ProcessIncomingOrder(orderBlocked);
+
+                var orderAllowed = new Order("ORD-ZQN-2", "002", "CUST_DE", "DE", 999.00m, "PremiumLicense");
+                logger.LogInformation("\n-> Teste erlaubten Auftrag (Governance Success - ECA/AHA):");
+                await optimizer.ProcessIncomingOrder(orderAllowed);
+            }
+
+            errorCount = 0; // Reset bei erfolgreicher Iteration
+
+            var delay = settings.CycleDelaySeconds > 0 ? settings.CycleDelaySeconds : 60;
+            logger.LogInformation($"\n--- Zyklus abgeschlossen, nächste Iteration in {delay} Sekunden ---");
+            await Task.Delay(TimeSpan.FromSeconds(delay), cts.Token);
+        }
+        catch (OperationCanceledException)
+        {
+            logger.LogInformation("Iteration abgebrochen (Shutdown).");
+            break;
+        }
+        catch (Exception ex)
+        {
+            errorCount++;
+            logger.LogError(ex, $"[FEHLER] Iteration #{iterationCount} fehlgeschlagen (Fehler {errorCount}/{maxConsecutiveErrors})");
+
+            if (errorCount >= maxConsecutiveErrors)
+            {
+                logger.LogCritical($"KRITISCH: {maxConsecutiveErrors} aufeinanderfolgende Fehler. System wird heruntergefahren.");
+                throw;
+            }
+
+            // Exponential Backoff bei Fehlern
+            var backoffSeconds = Math.Min(Math.Pow(2, errorCount), 300); // Max 5 Minuten
+            logger.LogWarning($"Retry in {backoffSeconds} Sekunden...");
+            await Task.Delay(TimeSpan.FromSeconds(backoffSeconds), cts.Token);
+        }
+    }
 }
+catch (OperationCanceledException)
+{
+    logger.LogInformation("Shutdown abgeschlossen.");
+}
+catch (Exception ex)
+{
+    logger.LogCritical(ex, "FATALER FEHLER: System konnte nicht wiederhergestellt werden.");
+    Environment.Exit(1);
+}
+
+logger.LogInformation($"\n--- ZQAN Ω SHUTDOWN ---\nIterationen: {iterationCount} | Fehler: {errorCount}");
+await host.StopAsync();
+Environment.Exit(0);
