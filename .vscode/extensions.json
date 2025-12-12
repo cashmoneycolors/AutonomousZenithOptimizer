@@ -1,12 +1,1 @@
-{
-    "recommendations": [
-        "vsmobile.vscode-appcenter",
-        "saoudrizwan.cline-nightly",
-        "ms-windows-ai-studio.windows-ai-studio",
-        "ms-vscode.anycode-python",
-        "ms-azuretools.vscode-azurecontainerapps",
-        "ms-python.debugpy",
-        "ms-python.python",
-        "ms-vscode.powershell"
-    ]
-}
+{ "recommendations": [ "ms-python.debugpy", "ms-python.python", "ms-python.pylance", "ms-python.black-formatter", "ms-python.flake8", "ms-vscode.powershell", "ms-vscode.vscode-json", "ms-vscode-remote.remote-containers", "GitHub.copilot", "GitHub.copilot-chat" ] }
