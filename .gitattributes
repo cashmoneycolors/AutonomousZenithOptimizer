@@ -1,0 +1,13 @@
+# Normalize line endings in-repo
+* text=auto
+
+# Keep markdown/yaml consistent across OS
+*.md  text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Common text formats
+*.cs  text eol=lf
+*.csproj text eol=lf
+*.sln text eol=crlf
+*.json text eol=lf
