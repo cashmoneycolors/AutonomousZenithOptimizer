@@ -37,7 +37,7 @@ builder.Services.AddSingleton<ContextualMemoryHandler>();
 builder.Services.AddSingleton<IProfitGuarantor_QML>(sp =>
 {
 	var settings = sp.GetRequiredService<IOptions<OptimizerSettings>>();
-	return new QML_Python_Bridge(settings.Value.SimulateQmlFailure);
+    return new QML_Python_Bridge(settings.Value.SimulateQmlFailure, settings.Value.ScaleUpMaxFactor);
 });
 builder.Services.AddSingleton<RegulatoryHyperAdaptor>();
 builder.Services.AddSingleton<AetherArchitecture>();

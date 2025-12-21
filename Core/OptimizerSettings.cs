@@ -21,5 +21,20 @@ namespace ZenithCoreSystem.Core
         /// Wartezeit zwischen Zyklen in Sekunden (Standard: 60s).
         /// </summary>
         public int CycleDelaySeconds { get; set; } = 60;
+
+        /// <summary>
+        /// Basisbetrag für Trades vor Scale-Up-Faktor.
+        /// </summary>
+        public decimal BaseTradeAmount { get; set; } = 100000.00m;
+
+        /// <summary>
+        /// Minimal erlaubter SCALE_UP-Faktor (z. B. 1.0).
+        /// </summary>
+        public decimal ScaleUpMinFactor { get; set; } = 1.0m;
+
+        /// <summary>
+        /// Maximal erlaubter SCALE_UP-Faktor ("Quantum-Stufe").
+        /// </summary>
+        public decimal ScaleUpMaxFactor { get; set; } = 3.0m;
     }
 }

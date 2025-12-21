@@ -30,6 +30,30 @@ namespace ZenithCoreSystem.Tests
         }
 
         [Fact]
+        public async Task RunAutonomousGrowthStrategy_ClampsScaleUpFactorToConfiguredMax()
+        {
+            var qml = new ScaleUpQml("SCALE_UP:999.0");
+            var hft = new RecordingHftAdapter();
+            var gef = new RecordingGefAdapter();
+            var eca = new RecordingEcaAdapter();
+
+            var settings = new OptimizerSettings
+            {
+                QmlBaseDelayMilliseconds = 0,
+                BaseTradeAmount = 100m,
+                ScaleUpMinFactor = 1.0m,
+                ScaleUpMaxFactor = 2.5m
+            };
+
+            var optimizer = CreateOptimizer(qml, hft, gef, eca, settings: settings);
+            await optimizer.RunAutonomousGrowthStrategy();
+
+            Assert.Equal(1, hft.CallCount);
+            Assert.Equal(250m, hft.LastAmount);
+            Assert.Equal("SCALE_UP:2.5", qml.LastReportedAction);
+        }
+
+        [Fact]
         public async Task ProcessIncomingOrder_BlocksNonCompliantPremiumOrder()
         {
             var qml = new NoOpQml();
@@ -86,10 +110,12 @@ namespace ZenithCoreSystem.Tests
         private sealed class RecordingHftAdapter : IHFT_AMAD_Adapter
         {
             public int CallCount { get; private set; }
+            public decimal LastAmount { get; private set; }
 
             public Task<decimal> ExecuteTrade(string symbol, decimal amount, string direction)
             {
                 CallCount++;
+                LastAmount = amount;
                 return Task.FromResult(amount);
             }
         }
@@ -123,6 +149,26 @@ namespace ZenithCoreSystem.Tests
 
             public Task<string> GetNAVOptimizedDecision(DRL_StateVector currentVector)
                 => Task.FromResult("MAINTAIN_LEVEL:1.0");
+
+            public Task ReportPerformanceFeedback(string vector, decimal roasScore, string actionTaken)
+            {
+                LastReportedAction = actionTaken;
+                return Task.CompletedTask;
+            }
+        }
+
+        private sealed class ScaleUpQml : IProfitGuarantor_QML
+        {
+            private readonly string _decision;
+            public string? LastReportedAction { get; private set; }
+
+            public ScaleUpQml(string decision)
+            {
+                _decision = decision;
+            }
+
+            public Task<string> GetNAVOptimizedDecision(DRL_StateVector currentVector)
+                => Task.FromResult(_decision);
 
             public Task ReportPerformanceFeedback(string vector, decimal roasScore, string actionTaken)
             {

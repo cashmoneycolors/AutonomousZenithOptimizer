@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using ZenithCoreSystem;
@@ -9,13 +10,15 @@ namespace ZenithCoreSystem.Modules
     {
         private readonly bool _simulateFailure;
         private readonly HttpClient _httpClient;
+        private readonly decimal _fallbackScaleUpFactor;
         private int _callCount;
 
-        public QML_Python_Bridge(bool simulateFailure = false)
+        public QML_Python_Bridge(bool simulateFailure = false, decimal fallbackScaleUpFactor = 3.0m)
         {
             _simulateFailure = simulateFailure;
             _httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };
             _callCount = 0;
+            _fallbackScaleUpFactor = fallbackScaleUpFactor <= 0m ? 3.0m : fallbackScaleUpFactor;
         }
 
         public async Task<string> GetNAVOptimizedDecision(DRL_StateVector currentVector)
@@ -44,7 +47,12 @@ namespace ZenithCoreSystem.Modules
 
             // Fallback: Lokale Logik
             await Task.Delay(10);
-            return currentVector.PredictedNAV > 120000m ? "SCALE_UP:3.0" : "MAINTAIN_LEVEL:1.0";
+            if (currentVector.PredictedNAV > 120000m)
+            {
+                return $"SCALE_UP:{_fallbackScaleUpFactor.ToString("0.0###", CultureInfo.InvariantCulture)}";
+            }
+
+            return "MAINTAIN_LEVEL:1.0";
         }
 
         public Task ReportPerformanceFeedback(string vector, decimal roasScore, string actionTaken)

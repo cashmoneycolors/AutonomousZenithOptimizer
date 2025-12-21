@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Globalization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ZenithCoreSystem.Adapters;
@@ -92,12 +93,13 @@ namespace ZenithCoreSystem.Core
                 ScalingFactor: 1.0,
                 TotalNFTsMinted: 500);
 
-            string decision = await ExecuteQMLWithRetry(stateVector);
+            string rawDecision = await ExecuteQMLWithRetry(stateVector);
+            string decision = NormalizeDecision(rawDecision, out var scaleUpFactor);
 
-            if (decision.StartsWith("SCALE_UP:", StringComparison.OrdinalIgnoreCase))
+            if (scaleUpFactor is not null)
             {
-                decimal factor = decimal.Parse(decision.Split(':')[1]);
-                decimal tradeAmount = 100000.00m * factor;
+                decimal baseAmount = Math.Max(0m, _settings.BaseTradeAmount);
+                decimal tradeAmount = baseAmount * scaleUpFactor.Value;
                 await _hftAdapter.ExecuteTrade("ETH/USD", tradeAmount, "BUY");
             }
 
@@ -142,6 +144,76 @@ namespace ZenithCoreSystem.Core
                     _logger.LogCriticalError($"Fehler bei der API-Uebermittlung fuer {order.OrderID}.", "ECA/AHA");
                 }
             }
+        }
+
+        private string NormalizeDecision(string? decision, out decimal? scaleUpFactor)
+        {
+            scaleUpFactor = null;
+
+            if (string.IsNullOrWhiteSpace(decision))
+            {
+                return "MAINTAIN_LEVEL:1.0";
+            }
+
+            string trimmed = decision.Trim();
+            if (!trimmed.StartsWith("SCALE_UP:", StringComparison.OrdinalIgnoreCase))
+            {
+                return trimmed;
+            }
+
+            string[] parts = trimmed.Split(':', 2);
+            if (parts.Length != 2)
+            {
+                _logger.LogWarning("[AZO] Ungueltige SCALE_UP-Decision ohne Faktor: {Decision}. Fallback aktiv.", trimmed);
+                return "MAINTAIN_LEVEL:1.0";
+            }
+
+            if (!TryParseScaleUpFactor(parts[1], out decimal parsedFactor))
+            {
+                _logger.LogWarning("[AZO] Ungueltiger SCALE_UP-Faktor: {FactorRaw}. Fallback aktiv.", parts[1]);
+                return "MAINTAIN_LEVEL:1.0";
+            }
+
+            decimal min = _settings.ScaleUpMinFactor <= 0m ? 1.0m : _settings.ScaleUpMinFactor;
+            decimal max = _settings.ScaleUpMaxFactor < min ? min : _settings.ScaleUpMaxFactor;
+
+            const decimal absoluteMax = 100m;
+            if (max > absoluteMax)
+            {
+                max = absoluteMax;
+            }
+
+            decimal clamped = Clamp(parsedFactor, min, max);
+            if (clamped <= 0m)
+            {
+                return "MAINTAIN_LEVEL:1.0";
+            }
+
+            scaleUpFactor = clamped;
+            return $"SCALE_UP:{clamped.ToString("0.0###", CultureInfo.InvariantCulture)}";
+        }
+
+        private static decimal Clamp(decimal value, decimal min, decimal max)
+        {
+            if (value < min) return min;
+            if (value > max) return max;
+            return value;
+        }
+
+        private static bool TryParseScaleUpFactor(string raw, out decimal factor)
+        {
+            factor = 0m;
+            if (string.IsNullOrWhiteSpace(raw))
+            {
+                return false;
+            }
+
+            string normalized = raw.Trim().Replace(',', '.');
+            return decimal.TryParse(
+                normalized,
+                NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint,
+                CultureInfo.InvariantCulture,
+                out factor);
         }
 
         private async Task RunPythonAgent()
