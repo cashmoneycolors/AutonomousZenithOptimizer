@@ -1,4 +1,4 @@
-﻿# Copilot Instructions  AutonomousZenithOptimizer
+# Copilot Instructions  AutonomousZenithOptimizer
 
 ## Big Picture (wo anfangen)
 - Startpunkt: `Program.cs` (HostBuilder + DI, Settings aus `appsettings.json`, Main-Loop, optional Demo-Szenarien).
