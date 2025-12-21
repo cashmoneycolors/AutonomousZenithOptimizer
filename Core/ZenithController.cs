@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Diagnostics;
@@ -87,7 +87,7 @@ namespace ZenithCoreSystem.Core
                 MarketROAS_Score: 4.5m,
                 CurrentMarketSpend: 10000.00m,
                 PredictedNAV: 130000.00m,
-                RH_ComplianceScore: _rha.PerformComplianceMock() ? 0.99 : 0.75,
+                RH_ComplianceScore: _rha.GetComplianceScore(),
                 GSF_Complexity: 0.85,
                 HyperCache_LatencyMs: 0.003,
                 ScalingFactor: 1.0,
@@ -252,3 +252,4 @@ namespace ZenithCoreSystem.Core
         }
     }
 }
+

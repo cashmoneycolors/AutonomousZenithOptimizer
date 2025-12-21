@@ -1,4 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -37,7 +37,7 @@ builder.Services.AddSingleton<ContextualMemoryHandler>();
 builder.Services.AddSingleton<IProfitGuarantor_QML>(sp =>
 {
 	var settings = sp.GetRequiredService<IOptions<OptimizerSettings>>();
-    return new QML_Python_Bridge(settings.Value.SimulateQmlFailure, settings.Value.ScaleUpMaxFactor);
+    return new QML_Python_Bridge(settings.Value.SimulateQmlFailure, settings.Value.QmlEndpoint, settings.Value.ScaleUpMaxFactor);
 });
 builder.Services.AddSingleton<RegulatoryHyperAdaptor>();
 builder.Services.AddSingleton<AetherArchitecture>();
@@ -54,8 +54,28 @@ using var host = builder.Build();
 var optimizer = host.Services.GetRequiredService<IAutonomousZenithOptimizer>();
 var settings = host.Services.GetRequiredService<IOptions<OptimizerSettings>>().Value;
 var logger = host.Services.GetRequiredService<ILogger<Program>>();
+// Live-Guardrails: verhindert "schein-live" Konfigurationen
+var liveMode = settings.LiveMode || string.Equals(Environment.GetEnvironmentVariable("AZO_LIVE_MODE"), "true", StringComparison.OrdinalIgnoreCase);
+if (liveMode)
+{
+    // sorgt dafuer, dass Adapter/Module (die ENV nutzen) konsistent reagieren
+    Environment.SetEnvironmentVariable("AZO_LIVE_MODE", "true");
 
-Console.WriteLine("--- ZQAN Ω: MAXIMALER SYSTEMSTART & API-INTEGRATION ---");
+    if (settings.EnableDemoScenarios)
+        throw new InvalidOperationException("LiveMode aktiv: EnableDemoScenarios muss false sein.");
+
+    if (settings.SimulateQmlFailure)
+        throw new InvalidOperationException("LiveMode aktiv: SimulateQmlFailure muss false sein.");
+
+    var endpoint = string.IsNullOrWhiteSpace(settings.QmlEndpoint)
+        ? Environment.GetEnvironmentVariable("AZO_QML_ENDPOINT")
+        : settings.QmlEndpoint;
+
+    if (string.IsNullOrWhiteSpace(endpoint))
+        throw new InvalidOperationException("LiveMode aktiv: QML Endpoint fehlt (Optimizer:QmlEndpoint oder ENV AZO_QML_ENDPOINT).");
+}
+
+Console.WriteLine("--- ZQAN Î©: MAXIMALER SYSTEMSTART & API-INTEGRATION ---");
 logger.LogInformation("[STATUS] HostBuilder hat den Zenith Controller mit allen Modulen registriert.");
 
 var cts = new CancellationTokenSource();
@@ -97,7 +117,7 @@ try
             errorCount = 0; // Reset bei erfolgreicher Iteration
 
             var delay = settings.CycleDelaySeconds > 0 ? settings.CycleDelaySeconds : 60;
-            logger.LogInformation($"\n--- Zyklus abgeschlossen, nächste Iteration in {delay} Sekunden ---");
+            logger.LogInformation($"\n--- Zyklus abgeschlossen, nÃ¤chste Iteration in {delay} Sekunden ---");
             await Task.Delay(TimeSpan.FromSeconds(delay), cts.Token);
         }
         catch (OperationCanceledException)
@@ -133,6 +153,8 @@ catch (Exception ex)
     Environment.Exit(1);
 }
 
-logger.LogInformation($"\n--- ZQAN Ω SHUTDOWN ---\nIterationen: {iterationCount} | Fehler: {errorCount}");
+logger.LogInformation($"\n--- ZQAN Î© SHUTDOWN ---\nIterationen: {iterationCount} | Fehler: {errorCount}");
 await host.StopAsync();
 Environment.Exit(0);
+
+
