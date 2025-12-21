@@ -94,9 +94,9 @@ class MiningLogger:
         self.mining_handler.setFormatter(self.formatter)
         self.logger.addHandler(self.mining_handler)
 
-        print("📝 ENHANCED LOGGING SYSTEM INITIALIZED")
-        print(f"📁 Log-Verzeichnis: {log_dir}")
-        print("🔄 Log-Rotation: Aktiviert")
+        print("ENHANCED LOGGING SYSTEM INITIALIZED")
+        print(f"Log-Verzeichnis: {log_dir}")
+        print("Log-Rotation: Aktiviert")
 
     def log_mining_cycle(self, cycle_data: Dict[str, Any]):
         """Loggt Mining-Zyklus-Daten"""
@@ -123,15 +123,15 @@ class MiningLogger:
     def log_system_event(self, event_type: str, event_data: Dict[str, Any]):
         """Loggt System-Events"""
         if event_type == 'STARTUP':
-            self.logger.info(f"🚀 SYSTEM_STARTUP | Version: {event_data.get('version', 'N/A')}")
+            self.logger.info(f"SYSTEM_STARTUP | Version: {event_data.get('version', 'N/A')}")
         elif event_type == 'SHUTDOWN':
-            self.logger.info(f"⏹️ SYSTEM_SHUTDOWN | Uptime: {event_data.get('uptime', 'N/A')}")
+            self.logger.info(f"SYSTEM_SHUTDOWN | Uptime: {event_data.get('uptime', 'N/A')}")
         elif event_type == 'OPTIMIZATION':
-            self.logger.info(f"⚡ OPTIMIZATION_EXECUTED | Type: {event_data.get('optimization_type', 'N/A')}")
+            self.logger.info(f"OPTIMIZATION_EXECUTED | Type: {event_data.get('optimization_type', 'N/A')}")
         elif event_type == 'ERROR':
-            self.logger.error(f"❌ SYSTEM_ERROR | {event_data.get('error_message', 'Unknown error')}")
+            self.logger.error(f"SYSTEM_ERROR | {event_data.get('error_message', 'Unknown error')}")
         elif event_type == 'WARNING':
-            self.logger.warning(f"⚠️ SYSTEM_WARNING | {event_data.get('warning_message', 'Unknown warning')}")
+            self.logger.warning(f"SYSTEM_WARNING | {event_data.get('warning_message', 'Unknown warning')}")
         else:
             self.logger.info(f"EVENT_{event_type} | {json.dumps(event_data)}")
 

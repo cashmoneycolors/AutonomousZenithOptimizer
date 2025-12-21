@@ -43,7 +43,7 @@ class TemperatureOptimizer:
         self.power_limits = {}
         self.voltage_offsets = {}
 
-        print("🌡️ TEMPERATURE OPTIMIZER INITIALIZED")
+        print("TEMPERATURE OPTIMIZER INITIALIZED")
         print(f"   Target Range: {self.temp_config.get('TargetTemperatureRange', [65, 75])}°C")
         print(f"   Overclocking: {'ENABLED' if self.temp_config.get('OverclockEnabled', True) else 'DISABLED'}")
 
@@ -56,7 +56,7 @@ class TemperatureOptimizer:
         monitor_thread = threading.Thread(target=self._optimization_loop, daemon=True)
         monitor_thread.start()
 
-        print("⚡ Temperature Optimization gestartet")
+        print("INFO: Temperature Optimization gestartet")
 
     def stop_temperature_optimization(self):
         """Stoppt Temperatur-Optimierung und setzt alles zurück"""
@@ -66,7 +66,7 @@ class TemperatureOptimizer:
         self.optimization_active = False
         self._reset_all_overclocks()
 
-        print("❄️ Temperature Optimization gestoppt - Overclocks zurückgesetzt")
+        print("INFO: Temperature Optimization gestoppt - Overclocks zurueckgesetzt")
 
     def optimize_rig_temperature(self, rig_data: Dict[str, Any]) -> Dict[str, Any]:
         """Optimiert Temperatur-Performance eines einzelnen Rigs"""
@@ -553,7 +553,7 @@ if __name__ == "__main__":
     print("CASH MONEY COLORS ORIGINAL (R) - TEMPERATURE OPTIMIZER")
     print("=" * 65)
 
-    print("🧪 Teste Temperature Optimizer...")
+    print("Teste Temperature Optimizer...")
 
     # Test-Rig
     test_rig = {

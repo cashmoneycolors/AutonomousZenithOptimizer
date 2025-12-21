@@ -39,7 +39,7 @@ except ModuleNotFoundError:
     )
     from temperature_optimizer import get_thermal_efficiency_report
     from algorithm_switcher import get_algorithm_performance_report
-    from config_manager import get_config, get_rigs_config
+    from python_modules.config_manager import get_config, get_rigs_config
     from enhanced_logging import log_event
     from alert_system import send_custom_alert
 

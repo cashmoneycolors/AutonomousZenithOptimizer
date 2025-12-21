@@ -20,7 +20,7 @@ except ModuleNotFoundError:
     import sys
     import os
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    from config_manager import get_config, get_rigs_config
+    from python_modules.config_manager import get_config, get_rigs_config
     from alert_system import send_system_alert, send_custom_alert
     from enhanced_logging import log_event
 
@@ -51,7 +51,7 @@ class PredictiveMaintenance:
         self.power_data = {}
         self.error_counts = {}
 
-        print("🔧 PREDICTIVE MAINTENANCE INITIALIZED")
+        print("PREDICTIVE MAINTENANCE INITIALIZED")
         print(f"   Monitoring Enabled: {self.maintenance_config.get('Enabled', True)}")
         print(f"   Prediction Horizon: {self.maintenance_config.get('PredictionThresholdHours', 168)} hours")
 
@@ -64,12 +64,12 @@ class PredictiveMaintenance:
         monitor_thread = threading.Thread(target=self._monitoring_loop, daemon=True)
         monitor_thread.start()
 
-        print("🔬 Predictive Monitoring gestartet")
+        print("INFO: Predictive Monitoring gestartet")
 
     def stop_predictive_monitoring(self):
         """Stoppt Predictive Maintenance Monitoring"""
         self.monitoring_active = False
-        print("⬛ Predictive Monitoring gestoppt")
+        print("INFO: Predictive Monitoring gestoppt")
 
     def analyze_rig_health(self, rig_data: Dict[str, Any]) -> Dict[str, Any]:
         """Analysiert den Gesundheitszustand eines Rigs"""
@@ -662,7 +662,7 @@ if __name__ == "__main__":
     print("CASH MONEY COLORS ORIGINAL (R) - PREDICTIVE MAINTENANCE")
     print("=" * 65)
 
-    print("🧪 Teste Predictive Maintenance...")
+    print("Teste Predictive Maintenance...")
 
     # Beispiel-Rig Daten
     test_rig = {

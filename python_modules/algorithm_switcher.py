@@ -47,7 +47,7 @@ class AlgorithmSwitcher:
             'sha256': {'coins': ['BTC', 'BCH'], 'difficulty_multiplier': 1.2}
         }
 
-        print("🧠 ALGORITHM SWITCHER INITIALIZED")
+        print("ALGORITHM SWITCHER INITIALIZED")
         print(f"   Switching Enabled: {self.switch_config.get('Enabled', True)}")
         print(f"   Risk Tolerance: {self.switch_config.get('RiskTolerance', 'medium')}")
 
@@ -60,12 +60,12 @@ class AlgorithmSwitcher:
         monitor_thread = threading.Thread(target=self._algorithm_monitor_loop, daemon=True)
         monitor_thread.start()
 
-        print("🔄 Algorithm Monitoring gestartet")
+        print("INFO: Algorithm Monitoring gestartet")
 
     def stop_algorithm_monitoring(self):
         """Stoppt Algorithmus-Monitoring"""
         self.monitoring_active = False
-        print("⏹️ Algorithm Monitoring gestoppt")
+        print("INFO: Algorithm Monitoring gestoppt")
 
     def analyze_algorithm_performance(self, time_window_hours: int = 24) -> Dict[str, Any]:
         """Analysiert Performance aller Algorithmen über Zeitfenster"""
@@ -201,7 +201,7 @@ class AlgorithmSwitcher:
             # Alert
             send_custom_alert("Algorithmus Switch",
                             f"Automatischer Switch: {recommendation['current_algorithm']} → {optimal_algo} (+{recommendation['improvement_percentage']:.1f}%)",
-                            "🧠")
+                            "INFO")
 
             log_event('ALGORITHM_SWITCH', switch_event)
 
@@ -371,7 +371,7 @@ if __name__ == "__main__":
     print("CASH MONEY COLORS ORIGINAL (R) - ALGORITHM SWITCHER")
     print("=" * 60)
 
-    print("🧪 Teste Algorithm Switcher...")
+    print("Teste Algorithm Switcher...")
 
     # Performance-Analyse
     analysis = analyze_algorithms()
@@ -382,7 +382,7 @@ if __name__ == "__main__":
         sorted_algos = sorted(analysis.items(), key=lambda x: x[1]['final_score'], reverse=True)
         best_algo = sorted_algos[0]
 
-        print(f"\n🏆 Bester Algorithmus: {best_algo[0].upper()}")
+        print(f"\nBester Algorithmus: {best_algo[0].upper()}")
         print(f"   Pool Profit/Day: ${best_algo[1]['pool_profit_per_day']:.4f}")
         print(f"   Geschätzter Profit: ${best_algo[1]['adjusted_profit']:.2f}")
         print(f"   Risiko-Faktor: {best_algo[1]['risk_factor']:.1f}")
@@ -390,7 +390,7 @@ if __name__ == "__main__":
         # Test Switch (ohne echte Ausführung)
         optimal, rec = algorithm_switcher.get_optimal_algorithm()
         if rec.get('can_switch'):
-            print(f"\n🔄 Switch möglich zu: {optimal.upper()}")
+            print(f"\nSwitch moeglich zu: {optimal.upper()}")
             print(f"   Verbesserung: {rec['improvement_percentage']:.1f}%")
         else:
             reason = "Threshold nicht erreicht" if rec['improvement_percentage'] < rec['switch_threshold'] else "Zeit-Intervall aktiv"

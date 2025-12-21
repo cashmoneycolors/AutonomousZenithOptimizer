@@ -24,15 +24,15 @@ class AlertSystem:
         # Aktiviere verfügbare Services
         if self.telegram_config.get('Enabled', False):
             self.enabled_alerts.append('telegram')
-            print("📱 Telegram Alerts aktiviert")
+            print("Telegram Alerts aktiviert")
         if self.discord_config.get('Enabled', False):
             self.enabled_alerts.append('discord')
-            print("🎮 Discord Alerts aktiviert")
+            print("Discord Alerts aktiviert")
 
         if not self.enabled_alerts:
-            print("⚠️ Keine Alert-Services aktiviert. Konfiguriere Telegram oder Discord in settings.json")
+            print("WARN: Keine Alert-Services aktiviert. Konfiguriere Telegram oder Discord in settings.json")
 
-        print("🚨 ALERT SYSTEM INITIALIZED")
+        print("ALERT SYSTEM INITIALIZED")
 
     def send_profit_alert(self, profit_data: Dict[str, Any]):
         """Benachrichtigung bei Profit-Milestones"""
@@ -85,9 +85,13 @@ class AlertSystem:
         self._send_alert(formatted_message, alert_type.upper())
         self._log_alert(alert_type.upper(), formatted_message, data or {})
 
-    def send_custom_alert(self, title: str, message: str, emoji: str = "ℹ️"):
+    def send_custom_alert(self, title: str, message: str, emoji: str = "INFO"):
         """Benutzerdefinierte Benachrichtigung"""
-        formatted_message = f"{emoji} {title.upper()}\n{message}\n⏰ {datetime.now().strftime('%H:%M:%S')}"
+        prefix = emoji
+        if any(ord(ch) > 255 for ch in prefix):
+            prefix = "INFO"
+
+        formatted_message = f"{prefix} {title.upper()}\n{message}\nTime: {datetime.now().strftime('%H:%M:%S')}"
 
         self._send_alert(formatted_message, "CUSTOM")
         self._log_alert("CUSTOM", formatted_message, {"title": title, "emoji": emoji})
@@ -101,7 +105,7 @@ class AlertSystem:
         chat_id = os.getenv('TELEGRAM_CHAT_ID') or self.telegram_config.get('ChatId', '').replace('${TELEGRAM_CHAT_ID}', '')
 
         if not bot_token or not chat_id:
-            print("⚠️ Telegram-Bot nicht konfiguriert")
+            print("WARN: Telegram-Bot nicht konfiguriert")
             return
 
         try:
@@ -114,12 +118,12 @@ class AlertSystem:
 
             response = requests.post(url, json=payload, timeout=10)
             if response.status_code == 200:
-                print("📱 Telegram Alert gesendet")
+                print("Telegram Alert gesendet")
             else:
-                print(f"❌ Telegram Fehler: {response.status_code}")
+                print(f"ERROR: Telegram Fehler: {response.status_code}")
 
         except Exception as e:
-            print(f"❌ Telegram Exception: {e}")
+            print(f"ERROR: Telegram Exception: {e}")
 
     def _send_discord_alert(self, message: str):
         """Sendet Alert via Discord Webhook"""
@@ -129,7 +133,7 @@ class AlertSystem:
         webhook_url = os.getenv('DISCORD_WEBHOOK_URL') or self.discord_config.get('WebhookUrl', '').replace('${DISCORD_WEBHOOK_URL}', '')
 
         if not webhook_url:
-            print("⚠️ Discord-Webhook nicht konfiguriert")
+            print("WARN: Discord-Webhook nicht konfiguriert")
             return
 
         try:
@@ -141,12 +145,12 @@ class AlertSystem:
 
             response = requests.post(webhook_url, json=payload, timeout=10)
             if response.status_code == 204:
-                print("🎮 Discord Alert gesendet")
+                print("Discord Alert gesendet")
             else:
-                print(f"❌ Discord Fehler: {response.status_code}")
+                print(f"ERROR: Discord Fehler: {response.status_code}")
 
         except Exception as e:
-            print(f"❌ Discord Exception: {e}")
+            print(f"ERROR: Discord Exception: {e}")
 
     def _send_alert(self, message: str, alert_type: str):
         """Sendet Alert an alle aktivierten Services"""
@@ -170,7 +174,7 @@ class AlertSystem:
         if len(self.alert_history) > 100:
             self.alert_history.pop(0)
 
-        print(f"🚨 ALERT LOGGED: {alert_type}")
+        print(f"ALERT LOGGED: {alert_type}")
 
     def get_alert_history(self, limit: int = 20) -> List[Dict[str, Any]]:
         """Gibt Alert-Historie zurück"""
@@ -178,14 +182,14 @@ class AlertSystem:
 
     def test_alert(self, service: str = "all"):
         """Test-Funktion für Alerts"""
-        test_message = f"🧪 TEST ALERT\nAlert-System funktioniert!\nService: {service}\n⏰ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        test_message = f"TEST ALERT\nAlert-System funktioniert!\nService: {service}\n⏰ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
 
         if service in ['telegram', 'all']:
             self._send_telegram_alert(test_message)
         if service in ['discord', 'all']:
             self._send_discord_alert(test_message)
 
-        print(f"🧪 Test-Alert gesendet an: {service}")
+        print(f"Test-Alert gesendet an: {service}")
 
 # Globale Alert-Instanz
 alert_system = AlertSystem()
@@ -211,7 +215,7 @@ def send_system_alert(alert_type, message, data=None):
     """System-Benachrichtigung"""
     alert_system.send_system_alert(alert_type, message, data or {})
 
-def send_custom_alert(title, message, emoji="ℹ️"):
+def send_custom_alert(title, message, emoji="INFO"):
     """Benutzerdefinierte Benachrichtigung"""
     alert_system.send_custom_alert(title, message, emoji)
 
@@ -227,7 +231,7 @@ if __name__ == "__main__":
     print("CASH MONEY COLORS ORIGINAL (R) - ALERT SYSTEM")
     print("=" * 50)
 
-    print("🧪 Teste Alert-System...")
+    print("Teste Alert-System...")
 
     # Test-Profite Alert
     test_profit_data = {
@@ -251,6 +255,6 @@ if __name__ == "__main__":
     }
     send_market_alert(test_market_data)
 
-    print("\n✅ ALERT SYSTEM BEREIT!")
+    print("\nALERT SYSTEM BEREIT!")
     print("Verwende send_profit_alert(), send_temperature_alert(), send_market_alert(), etc.")
     print("Konfiguriere Telegram/Discord in settings.json für echte Benachrichtigungen")
