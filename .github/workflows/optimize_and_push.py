@@ -16,6 +16,8 @@ def run_command(cmd, cwd=None):
 def main():
     repo_root = r"C:\Users\nazmi\AutonomousZenithOptimizer"
     workspace = r"C:\.github\copilot-instructions\AutonomousZenithOptimizer\.github\workflows"
+    print(f"Workspace: {workspace}")
+    print("Dateien im Workspace:", os.listdir(workspace))
 
     # 1. Originale sichern
     print("Sichere Originaldateien...")
