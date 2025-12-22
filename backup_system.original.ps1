@@ -1,11 +1,15 @@
 # ==============================================================================
-# 🚀 COMPREHENSIVE SYSTEM BACKUP SCRIPT 🚀
+# 🚀 COMPREHENSIVE SYSTEM BACKUP SCRIPT (ORIGINAL VERSION) 🚀
 # Backs up GitHub repository, laptop files, and Visual Studio settings
 # ------------------------------------------------------------------------------
 # ZWECK: Vollständige Sicherung des Autonomous Zenith Optimizer Projekts
 # 
-# VERSION: Mit Uncommitted-Changes-Erkennung
-# FALLBACK: Falls Probleme auftreten, verwenden Sie backup_system.original.ps1
+# HINWEIS: Dies ist die ORIGINAL-VERSION ohne Uncommitted-Changes-Prüfung.
+#          Diese Datei dient als Backup für den Notfall, falls die neue
+#          Version (backup_system.ps1) Probleme verursachen sollte.
+#          
+#          Für die aktuelle Version mit Uncommitted-Changes-Erkennung
+#          verwenden Sie: backup_system.ps1
 # ==============================================================================
 
 # Definiert Backup-Verzeichnis und Zeitstempel
@@ -24,39 +28,9 @@ Write-Host "=======================================================" -Foreground
 Write-Host "✅ Erstelle Backup-Verzeichnis..." -ForegroundColor Green
 New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
 
-# 1a. PRÜFE AUF UNCOMMITTED CHANGES
-Write-Host "🔍 Prüfe auf nicht committete Änderungen..." -ForegroundColor Yellow
-cd $ProjectDir
-$GitStatus = git status --porcelain
-if ($GitStatus) {
-    Write-Host ""
-    Write-Host "⚠️  WARNUNG: Es wurden Änderungen ohne Commit erkannt." -ForegroundColor Red
-    Write-Host ""
-    Write-Host "Folgende Dateien haben nicht committete Änderungen:" -ForegroundColor Yellow
-    Write-Host $GitStatus
-    Write-Host ""
-    Write-Host "OPTIONEN:" -ForegroundColor Cyan
-    Write-Host "1. [F]ortfahren - Backup trotzdem erstellen (uncommitted Änderungen werden eingeschlossen)" -ForegroundColor Green
-    Write-Host "2. [A]bbrechen - Backup abbrechen, damit Sie zuerst committen können" -ForegroundColor Red
-    Write-Host ""
-    
-    $Antwort = Read-Host "Ihre Auswahl (F/A)"
-    
-    if ($Antwort -ne "F" -and $Antwort -ne "f") {
-        Write-Host ""
-        Write-Host "❌ BACKUP ABGEBROCHEN" -ForegroundColor Red
-        Write-Host "Bitte committen Sie Ihre Änderungen und führen Sie das Backup erneut aus." -ForegroundColor Yellow
-        Write-Host ""
-        exit 1
-    }
-    
-    Write-Host ""
-    Write-Host "✅ Fahre mit Backup fort trotz uncommitted Änderungen..." -ForegroundColor Yellow
-    Write-Host ""
-}
-
 # 2. BACKUP GITHUB REPOSITORY (GIT BUNDLE)
 Write-Host "✅ Erstelle Git Bundle für GitHub Repository..." -ForegroundColor Green
+cd $ProjectDir
 git bundle create "$BackupDir\autonomous_zenith_optimizer.bundle" --all
 git log --oneline -10 > "$BackupDir\git_history.txt"
 
