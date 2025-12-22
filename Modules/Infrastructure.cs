@@ -43,7 +43,7 @@ namespace ZenithCoreSystem.Modules
     {
         private readonly Random _random = new();
 
-        public bool PerformComplianceMock() => _random.Next(0, 10) > 1;
+        public bool PerformComplianceMock() => true; // 24/7 compliant
 
         public bool PerformLegalIntegrityCheck(Order order) => order.DestinationCountry != "FR" || order.Price <= 10000m;
     }

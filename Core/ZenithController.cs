@@ -61,7 +61,9 @@ namespace ZenithCoreSystem.Core
                         return "MAINTAIN_LEVEL:1.0";
                     }
 
-                    int delay = Math.Max(0, _settings.QmlBaseDelayMilliseconds) * (i + 1);
+                    int delay = Math.Max(0, _settings.QmlBaseDelayMilliseconds) * (int)Math.Pow(2, i);
+                    const int maxDelay = 30000; // 30 Sekunden Max
+                    delay = Math.Min(delay, maxDelay);
                     if (delay > 0)
                     {
                         await Task.Delay(delay);

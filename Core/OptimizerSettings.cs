@@ -10,7 +10,7 @@ namespace ZenithCoreSystem.Core
 
         public bool SimulateQmlFailure { get; set; } = true;
 
-        public string? RedisConnectionString { get; set; }
+        public string? RedisConnectionString { get; set; } = Environment.GetEnvironmentVariable("REDIS_CONNECTION_STRING");
 
         /// <summary>
         /// Aktiviert Demo-Szenarien (Order-Tests). In Produktion auf false setzen.
@@ -36,5 +36,15 @@ namespace ZenithCoreSystem.Core
         /// Maximal erlaubter SCALE_UP-Faktor ("Quantum-Stufe").
         /// </summary>
         public decimal ScaleUpMaxFactor { get; set; } = 3.0m;
+
+        /// <summary>
+        /// QML Endpoint URL.
+        /// </summary>
+        public string? QmlEndpoint { get; set; }
+
+        /// <summary>
+        /// Live Mode aktivieren.
+        /// </summary>
+        public bool LiveMode { get; set; } = false;
     }
 }

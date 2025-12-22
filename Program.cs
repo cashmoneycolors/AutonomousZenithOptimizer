@@ -1,7 +1,8 @@
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Text;
 using StackExchangeRedis = StackExchange.Redis;
 using ZenithCoreSystem;
 using ZenithCoreSystem.Adapters;
@@ -10,11 +11,21 @@ using ZenithCoreSystem.Modules;
 
 var builder = Host.CreateApplicationBuilder(args);
 
+try
+{
+    Console.OutputEncoding = Encoding.UTF8;
+    Console.InputEncoding = Encoding.UTF8;
+}
+catch
+{
+    // Ignore: some hosts/terminals don't support changing encodings.
+}
+
 builder.Logging.ClearProviders();
 builder.Logging.AddSimpleConsole(options =>
 {
-	options.SingleLine = true;
-	options.TimestampFormat = "HH:mm:ss ";
+    options.SingleLine = true;
+    options.TimestampFormat = "HH:mm:ss ";
 });
 
 builder.Services.Configure<OptimizerSettings>(builder.Configuration.GetSection("Optimizer"));
@@ -22,22 +33,22 @@ builder.Services.Configure<OptimizerSettings>(builder.Configuration.GetSection("
 // Core infrastructure registrations
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 {
-	var options = sp.GetRequiredService<IOptions<OptimizerSettings>>().Value;
+    var options = sp.GetRequiredService<IOptions<OptimizerSettings>>().Value;
 
-	if (!string.IsNullOrWhiteSpace(options.RedisConnectionString))
-	{
-		var multiplexer = StackExchangeRedis.ConnectionMultiplexer.Connect(options.RedisConnectionString);
-		return new StackExchangeRedisConnection(multiplexer);
-	}
+    if (!string.IsNullOrWhiteSpace(options.RedisConnectionString))
+    {
+        var multiplexer = StackExchangeRedis.ConnectionMultiplexer.Connect(options.RedisConnectionString);
+        return new StackExchangeRedisConnection(multiplexer);
+    }
 
-	return new RedisMock();
+    return new RedisMock();
 });
 builder.Services.AddSingleton<HoloKognitivesRepository>();
 builder.Services.AddSingleton<ContextualMemoryHandler>();
 builder.Services.AddSingleton<IProfitGuarantor_QML>(sp =>
 {
-	var settings = sp.GetRequiredService<IOptions<OptimizerSettings>>();
-    return new QML_Python_Bridge(settings.Value.SimulateQmlFailure, settings.Value.ScaleUpMaxFactor);
+    var settings = sp.GetRequiredService<IOptions<OptimizerSettings>>();
+    return new QML_Python_Bridge(settings.Value.SimulateQmlFailure, settings.Value.QmlEndpoint, settings.Value.ScaleUpMaxFactor);
 });
 builder.Services.AddSingleton<RegulatoryHyperAdaptor>();
 builder.Services.AddSingleton<AetherArchitecture>();
@@ -54,6 +65,26 @@ using var host = builder.Build();
 var optimizer = host.Services.GetRequiredService<IAutonomousZenithOptimizer>();
 var settings = host.Services.GetRequiredService<IOptions<OptimizerSettings>>().Value;
 var logger = host.Services.GetRequiredService<ILogger<Program>>();
+// Live-Guardrails: verhindert "schein-live" Konfigurationen
+var liveMode = settings.LiveMode || string.Equals(Environment.GetEnvironmentVariable("AZO_LIVE_MODE"), "true", StringComparison.OrdinalIgnoreCase);
+if (liveMode)
+{
+    // sorgt dafuer, dass Adapter/Module (die ENV nutzen) konsistent reagieren
+    Environment.SetEnvironmentVariable("AZO_LIVE_MODE", "true");
+
+    if (settings.EnableDemoScenarios)
+        throw new InvalidOperationException("LiveMode aktiv: EnableDemoScenarios muss false sein.");
+
+    if (settings.SimulateQmlFailure)
+        throw new InvalidOperationException("LiveMode aktiv: SimulateQmlFailure muss false sein.");
+
+    var endpoint = string.IsNullOrWhiteSpace(settings.QmlEndpoint)
+        ? Environment.GetEnvironmentVariable("AZO_QML_ENDPOINT")
+        : settings.QmlEndpoint;
+
+    if (string.IsNullOrWhiteSpace(endpoint))
+        throw new InvalidOperationException("LiveMode aktiv: QML Endpoint fehlt (Optimizer:QmlEndpoint oder ENV AZO_QML_ENDPOINT).");
+}
 
 Console.WriteLine("--- ZQAN Ω: MAXIMALER SYSTEMSTART & API-INTEGRATION ---");
 logger.LogInformation("[STATUS] HostBuilder hat den Zenith Controller mit allen Modulen registriert.");
@@ -136,3 +167,5 @@ catch (Exception ex)
 logger.LogInformation($"\n--- ZQAN Ω SHUTDOWN ---\nIterationen: {iterationCount} | Fehler: {errorCount}");
 await host.StopAsync();
 Environment.Exit(0);
+
+
