@@ -29,7 +29,14 @@ jobs:
           cache: true
       - name: Restore
         run: dotnet restore AutonomousZenithOptimizer.sln
+      - name: Format check
+        run: dotnet format AutonomousZenithOptimizer.sln --verify-no-changes
       - name: Build
         run: dotnet build AutonomousZenithOptimizer.sln --configuration Release --no-restore
       - name: Test
-        run: dotnet test AutonomousZenithOptimizer.sln --configuration Release --no-build --collect:"XPlat Code Coverage"
+        run: dotnet test AutonomousZenithOptimizer.sln --configuration Release --no-build --collect:"XPlat Code Coverage" --results-directory ./test-results
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          directory: ./test-results
+          fail_ci_if_error: false
