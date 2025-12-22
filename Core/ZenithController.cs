@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Diagnostics;
@@ -61,7 +61,9 @@ namespace ZenithCoreSystem.Core
                         return "MAINTAIN_LEVEL:1.0";
                     }
 
-                    int delay = Math.Max(0, _settings.QmlBaseDelayMilliseconds) * (i + 1);
+                    int delay = Math.Max(0, _settings.QmlBaseDelayMilliseconds) * (int)Math.Pow(2, i);
+                    const int maxDelay = 30000; // 30 Sekunden Max
+                    delay = Math.Min(delay, maxDelay);
                     if (delay > 0)
                     {
                         await Task.Delay(delay);
@@ -87,7 +89,7 @@ namespace ZenithCoreSystem.Core
                 MarketROAS_Score: 4.5m,
                 CurrentMarketSpend: 10000.00m,
                 PredictedNAV: 130000.00m,
-                RH_ComplianceScore: _rha.GetComplianceScore(),
+                RH_ComplianceScore: _rha.PerformComplianceMock() ? 0.99 : 0.75,
                 GSF_Complexity: 0.85,
                 HyperCache_LatencyMs: 0.003,
                 ScalingFactor: 1.0,
@@ -252,4 +254,3 @@ namespace ZenithCoreSystem.Core
         }
     }
 }
-

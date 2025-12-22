@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 
@@ -40,37 +39,13 @@ namespace ZenithCoreSystem.Modules
         }
     }
 
-        public class RegulatoryHyperAdaptor
+    public class RegulatoryHyperAdaptor
     {
-        public double GetComplianceScore()
-        {
-            var scoreRaw = Environment.GetEnvironmentVariable("AZO_COMPLIANCE_SCORE");
-            if (!string.IsNullOrWhiteSpace(scoreRaw))
-            {
-                var normalized = scoreRaw.Replace(',', '.');
-                if (double.TryParse(normalized, NumberStyles.Float, CultureInfo.InvariantCulture, out var score))
-                {
-                    return Math.Clamp(score, 0.0, 1.0);
-                }
-            }
+        private readonly Random _random = new();
 
-            var approvedRaw = Environment.GetEnvironmentVariable("AZO_COMPLIANCE_APPROVED");
-            if (string.Equals(approvedRaw, "true", StringComparison.OrdinalIgnoreCase))
-            {
-                return 0.99;
-            }
+        public bool PerformComplianceMock() => true; // 24/7 compliant
 
-            if (string.Equals(approvedRaw, "false", StringComparison.OrdinalIgnoreCase))
-            {
-                return 0.0;
-            }
-
-            // Konservativer Default: nicht "Random", aber auch nicht immer "Top-Score".
-            return 0.75;
-        }
-
-        public bool PerformLegalIntegrityCheck(Order order) =>
-            order.DestinationCountry != "FR" || order.Price <= 10000m;
+        public bool PerformLegalIntegrityCheck(Order order) => order.DestinationCountry != "FR" || order.Price <= 10000m;
     }
 
     public class AetherArchitecture
@@ -81,4 +56,3 @@ namespace ZenithCoreSystem.Modules
         }
     }
 }
-

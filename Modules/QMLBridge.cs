@@ -29,7 +29,7 @@ namespace ZenithCoreSystem.Modules
 
             if (_simulateFailure && _callCount <= 2)
             {
-                throw new TimeoutException("QML-Core ist ueberlastet oder offline (Simuliert)." );
+                throw new TimeoutException("QML-Core ist ueberlastet oder offline (Simuliert).");
             }
 
             var liveModeRaw = Environment.GetEnvironmentVariable("AZO_LIVE_MODE");
