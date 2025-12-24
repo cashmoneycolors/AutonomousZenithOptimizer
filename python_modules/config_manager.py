@@ -23,9 +23,9 @@ class ConfigManager:
         # Konfiguration laden
         self.load_config()
 
-        print("⚙️ CONFIG MANAGER INITIALIZED")
-        print(f"📁 Config File: {config_file}")
-        print(f"🔧 Loaded {len(self.config)} configuration sections")
+        print("CONFIG MANAGER INITIALIZED")
+        print(f"Config File: {config_file}")
+        print(f"Loaded {len(self.config)} configuration sections")
 
     def _load_env_vars(self):
         """Läd alle relevanten Umgebungsvariablen"""
@@ -71,10 +71,10 @@ class ConfigManager:
             # Umgebungsvariablen ersetzen
             self.config = self._resolve_env_vars(raw_config)
 
-            print(f"✅ Config loaded from {self.config_file}")
+            print(f"Config loaded from {self.config_file}")
 
         except Exception as e:
-            print(f"❌ Error loading config: {e}")
+            print(f"Error loading config: {e}")
             self._create_default_config()
 
     def _resolve_env_vars(self, config: Dict[str, Any]) -> Dict[str, Any]:
@@ -130,18 +130,18 @@ class ConfigManager:
         try:
             with open(self.config_file, 'w', encoding='utf-8') as f:
                 json.dump(self.config, f, indent=2)
-            print(f"📝 Default config saved to {self.config_file}")
+            print(f"Default config saved to {self.config_file}")
         except Exception as e:
-            print(f"❌ Error saving default config: {e}")
+            print(f"Error saving default config: {e}")
 
     def save_config(self):
         """Speichert aktuelle Konfiguration"""
         try:
             with open(self.config_file, 'w', encoding='utf-8') as f:
                 json.dump(self.config, f, indent=2)
-            print(f"💾 Config saved to {self.config_file}")
+            print(f"Config saved to {self.config_file}")
         except Exception as e:
-            print(f"❌ Error saving config: {e}")
+            print(f"Error saving config: {e}")
 
     def get(self, key_path: str, default=None):
         """Holt Wert aus Konfiguration mit Punkt-Notation"""
@@ -281,36 +281,36 @@ if __name__ == "__main__":
     print("=" * 55)
 
     # Test des Config Managers
-    print("🧪 Teste Config Manager...")
+    print("Teste Config Manager...")
 
     # Konfiguration validieren
     errors = validate_config()
     if errors:
-        print(f"⚠️ Konfigurationsfehler gefunden ({len(errors)}):")
+        print(f"Konfigurationsfehler gefunden ({len(errors)}):")
         for error in errors:
             print(f"  - {error}")
     else:
-        print("✅ Konfiguration ist gültig")
+        print("Konfiguration ist gueltig")
 
     # Zusammenfassung anzeigen
     summary = config_manager.get_config_summary()
-    print(f"\n📊 Konfigurations-Zusammenfassung:")
+    print(f"\nKonfigurations-Zusammenfassung:")
     print(f"   Config-Datei: {summary['config_file']}")
     print(f"   Sektionen: {summary['sections_count']}")
     print(f"   Umgebungsvariablen: {summary['env_vars_loaded']}")
     print(f"   Konfigurierte Rigs: {summary['rigs_count']}")
 
     # Beispiel-Konfiguration lesen
-    print(f"\n🔧 Beispiel-Werte:")
+    print(f"\nBeispiel-Werte:")
     print(f"   System Name: {get_config('System.Name')}")
     print(f"   Mining Algorithm: {get_config('Mining.DefaultAlgorithm')}")
     print(f"   Electricity Cost: {get_config('Mining.ElectricityCostPerKwh')} CHF/kWh")
 
     rigs = get_rigs_config()
     if rigs:
-        print(f"\n🔌 Beispiel Rig:")
+        print(f"\nBeispiel Rig:")
         sample_rig = rigs[0]
         print(f"   {sample_rig.get('id', 'N/A')}: {sample_rig.get('type', 'N/A')} ({sample_rig.get('algorithm', 'N/A')})")
 
-    print("\n✅ CONFIG MANAGER BEREIT!")
+    print("\nCONFIG MANAGER BEREIT!")
     print("Verwende get_config(), set_config(), validate_config()")
