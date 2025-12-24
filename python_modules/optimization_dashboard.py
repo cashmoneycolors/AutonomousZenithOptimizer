@@ -11,7 +11,7 @@ from pathlib import Path
 
 try:
     from python_modules.predictive_maintenance import (
-        get_maintenance_status, 
+        get_maintenance_status,
         predict_rig_failures,
         analyze_rig_health
     )
@@ -21,6 +21,10 @@ try:
     )
     from python_modules.temperature_optimizer import get_thermal_efficiency_report
     from python_modules.algorithm_switcher import get_algorithm_performance_report
+    from python_modules.quantum_optimizer import (
+        run_quantum_optimization,
+        get_quantum_status
+    )
     from python_modules.config_manager import get_config, get_rigs_config
     from python_modules.enhanced_logging import log_event
     from python_modules.alert_system import send_custom_alert
@@ -29,7 +33,7 @@ except ModuleNotFoundError:
     import os
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     from predictive_maintenance import (
-        get_maintenance_status, 
+        get_maintenance_status,
         predict_rig_failures,
         analyze_rig_health
     )
@@ -39,6 +43,10 @@ except ModuleNotFoundError:
     )
     from temperature_optimizer import get_thermal_efficiency_report
     from algorithm_switcher import get_algorithm_performance_report
+    from quantum_optimizer import (
+        run_quantum_optimization,
+        get_quantum_status
+    )
     from config_manager import get_config, get_rigs_config
     from enhanced_logging import log_event
     from alert_system import send_custom_alert
@@ -159,6 +167,24 @@ class OptimizationDashboard:
             print(f"⚠️ Algorithm Switching nicht verfügbar: {e}")
             all_metrics['modules']['algorithm_switching'] = {'status': 'error', 'message': str(e)}
 
+        # 5. Quantum Optimization
+        try:
+            quantum_status = get_quantum_status()
+
+            all_metrics['modules']['quantum_optimization'] = {
+                'total_optimizations': quantum_status.get('total_optimizations', 0),
+                'recent_optimizations': quantum_status.get('recent_optimizations', 0),
+                'avg_efficiency_gain': quantum_status.get('avg_efficiency_gain', 0),
+                'avg_stability_score': quantum_status.get('avg_stability_score', 0),
+                'avg_quantum_level': quantum_status.get('avg_quantum_level', 0),
+                'max_quantum_level_achieved': quantum_status.get('max_quantum_level_achieved', 0),
+                'last_optimization': quantum_status.get('last_optimization', 'never'),
+                'quantum_states_count': quantum_status.get('quantum_states_count', 0)
+            }
+        except Exception as e:
+            print(f"⚠️ Quantum Optimization nicht verfügbar: {e}")
+            all_metrics['modules']['quantum_optimization'] = {'status': 'error', 'message': str(e)}
+
         print("✅ Metriken erfolgreich gesammelt")
         return all_metrics
 
@@ -241,11 +267,21 @@ class OptimizationDashboard:
             'current_algorithm': alg.get('current_best_algorithm', 'unknown')
         }
 
+        # Quantum Optimization Summary
+        qo = modules.get('quantum_optimization', {})
+        qo_summary = {
+            'total_optimizations': qo.get('total_optimizations', 0),
+            'avg_efficiency_gain': qo.get('avg_efficiency_gain', 0),
+            'avg_quantum_level': qo.get('avg_quantum_level', 0),
+            'max_quantum_level': qo.get('max_quantum_level_achieved', 0)
+        }
+
         return {
             'predictive_maintenance': pm_summary,
             'energy_efficiency': ee_summary,
             'temperature_optimization': to_summary,
             'algorithm_switching': alg_summary,
+            'quantum_optimization': qo_summary,
             'overall_system_health': self._calculate_overall_health(pm_summary, ee_summary)
         }
 
@@ -302,6 +338,12 @@ class OptimizationDashboard:
             'optimization_metrics': {
                 'total_temperature_optimizations': to.get('total_optimizations', 0),
                 'total_algorithm_switches': modules.get('algorithm_switching', {}).get('total_switches', 0)
+            },
+            'quantum_metrics': {
+                'total_quantum_optimizations': modules.get('quantum_optimization', {}).get('total_optimizations', 0),
+                'avg_quantum_efficiency_gain': modules.get('quantum_optimization', {}).get('avg_efficiency_gain', 0),
+                'avg_quantum_stability': modules.get('quantum_optimization', {}).get('avg_stability_score', 0),
+                'max_quantum_level_achieved': modules.get('quantum_optimization', {}).get('max_quantum_level_achieved', 0)
             }
         }
 
