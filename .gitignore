@@ -9,3 +9,4 @@ __pycache__/
 *.pyo
 *.log
 mining_hardware_config*.json
+rig_gpu_mapping.json

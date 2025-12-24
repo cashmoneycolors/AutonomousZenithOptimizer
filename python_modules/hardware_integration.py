@@ -13,6 +13,7 @@ try:
         optimize_gpu_temperature,
         apply_gpu_profile
     )
+    from rig_gpu_mapper import get_rig_mapper, get_gpu_index_for_rig
 except ImportError:
     # Wenn direkt ausgeführt, versuche relativen Import
     import sys
@@ -26,6 +27,7 @@ except ImportError:
         optimize_gpu_temperature,
         apply_gpu_profile
     )
+    from rig_gpu_mapper import get_rig_mapper, get_gpu_index_for_rig
 
 class HardwareIntegration:
     """
@@ -35,6 +37,7 @@ class HardwareIntegration:
     
     def __init__(self):
         self.adapter = get_hardware_adapter()
+        self.mapper = get_rig_mapper()
         self.enabled = len(self.adapter.available_gpus) > 0
         
         if self.enabled:
@@ -42,12 +45,30 @@ class HardwareIntegration:
         else:
             print(f"⚠️  Hardware-Integration im Simulations-Modus (keine GPUs gefunden)")
     
+    def _get_gpu_index(self, rig_data: Dict[str, Any]) -> int:
+        """
+        Ermittelt GPU-Index für ein Rig
+        
+        Args:
+            rig_data: Rig-Informationen mit 'id' und optional 'gpu_index'
+            
+        Returns:
+            GPU-Index
+        """
+        # Priorität 1: Explizit angegebener gpu_index
+        if 'gpu_index' in rig_data and rig_data['gpu_index'] is not None:
+            return rig_data['gpu_index']
+        
+        # Priorität 2: Mapping via rig_id
+        rig_id = rig_data.get('id', 'UNKNOWN')
+        return get_gpu_index_for_rig(rig_id)
+    
     def apply_power_limit_to_rig(self, rig_data: Dict[str, Any], power_limit_watts: int) -> bool:
         """
         Wendet Power Limit auf ein Mining-Rig an
         
         Args:
-            rig_data: Rig-Informationen mit 'id', 'gpu_index', etc.
+            rig_data: Rig-Informationen mit 'id' und optional 'gpu_index'
             power_limit_watts: Power Limit in Watt
             
         Returns:
@@ -57,7 +78,7 @@ class HardwareIntegration:
             print(f"[SIM] Rig {rig_data.get('id')}: Power Limit → {power_limit_watts}W")
             return False
         
-        gpu_index = rig_data.get('gpu_index', 0)
+        gpu_index = self._get_gpu_index(rig_data)
         return set_gpu_power_limit(gpu_index, power_limit_watts)
     
     def apply_fan_speed_to_rig(self, rig_data: Dict[str, Any], fan_speed_percent: int) -> bool:
@@ -65,7 +86,7 @@ class HardwareIntegration:
         Setzt Lüftergeschwindigkeit für ein Rig
         
         Args:
-            rig_data: Rig-Informationen
+            rig_data: Rig-Informationen mit 'id' und optional 'gpu_index'
             fan_speed_percent: Lüftergeschwindigkeit 30-100%
             
         Returns:
@@ -75,7 +96,7 @@ class HardwareIntegration:
             print(f"[SIM] Rig {rig_data.get('id')}: Lüfter → {fan_speed_percent}%")
             return False
         
-        gpu_index = rig_data.get('gpu_index', 0)
+        gpu_index = self._get_gpu_index(rig_data)
         return set_gpu_fan_speed(gpu_index, fan_speed_percent)
     
     def get_rig_temperature(self, rig_data: Dict[str, Any]) -> Optional[int]:
@@ -83,7 +104,7 @@ class HardwareIntegration:
         Liest echte Temperatur von Hardware
         
         Args:
-            rig_data: Rig-Informationen
+            rig_data: Rig-Informationen mit 'id' und optional 'gpu_index'
             
         Returns:
             Temperatur in °C oder None
@@ -91,7 +112,7 @@ class HardwareIntegration:
         if not self.enabled:
             return None
         
-        gpu_index = rig_data.get('gpu_index', 0)
+        gpu_index = self._get_gpu_index(rig_data)
         stats = get_gpu_statistics(gpu_index)
         
         if stats and stats.get('temperature'):
@@ -103,7 +124,7 @@ class HardwareIntegration:
         Optimiert ein Rig für Zieltemperatur
         
         Args:
-            rig_data: Rig-Informationen
+            rig_data: Rig-Informationen mit 'id' und optional 'gpu_index'
             target_temp: Zieltemperatur in °C
             
         Returns:
@@ -116,7 +137,7 @@ class HardwareIntegration:
                 'message': 'Hardware-Integration nicht verfügbar'
             }
         
-        gpu_index = rig_data.get('gpu_index', 0)
+        gpu_index = self._get_gpu_index(rig_data)
         return optimize_gpu_temperature(gpu_index, target_temp)
     
     def apply_profile_to_rig(self, rig_data: Dict[str, Any], profile: str = "balanced") -> bool:
@@ -126,7 +147,7 @@ class HardwareIntegration:
         Profiles: "efficiency", "balanced", "performance"
         
         Args:
-            rig_data: Rig-Informationen
+            rig_data: Rig-Informationen mit 'id' und optional 'gpu_index'
             profile: Profil-Name
             
         Returns:
@@ -136,7 +157,7 @@ class HardwareIntegration:
             print(f"[SIM] Rig {rig_data.get('id')}: Profil '{profile}' angewendet")
             return False
         
-        gpu_index = rig_data.get('gpu_index', 0)
+        gpu_index = self._get_gpu_index(rig_data)
         return apply_gpu_profile(gpu_index, profile)
     
     def get_all_rig_stats(self) -> List[Dict[str, Any]]:
@@ -151,7 +172,7 @@ class HardwareIntegration:
         Behandelt Temperatur-Events vom Temperature Optimizer
         
         Args:
-            event_data: Event mit 'rig_id', 'temperature', 'action' etc.
+            event_data: Event mit 'rig_id', 'temperature', 'action', optional 'gpu_index'
             
         Returns:
             Dict mit durchgeführten Aktionen
@@ -170,13 +191,17 @@ class HardwareIntegration:
             result['mode'] = 'simulation'
             return result
         
-        # Erstelle Rig-Daten
-        rig_data = {'id': rig_id, 'gpu_index': 0}  # TODO: Mapping von rig_id zu gpu_index
+        # Erstelle Rig-Daten mit korrektem Mapping
+        rig_data = {
+            'id': rig_id,
+            'gpu_index': event_data.get('gpu_index')  # Optional, wird via Mapping ermittelt falls None
+        }
+        gpu_index = self._get_gpu_index(rig_data)
         
         # Behandle verschiedene Actions
         if action == 'reduce_power':
             power_reduction = event_data.get('power_reduction_watts', 10)
-            stats = get_gpu_statistics(rig_data['gpu_index'])
+            stats = get_gpu_statistics(gpu_index)
             if stats and stats.get('power_draw'):
                 new_limit = int(stats['power_draw'] - power_reduction)
                 if self.apply_power_limit_to_rig(rig_data, new_limit):
@@ -185,7 +210,7 @@ class HardwareIntegration:
         
         elif action == 'increase_fan':
             fan_increase = event_data.get('fan_increase_percent', 10)
-            stats = get_gpu_statistics(rig_data['gpu_index'])
+            stats = get_gpu_statistics(gpu_index)
             if stats and stats.get('fan_speed'):
                 new_fan = min(100, stats['fan_speed'] + fan_increase)
                 if self.apply_fan_speed_to_rig(rig_data, new_fan):
@@ -214,7 +239,7 @@ def get_hardware_integration() -> HardwareIntegration:
 
 
 # Convenience-Funktionen für Temperature Optimizer
-def handle_mining_power_limit_event(rig_id: str, temperature: float, power_limit: int) -> Dict[str, Any]:
+def handle_mining_power_limit_event(rig_id: str, temperature: float, power_limit: int, gpu_index: Optional[int] = None) -> Dict[str, Any]:
     """
     Behandelt MINING_POWER_LIMIT Event
     
@@ -222,12 +247,13 @@ def handle_mining_power_limit_event(rig_id: str, temperature: float, power_limit
         rig_id: Rig ID
         temperature: Aktuelle Temperatur
         power_limit: Neues Power Limit in Watt
+        gpu_index: Optional expliziter GPU-Index (überschreibt Mapping)
         
     Returns:
         Dict mit Ergebnis
     """
     integration = get_hardware_integration()
-    rig_data = {'id': rig_id, 'gpu_index': 0}  # TODO: Mapping
+    rig_data = {'id': rig_id, 'gpu_index': gpu_index}
     
     success = integration.apply_power_limit_to_rig(rig_data, power_limit)
     
@@ -240,7 +266,7 @@ def handle_mining_power_limit_event(rig_id: str, temperature: float, power_limit
     }
 
 
-def handle_fan_speed_event(rig_id: str, temperature: float, fan_speed: int) -> Dict[str, Any]:
+def handle_fan_speed_event(rig_id: str, temperature: float, fan_speed: int, gpu_index: Optional[int] = None) -> Dict[str, Any]:
     """
     Behandelt Fan Speed Event
     
@@ -248,12 +274,13 @@ def handle_fan_speed_event(rig_id: str, temperature: float, fan_speed: int) -> D
         rig_id: Rig ID
         temperature: Aktuelle Temperatur
         fan_speed: Neue Lüftergeschwindigkeit in %
+        gpu_index: Optional expliziter GPU-Index (überschreibt Mapping)
         
     Returns:
         Dict mit Ergebnis
     """
     integration = get_hardware_integration()
-    rig_data = {'id': rig_id, 'gpu_index': 0}  # TODO: Mapping
+    rig_data = {'id': rig_id, 'gpu_index': gpu_index}
     
     success = integration.apply_fan_speed_to_rig(rig_data, fan_speed)
     

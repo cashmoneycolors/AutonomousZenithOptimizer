@@ -24,6 +24,26 @@ Integration-Layer zwischen Adapter und bestehendem System
 - `handle_fan_speed_event()` - Behandelt Lüfter Events
 - `apply_profile_to_rig()` - Wendet Profile auf Rigs an
 
+### 3. `rig_gpu_mapper.py` ⭐ NEU
+Mapping-System für Rig-IDs zu GPU-Indizes
+
+**Hauptfunktionen:**
+- `get_gpu_index(rig_id)` - Ermittelt GPU-Index für Rig
+- `add_mapping(rig_id, gpu_index)` - Fügt Mapping hinzu
+- `list_mappings()` - Zeigt alle Mappings
+
+**Konfiguration:**
+```json
+{
+  "version": "1.0",
+  "rig_to_gpu": {
+    "RIG_001": 0,
+    "RIG_002": 1,
+    "RIG_003": 2
+  }
+}
+```
+
 ## Voraussetzungen
 
 ### NVIDIA GPUs (erforderlich für echte Steuerung):

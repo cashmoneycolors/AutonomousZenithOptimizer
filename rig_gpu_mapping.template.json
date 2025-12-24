@@ -1,0 +1,13 @@
+{
+    "version": "1.0",
+    "description": "Template für Rig-ID zu GPU-Index Mapping",
+    "rig_to_gpu": {
+        "RIG_001": 0,
+        "RIG_002": 1,
+        "RIG_003": 2,
+        "RIG_004": 3,
+        "TEST_RIG": 0,
+        "DEMO_RIG": 0
+    },
+    "_comment": "Kopiere diese Datei zu 'rig_gpu_mapping.json' und passe die Mappings an deine Hardware an"
+}
