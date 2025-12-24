@@ -60,7 +60,7 @@ class ConfigManager:
     def load_config(self):
         """Lädt Konfiguration aus JSON-Datei"""
         if not os.path.exists(self.config_file):
-            print(f"⚠️ Config file {self.config_file} not found, creating default config")
+            print(f"WARNING: Config file {self.config_file} not found, creating default config")
             self._create_default_config()
             return
 
