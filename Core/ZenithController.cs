@@ -22,6 +22,11 @@ namespace ZenithCoreSystem.Core
         private readonly ILogger<AutonomousZenithOptimizer> _logger;
         private readonly OptimizerSettings _settings;
 
+        private decimal _lastMarketSpend = 0m;
+        private decimal _marketSpendToDate = 0m;
+        private double _lastScalingFactor = 1.0;
+        private double _lastHyperCacheLatencyMs = 0.0;
+
         public AutonomousZenithOptimizer(
             IProfitGuarantor_QML qml,
             AetherArchitecture arch,
@@ -79,6 +84,13 @@ namespace ZenithCoreSystem.Core
             Guid cycleId = Guid.NewGuid();
             DateTime startTime = DateTime.UtcNow;
 
+            // Always measure HyperCache latency each cycle (silent probe, no extra console noise)
+            double hyperCacheLatencyMs = await _chm.ProbeCacheLatencyMsAsync("cycle");
+
+            // Snapshot der State-Werte (pre-decision), damit Logging/Console konsistent bleibt.
+            decimal stateMarketSpend = _marketSpendToDate;
+            double stateScalingFactor = _lastScalingFactor;
+
             _logger.LogAutonomousCycle("Starte autonomen Wachstumszyklus (DRL-Basis).", new Dictionary<string, object>
             {
                 { "CorrelationID", cycleId.ToString() },
@@ -87,12 +99,12 @@ namespace ZenithCoreSystem.Core
 
             var stateVector = new DRL_StateVector(
                 MarketROAS_Score: 4.5m,
-                CurrentMarketSpend: 10000.00m,
+                CurrentMarketSpend: stateMarketSpend,
                 PredictedNAV: 130000.00m,
-                RH_ComplianceScore: _rha.PerformComplianceMock() ? 0.99 : 0.75,
+                RH_ComplianceScore: _rha.GetComplianceScore(),
                 GSF_Complexity: 0.85,
-                HyperCache_LatencyMs: 0.003,
-                ScalingFactor: 1.0,
+                HyperCache_LatencyMs: hyperCacheLatencyMs,
+                ScalingFactor: stateScalingFactor,
                 TotalNFTsMinted: 500);
 
             string rawDecision = await ExecuteQMLWithRetry(stateVector);
@@ -111,13 +123,64 @@ namespace ZenithCoreSystem.Core
             }
 
             long latencyMs = (long)(DateTime.UtcNow - startTime).TotalMilliseconds;
-            await _qml.ReportPerformanceFeedback(stateVector.ToString(), 4.5m, decision);
+
+            // Strukturiertes Status-Summary für Konsolen-Dashboard
+            var cacheStats = _chm.GetCacheStats();
+            var cacheLatencyMs = _chm.GetLastCacheLatencyMs();
+
+            decimal? tradeAmountExecuted = scaleUpFactor.HasValue 
+                ? Math.Max(0m, _settings.BaseTradeAmount) * scaleUpFactor.Value 
+                : null;
+
+            decimal spendThisCycle = tradeAmountExecuted ?? 0m;
+            decimal spendToDateAfter = _marketSpendToDate + spendThisCycle;
+
+            // Feedback nutzt weiterhin den ursprünglichen State (pre-decision), ergänzt aber Outcome-Felder als zusätzliche Key-Values.
+            var feedbackVector = stateVector with
+            {
+                MarketSpendThisCycle = spendThisCycle,
+                MarketSpendToDate = spendToDateAfter
+            };
+
+            string feedbackState = stateVector.ToString() + $";SPEND_CYCLE:{spendThisCycle:F0};SPEND_TODATE:{spendToDateAfter:F0}";
+            await _qml.ReportPerformanceFeedback(feedbackState, 4.5m, decision);
+
+            Console.WriteLine("\n" + new string('═', 80));
+            Console.WriteLine("📊 CYCLE STATUS SUMMARY");
+            Console.WriteLine(new string('═', 80));
+            Console.WriteLine($"Compliance Score:  {stateVector.RH_ComplianceScore:P1}  {(stateVector.RH_ComplianceScore > _settings.ComplianceThreshold ? "✓ PASS" : "⚠ BELOW THRESHOLD")}");
+            Console.WriteLine($"QML Decision:      {decision}");
+            Console.WriteLine($"Trade Executed:    {(tradeAmountExecuted.HasValue ? $"{tradeAmountExecuted.Value:N2} CHF (ETH/USD BUY)" : "None (MAINTAIN)")}");
+            Console.WriteLine($"Cache Stats:       Hits: {cacheStats.Hits} | Misses: {cacheStats.Misses} | Hit Rate: {(cacheStats.Hits + cacheStats.Misses > 0 ? (cacheStats.Hits * 100.0 / (cacheStats.Hits + cacheStats.Misses)):0):F1}%");
+            Console.WriteLine($"HyperCache Lat.:   {cacheLatencyMs:F3} ms (last)");
+            Console.WriteLine($"Market Spend:      {stateMarketSpend:N2} (state, pre)");
+            Console.WriteLine($"Spend This Cycle:  {spendThisCycle:N2} (outcome)");
+            Console.WriteLine($"Spend To Date:     {spendToDateAfter:N2} (post)");
+            Console.WriteLine($"Scaling Factor:    {stateScalingFactor:F3} (state, pre)");
+            Console.WriteLine($"Cycle Latency:     {latencyMs} ms");
+            Console.WriteLine($"Correlation ID:    {cycleId}");
+            Console.WriteLine(new string('═', 80) + "\n");
+
+            // Update last-known state metrics for next DRL state vector
+            _lastMarketSpend = spendThisCycle;
+            _marketSpendToDate = spendToDateAfter;
+            _lastScalingFactor = scaleUpFactor.HasValue ? (double)scaleUpFactor.Value : 1.0;
+            _lastHyperCacheLatencyMs = cacheLatencyMs;
 
             _logger.LogAutonomousCycle("Zyklus abgeschlossen. DRL-Aktion ausgefuehrt.", new Dictionary<string, object>
             {
                 { "CorrelationID", cycleId.ToString() },
                 { "ActionTaken", decision },
-                { "EndToEndLatencyMs", latencyMs }
+                { "EndToEndLatencyMs", latencyMs },
+                { "ComplianceScore", stateVector.RH_ComplianceScore },
+                { "TradeAmount", spendThisCycle },
+                { "MarketSpendThisCycle", spendThisCycle },
+                { "CacheHits", cacheStats.Hits },
+                { "CacheMisses", cacheStats.Misses },
+                { "HyperCacheLatencyMs", cacheLatencyMs },
+                { "StateMarketSpend", stateMarketSpend },
+                { "StateScalingFactor", stateScalingFactor },
+                { "MarketSpendToDate", _marketSpendToDate }
             });
         }
 

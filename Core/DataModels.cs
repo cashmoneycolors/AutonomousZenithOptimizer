@@ -16,6 +16,9 @@ namespace ZenithCoreSystem
         double ScalingFactor,
         int TotalNFTsMinted)
     {
+        public decimal? MarketSpendThisCycle { get; init; }
+        public decimal? MarketSpendToDate { get; init; }
+
         public override string ToString() =>
             $"ROAS:{MarketROAS_Score:F2};SPEND:{CurrentMarketSpend:F0};PMI_PRED:{PredictedNAV:F0};RHA_SCORE:{RH_ComplianceScore:F2};GSF_COMPX:{GSF_Complexity:F2};CACHE_LATENCY:{HyperCache_LatencyMs:F4};SCALE_FACTOR:{ScalingFactor:F2};NFT_COUNT:{TotalNFTsMinted}";
     }

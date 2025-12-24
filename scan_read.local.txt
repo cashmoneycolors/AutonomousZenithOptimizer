@@ -1,0 +1,2 @@
+﻿ReadAllText OK: 49 | Fail: 0
+DONE

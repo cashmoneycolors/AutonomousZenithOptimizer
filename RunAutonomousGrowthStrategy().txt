@@ -1,0 +1,8 @@
+RunAutonomousGrowthStrategy()
+  ↓ baut DRL_StateVector mit GetComplianceScore() (statt Mock)
+  ↓ ExecuteQMLWithRetry() → rawDecision
+  ↓ NormalizeDecision() → parsed decision + scaleUpFactor
+  ↓ Konditionele Execution: Trade (bei SCALE_UP) + Text-Gen (bei hohem Score)
+  ↓ [NEW] Reflection: Cache-Stats auslesen
+  ↓ [NEW] Console.WriteLine(Box) mit 6 KPIs
+  ↓ _logger.LogAutonomousCycle() mit erweiterten Properties

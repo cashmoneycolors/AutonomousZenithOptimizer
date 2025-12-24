@@ -1,7 +1,6 @@
 {
     "recommendations": [
         "ms-python.debugpy",
-        "ms-python.python",
         "ms-python.pylance",
         "ms-python.black-formatter",
         "ms-python.flake8",
@@ -16,6 +15,15 @@
         "ms-azuretools.vscode-containers",
         "dotjoshjohnson.xml",
         "firefox-devtools.vscode-firefox-debug",
-        "eamodio.gitlens"
+        "eamodio.gitlens",
+        "github.codespaces",
+        "betaversion.vscode-github-desktop",
+        "exodus-tola.deepseek-copilot",
+        "github.vscode-github-actions",
+        "ms-azuretools.vscode-azure-github-copilot",
+        "bierner.markdown-preview-github-styles",
+        "vscjava.migrate-java-to-azure",
+        "bierner.github-markdown-preview",
+        "github.github-vscode-theme"
     ]
 }

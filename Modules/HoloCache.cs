@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using StackExchangeRedis = StackExchange.Redis;
 using ZenithCoreSystem;
@@ -108,11 +110,19 @@ namespace ZenithCoreSystem.Modules
     public class HoloKognitivesRepository : IHyperCache
     {
         private readonly IDatabase _db;
+        private long _cacheHits = 0;
+        private long _cacheMisses = 0;
+        private double _lastRetrieveLatencyMs = 0;
 
         public HoloKognitivesRepository(IConnectionMultiplexer redis)
         {
             _db = redis.GetDatabase(0);
         }
+
+        public (long Hits, long Misses) GetCacheStats() => (_cacheHits, _cacheMisses);
+        public void ResetCacheStats() { _cacheHits = 0; _cacheMisses = 0; }
+
+        public double GetLastRetrieveLatencyMs() => Volatile.Read(ref _lastRetrieveLatencyMs);
 
         public async Task<string?> GetAsync(string key)
         {
@@ -125,19 +135,39 @@ namespace ZenithCoreSystem.Modules
             return _db.StringSetAsync(key, value, expiry);
         }
 
+        public async Task<double> ProbeLatencyMsAsync(string probeId)
+        {
+            string cacheKey = $"context:probe:{probeId}";
+            var sw = Stopwatch.StartNew();
+
+            string? context = await GetAsync(cacheKey);
+            context ??= $"HUR OMEGA Probe Kontext: '{probeId}'";
+            await SetAsync(cacheKey, context, TimeSpan.FromMinutes(5));
+
+            sw.Stop();
+            Volatile.Write(ref _lastRetrieveLatencyMs, sw.Elapsed.TotalMilliseconds);
+            return sw.Elapsed.TotalMilliseconds;
+        }
+
         public async Task<string> RetrieveHyperCognitiveContext(string query)
         {
+            var sw = Stopwatch.StartNew();
             string cacheKey = $"context:{query}";
             string? context = await GetAsync(cacheKey);
             if (context == null)
             {
+                System.Threading.Interlocked.Increment(ref _cacheMisses);
                 context = $"HUR OMEGA Kontext: Praediktion zu '{query}' (DB-Fallback)";
                 await SetAsync(cacheKey, context, TimeSpan.FromMinutes(5));
             }
             else
             {
+                System.Threading.Interlocked.Increment(ref _cacheHits);
                 await SetAsync(cacheKey, context, TimeSpan.FromMinutes(5));
             }
+
+            sw.Stop();
+            Volatile.Write(ref _lastRetrieveLatencyMs, sw.Elapsed.TotalMilliseconds);
 
             return context;
         }
@@ -157,5 +187,11 @@ namespace ZenithCoreSystem.Modules
             string context = await _repository.RetrieveHyperCognitiveContext($"Praevention {agentId}");
             Console.WriteLine($"[CHM OMEGA] {agentId} erhaelt praeventiven Kontext: {context}");
         }
+
+        public (long Hits, long Misses) GetCacheStats() => _repository.GetCacheStats();
+
+        public double GetLastCacheLatencyMs() => _repository.GetLastRetrieveLatencyMs();
+
+        public Task<double> ProbeCacheLatencyMsAsync(string probeId) => _repository.ProbeLatencyMsAsync(probeId);
     }
 }

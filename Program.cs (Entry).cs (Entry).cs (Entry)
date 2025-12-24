@@ -1,0 +1,22 @@
+Program.cs (Entry)
+  ├─ DI: HoloKognitivesRepository → registriert
+  ├─ DI: RegulatoryHyperAdaptor → registriert
+  ├─ Console.OutputEncoding = UTF8 ← wichtig für Ω und Umlaute
+  └─ Main Loop: optimizer.RunAutonomousGrowthStrategy()
+       │
+       ├─→ ZenithController.RunAutonomousGrowthStrategy()
+       │    ├─ cycleId = Guid.NewGuid() ← für Correlation
+       │    ├─ stateVector.RH_ComplianceScore = _rha.GetComplianceScore() ✅ Real
+       │    ├─ decision = ExecuteQMLWithRetry() + NormalizeDecision()
+       │    ├─ IF scaleUpFactor: _hftAdapter.ExecuteTrade() [Stub]
+       │    ├─ IF compliance > threshold: _gefAdapter.GenerateText() [Stub]
+       │    │
+       │    └─→ [NEW] Structured Console Output
+       │         ├─ cacheStats = _chm._repository.GetCacheStats() (Reflection)
+       │         ├─ Console.WriteLine() 6-Zeilen-Box
+       │         └─ _logger.LogAutonomousCycle(new { ..., CacheHits, ... })
+       │              └─ Properties als Scope → können in Appender genutzt werden
+       │
+       └─→ HoloCache.RetrieveHyperCognitiveContext()
+            ├─ IF cache MISS: _cacheMisses++
+            └─ IF cache HIT: _cacheHits++
