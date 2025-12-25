@@ -19,6 +19,19 @@
 - `HoloCache` in [Modules/HoloCache.cs](Modules/HoloCache.cs) mit `IConnectionMultiplexer` oder `RedisMock`.
 - Keys/TTL: `context:{query}`, `context:probe:{id}` (5 min); Hits/Misses erneuern TTL.
 
+## Azure Integration (Optional)
+- **Cosmos DB für State**: Cache-Keys (`context:*`, `context:probe:*`) können in Cosmos DB persistiert werden (statt nur Redis/Memory).
+  - Pattern: Jede Orchestrator-Iteration speichert State als Document mit Partition-Key `{correlationId}` (Low-Latency-Lookups).
+  - TTL: Nutze Cosmos DB TTL-Feature für automatische Cleanup nach 5 Minuten.
+  - Konfiguration: `appsettings.Production.json` mit `CosmosDb:Endpoint` + `CosmosDb:AuthKey`.
+- **QML-Endpoint auf Azure Function**: `AZO_QML_ENDPOINT` kann auf Azure Function zeigen (HTTP-triggered).
+  - Error-Handling: Retry-Logic greift automatisch (exponential backoff, max 30s).
+  - Logging: Diagnostics-String aus SDK in Azure Monitor (Application Insights) pushen.
+- **Best Practices** (siehe [Azure Cosmos DB Anleitung](https://aka.ms/azurecosmosdb-wellarchitected)):
+  - **Partition Key**: Wähle `{tenantId}` oder `{correlationId}` (High-Cardinality).
+  - **Embedding vs. Referencing**: State-Daten als Single Document pro Cycle; keine Joins.
+  - **RU-Budgeting**: Monitoring über Azure Monitor; bei >400 RU/s Scale-Up prüfen.
+
 ## Dev-Workflows
 - Format-Gate: `dotnet format AutonomousZenithOptimizer.sln --verify-no-changes`.
 - Build/Test/Run:
