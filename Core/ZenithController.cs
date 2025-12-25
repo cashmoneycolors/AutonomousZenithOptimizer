@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Globalization;
+using System.Text;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ZenithCoreSystem.Adapters;
@@ -47,6 +48,31 @@ namespace ZenithCoreSystem.Core
             _chm = chm;
             _settings = settings.Value;
             _logger = logger;
+        }
+
+        private static bool IsConsoleOutputRedirectedSafe()
+        {
+            try
+            {
+                return Console.IsOutputRedirected;
+            }
+            catch
+            {
+                return true;
+            }
+        }
+
+        private static void TryEnableUtf8Console()
+        {
+            try
+            {
+                Console.OutputEncoding = Encoding.UTF8;
+                Console.InputEncoding = Encoding.UTF8;
+            }
+            catch
+            {
+                // Ignore: some hosts/terminals don't support changing encodings.
+            }
         }
 
         private async Task<string> ExecuteQMLWithRetry(DRL_StateVector stateVector)
@@ -145,10 +171,22 @@ namespace ZenithCoreSystem.Core
             string feedbackState = stateVector.ToString() + $";SPEND_CYCLE:{spendThisCycle:F0};SPEND_TODATE:{spendToDateAfter:F0}";
             await _qml.ReportPerformanceFeedback(feedbackState, 4.5m, decision);
 
-            Console.WriteLine("\n" + new string('═', 80));
-            Console.WriteLine("📊 CYCLE STATUS SUMMARY");
-            Console.WriteLine(new string('═', 80));
-            Console.WriteLine($"Compliance Score:  {stateVector.RH_ComplianceScore:P1}  {(stateVector.RH_ComplianceScore > _settings.ComplianceThreshold ? "✓ PASS" : "⚠ BELOW THRESHOLD")}");
+            // In Test/CI ist Console-Output häufig umgeleitet; dann lieber ASCII statt Unicode/Emoji.
+            bool asciiConsole = IsConsoleOutputRedirectedSafe();
+            if (!asciiConsole)
+            {
+                TryEnableUtf8Console();
+            }
+
+            char hrChar = asciiConsole ? '-' : '═';
+            string title = asciiConsole ? "CYCLE STATUS SUMMARY" : "📊 CYCLE STATUS SUMMARY";
+            string passMark = asciiConsole ? "PASS" : "✓ PASS";
+            string belowMark = asciiConsole ? "BELOW THRESHOLD" : "⚠ BELOW THRESHOLD";
+
+            Console.WriteLine("\n" + new string(hrChar, 80));
+            Console.WriteLine(title);
+            Console.WriteLine(new string(hrChar, 80));
+            Console.WriteLine($"Compliance Score:  {stateVector.RH_ComplianceScore:P1}  {(stateVector.RH_ComplianceScore > _settings.ComplianceThreshold ? passMark : belowMark)}");
             Console.WriteLine($"QML Decision:      {decision}");
             Console.WriteLine($"Trade Executed:    {(tradeAmountExecuted.HasValue ? $"{tradeAmountExecuted.Value:N2} CHF (ETH/USD BUY)" : "None (MAINTAIN)")}");
             Console.WriteLine($"Cache Stats:       Hits: {cacheStats.Hits} | Misses: {cacheStats.Misses} | Hit Rate: {(cacheStats.Hits + cacheStats.Misses > 0 ? (cacheStats.Hits * 100.0 / (cacheStats.Hits + cacheStats.Misses)):0):F1}%");
@@ -159,7 +197,7 @@ namespace ZenithCoreSystem.Core
             Console.WriteLine($"Scaling Factor:    {stateScalingFactor:F3} (state, pre)");
             Console.WriteLine($"Cycle Latency:     {latencyMs} ms");
             Console.WriteLine($"Correlation ID:    {cycleId}");
-            Console.WriteLine(new string('═', 80) + "\n");
+            Console.WriteLine(new string(hrChar, 80) + "\n");
 
             // Update last-known state metrics for next DRL state vector
             _lastMarketSpend = spendThisCycle;

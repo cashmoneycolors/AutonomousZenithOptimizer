@@ -4,3 +4,9 @@ obj/
 **/obj/
 *.user
 *.suo
+
+# Local snapshots / scan artifacts
+repo_snapshot_*.zip
+scan_*.local.txt
+*.local.md
+settings.json

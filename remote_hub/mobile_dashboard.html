@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Remote Hub – Mobile</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 16px; }
+    .row { margin: 10px 0; }
+    .label { color: #555; }
+    .value { font-size: 20px; font-weight: 600; }
+    .ok { color: #0a7a0a; }
+    .bad { color: #9a0000; }
+  </style>
+</head>
+<body>
+  <h1>Remote Hub</h1>
+  <div class="row"><span class="label">API:</span> <span id="api" class="value"></span></div>
+  <div class="row"><span class="label">Status:</span> <span id="status" class="value">…</span></div>
+  <div class="row"><span class="label">Revenue:</span> <span id="revenue" class="value">–</span></div>
+  <div class="row"><span class="label">Orders:</span> <span id="orders" class="value">–</span></div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const apiBase = params.get("api") || "http://localhost:8503";
+    document.getElementById("api").textContent = apiBase;
+
+    async function refresh() {
+      const statusEl = document.getElementById("status");
+      try {
+        const res = await fetch(`${apiBase}/stats`, { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        statusEl.textContent = "ONLINE";
+        statusEl.className = "value ok";
+        document.getElementById("revenue").textContent = data.revenue ?? "–";
+        document.getElementById("orders").textContent = data.orders ?? "–";
+      } catch (e) {
+        statusEl.textContent = "OFFLINE";
+        statusEl.className = "value bad";
+      }
+    }
+
+    refresh();
+    setInterval(refresh, 5000);
+  </script>
+</body>
+</html>

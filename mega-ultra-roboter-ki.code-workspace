@@ -1,0 +1,24 @@
+{
+  "folders": [
+    { "path": "../mega_app_launcher.py" },
+    { "path": "../gdp-dashboard" },
+    { "path": "../blueprints" },
+    { "path": "../Documents" },
+    { "path": "../gk-cli" },
+    { "path": "../quantum-avatar" },
+    { "path": "../QuantumAvatar-pr-1" },
+    { "path": "../AutonomousZenithOptimizer" },
+    { "path": "../GOOGLEAI-KEY-MEGA-ULTRA-ROBOTER-KI" },
+    { "path": "../quantum-avatar-cleaned" },
+    { "path": "../desktop-backup" },
+    { "path": "../quantum-avatar-v5" },
+    { "path": "../-MEGA-ULTRA-ROBOTER-KI" }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/bin": true,
+      "**/obj": true,
+      "**/node_modules": true
+    }
+  }
+}
