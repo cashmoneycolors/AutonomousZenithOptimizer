@@ -1,0 +1,153 @@
+{
+  "demo_status": "COMPLETED_SUCCESSFULLY",
+  "traffic_generated": {
+    "total_traffic": 24015,
+    "total_conversions": 1921,
+    "traffic_log": [
+      {
+        "hour": 1,
+        "traffic": 591,
+        "conversions": 47
+      },
+      {
+        "hour": 2,
+        "traffic": 616,
+        "conversions": 49
+      },
+      {
+        "hour": 3,
+        "traffic": 643,
+        "conversions": 51
+      },
+      {
+        "hour": 4,
+        "traffic": 670,
+        "conversions": 53
+      },
+      {
+        "hour": 5,
+        "traffic": 699,
+        "conversions": 55
+      },
+      {
+        "hour": 6,
+        "traffic": 729,
+        "conversions": 58
+      },
+      {
+        "hour": 7,
+        "traffic": 760,
+        "conversions": 60
+      },
+      {
+        "hour": 8,
+        "traffic": 793,
+        "conversions": 63
+      },
+      {
+        "hour": 9,
+        "traffic": 827,
+        "conversions": 66
+      },
+      {
+        "hour": 10,
+        "traffic": 862,
+        "conversions": 68
+      },
+      {
+        "hour": 11,
+        "traffic": 900,
+        "conversions": 72
+      },
+      {
+        "hour": 12,
+        "traffic": 938,
+        "conversions": 75
+      },
+      {
+        "hour": 13,
+        "traffic": 979,
+        "conversions": 78
+      },
+      {
+        "hour": 14,
+        "traffic": 1020,
+        "conversions": 81
+      },
+      {
+        "hour": 15,
+        "traffic": 1064,
+        "conversions": 85
+      },
+      {
+        "hour": 16,
+        "traffic": 1110,
+        "conversions": 88
+      },
+      {
+        "hour": 17,
+        "traffic": 1159,
+        "conversions": 92
+      },
+      {
+        "hour": 18,
+        "traffic": 1209,
+        "conversions": 96
+      },
+      {
+        "hour": 19,
+        "traffic": 1261,
+        "conversions": 100
+      },
+      {
+        "hour": 20,
+        "traffic": 1316,
+        "conversions": 105
+      },
+      {
+        "hour": 21,
+        "traffic": 1375,
+        "conversions": 110
+      },
+      {
+        "hour": 22,
+        "traffic": 1434,
+        "conversions": 114
+      },
+      {
+        "hour": 23,
+        "traffic": 1496,
+        "conversions": 119
+      },
+      {
+        "hour": 24,
+        "traffic": 1564,
+        "conversions": 125
+      }
+    ],
+    "viral_coefficient": 2.3
+  },
+  "sales_performance": {
+    "funnel_stages": {
+      "landing_page_views": 1921,
+      "product_interest_clicks": 1248,
+      "stripe_checkout_page": 1061,
+      "payment_completed": 1008,
+      "subscription_activated": 988
+    },
+    "total_revenue": 100800,
+    "total_mrr": 49390.12,
+    "total_ltv": 1481703.6,
+    "gross_profit": 87696.0,
+    "roi_multiplikator": 14.699440476190476
+  },
+  "subscriptions_created": 0,
+  "revenue_projection": {
+    "monthly_revenue": 1676724.39063948,
+    "ending_mrr": 80529.2872547332,
+    "growth_rate": 0.15,
+    "profit_multiple": 1.6304736099999997
+  },
+  "scalability_achieved": 16767.2439063948,
+  "system_validation": "ALL_SYSTEMS_GO"
+}

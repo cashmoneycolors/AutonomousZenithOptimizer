@@ -1,0 +1,1979 @@
+Attached HTML and CSS Context
+
+<div class="mantine-Modal-overlay m_9814e45f mantine-Overlay-root" data-fixed="true" style="--overlay-z-index: 2000; transition-property: opacity; backface-visibility: hidden; will-change: transform, opacity; transition-duration: 200ms; transition-timing-function: ease; opacity: 1;"></div>
+
+
+/* Inline style */
+element {
+  --overlay-z-index: 2000;
+  transition-property: opacity;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+  opacity: 1;
+  --overlay-z-index: 2000;
+  transition-property: opacity;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+  opacity: 1;
+}
+
+/* Matched Rule from user-agent */
+div {
+  display: block;
+}
+
+/* Matched Rule from user-agent */
+address, blockquote, center, div, figure, figcaption, footer, form, header, hr, legend, listing, main, p, plaintext, pre, summary, xmp, article, aside, h1, h2, h3, h4, h5, h6, hgroup, nav, section, search, table, caption, colgroup, col, thead, tbody, tfoot, tr, td, th, dir, dd, dl, dt, menu, ol, ul, li, bdi, output, [dir="ltr" i], [dir="rtl" i], [dir="auto" i] {
+  unicode-bidi: isolate;
+}
+
+/* Matched Rule from regular */
+*, :after, :before {
+  box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Matched Rule from regular */
+*, ::backdrop, :after, :before {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: #3b82f680;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: #3b82f680;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+}
+
+/* Matched Rule from regular */
+* {
+  scrollbar-color: auto;
+  scrollbar-width: auto;
+  scrollbar-color: auto;
+  scrollbar-width: auto;
+}
+
+/* Matched Rule from regular */
+*, ::before, ::after {
+  box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+/* Matched Rule from regular */
+.m_9814e45f {
+  backdrop-filter: var(--overlay-filter);
+  -webkit-backdrop-filter: var(--overlay-filter);
+  background: var(--overlay-bg,#0009);
+  border-radius: var(--overlay-radius,0);
+  inset: 0;
+  position: absolute;
+  z-index: var(--overlay-z-index);
+  backdrop-filter: var(--overlay-filter);
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  position: absolute;
+  z-index: var(--overlay-z-index);
+}
+
+/* Matched Rule from regular */
+.m_9814e45f:where([data-fixed]) {
+  position: fixed;
+  position: fixed;
+}
+
+/* Inherited from ancestor level 1 (user-agent) */
+div {
+  display: block;
+}
+
+/* Inherited from ancestor level 1 (user-agent) */
+address, blockquote, center, div, figure, figcaption, footer, form, header, hr, legend, listing, main, p, plaintext, pre, summary, xmp, article, aside, h1, h2, h3, h4, h5, h6, hgroup, nav, section, search, table, caption, colgroup, col, thead, tbody, tfoot, tr, td, th, dir, dd, dl, dt, menu, ol, ul, li, bdi, output, [dir="ltr" i], [dir="rtl" i], [dir="auto" i] {
+  unicode-bidi: isolate;
+}
+
+/* Inherited from ancestor level 1 (regular) */
+*, :after, :before {
+  box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Inherited from ancestor level 1 (regular) */
+*, ::backdrop, :after, :before {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: #3b82f680;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: #3b82f680;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+}
+
+/* Inherited from ancestor level 1 (regular) */
+* {
+  scrollbar-color: auto;
+  scrollbar-width: auto;
+  scrollbar-color: auto;
+  scrollbar-width: auto;
+}
+
+/* Inherited from ancestor level 1 (regular) */
+*, ::before, ::after {
+  box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+/* Inherited from ancestor level 1 (regular) */
+.m_9df02822 {
+  --modal-size-xs: calc(20rem*var(--mantine-scale));
+  --modal-size-sm: calc(23.75rem*var(--mantine-scale));
+  --modal-size-md: calc(27.5rem*var(--mantine-scale));
+  --modal-size-lg: calc(38.75rem*var(--mantine-scale));
+  --modal-size-xl: calc(48.75rem*var(--mantine-scale));
+  --modal-size: var(--modal-size-md);
+  --modal-y-offset: 5vh;
+  --modal-x-offset: 5vw;
+  --modal-size-xs: calc(20rem*var(--mantine-scale));
+  --modal-size-sm: calc(23.75rem*var(--mantine-scale));
+  --modal-size-md: calc(27.5rem*var(--mantine-scale));
+  --modal-size-lg: calc(38.75rem*var(--mantine-scale));
+  --modal-size-xl: calc(48.75rem*var(--mantine-scale));
+  --modal-size: var(--modal-size-md);
+  --modal-y-offset: 5vh;
+  --modal-x-offset: 5vw;
+}
+
+/* Inherited from ancestor level 2 (user-agent) */
+div {
+  display: block;
+}
+
+/* Inherited from ancestor level 2 (user-agent) */
+address, blockquote, center, div, figure, figcaption, footer, form, header, hr, legend, listing, main, p, plaintext, pre, summary, xmp, article, aside, h1, h2, h3, h4, h5, h6, hgroup, nav, section, search, table, caption, colgroup, col, thead, tbody, tfoot, tr, td, th, dir, dd, dl, dt, menu, ol, ul, li, bdi, output, [dir="ltr" i], [dir="rtl" i], [dir="auto" i] {
+  unicode-bidi: isolate;
+}
+
+/* Inherited from ancestor level 2 (regular) */
+*, :after, :before {
+  box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Inherited from ancestor level 2 (regular) */
+*, ::backdrop, :after, :before {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: #3b82f680;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: #3b82f680;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+}
+
+/* Inherited from ancestor level 2 (regular) */
+* {
+  scrollbar-color: auto;
+  scrollbar-width: auto;
+  scrollbar-color: auto;
+  scrollbar-width: auto;
+}
+
+/* Inherited from ancestor level 2 (regular) */
+*, ::before, ::after {
+  box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+/* Inherited from ancestor level 3 (user-agent) */
+div {
+  display: block;
+}
+
+/* Inherited from ancestor level 3 (user-agent) */
+address, blockquote, center, div, figure, figcaption, footer, form, header, hr, legend, listing, main, p, plaintext, pre, summary, xmp, article, aside, h1, h2, h3, h4, h5, h6, hgroup, nav, section, search, table, caption, colgroup, col, thead, tbody, tfoot, tr, td, th, dir, dd, dl, dt, menu, ol, ul, li, bdi, output, [dir="ltr" i], [dir="rtl" i], [dir="auto" i] {
+  unicode-bidi: isolate;
+}
+
+/* Inherited from ancestor level 3 (regular) */
+*, :after, :before {
+  box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Inherited from ancestor level 3 (regular) */
+*, ::backdrop, :after, :before {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: #3b82f680;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: #3b82f680;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+}
+
+/* Inherited from ancestor level 3 (regular) */
+* {
+  scrollbar-color: auto;
+  scrollbar-width: auto;
+  scrollbar-color: auto;
+  scrollbar-width: auto;
+}
+
+/* Inherited from ancestor level 3 (regular) */
+*, ::before, ::after {
+  box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+/* Inherited from ancestor level 4 (user-agent) */
+body {
+  display: block;
+  margin-top: 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  margin-left: 8px;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+*, :after, :before {
+  box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+*, ::backdrop, :after, :before {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: #3b82f680;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: #3b82f680;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+* {
+  scrollbar-color: auto;
+  scrollbar-width: auto;
+  scrollbar-color: auto;
+  scrollbar-width: auto;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+*, ::before, ::after {
+  box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+body {
+  -webkit-font-smoothing: var(--mantine-webkit-font-smoothing);
+  -moz-osx-font-smoothing: var(--mantine-moz-font-smoothing);
+  background-color: var(--mantine-color-body);
+  color: var(--mantine-color-text);
+  font-family: var(--mantine-font-family);
+  font-size: var(--mantine-font-size-md);
+  line-height: var(--mantine-line-height);
+  -webkit-font-smoothing: var(--mantine-webkit-font-smoothing);
+  background-color: var(--mantine-color-body);
+  color: var(--mantine-color-text);
+  font-family: var(--mantine-font-family);
+  font-size: var(--mantine-font-size-md);
+  line-height: var(--mantine-line-height);
+}
+
+/* Inherited from ancestor level 4 (regular) */
+body {
+  counter-reset: katexEqnNo mmlEqnNo;
+  counter-reset: katexEqnNo 0 mmlEqnNo 0;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+  margin: 0;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: none;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+#root, body, html {
+  height: 100%;
+  height: 100%;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+body {
+  margin: 0px;
+  color: rgb(255, 255, 255);
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  background-color: rgb(40, 40, 40);
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  color: rgb(255, 255, 255);
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  background-color: rgb(40, 40, 40);
+}
+
+/* Inherited from ancestor level 4 (regular) */
+html>body {
+  margin: auto;
+  margin-top: auto;
+  margin-right: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+body[data-scroll-locked] {
+  overflow: hidden !important;
+  overscroll-behavior: contain;
+  position: relative !important;
+  padding-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  margin-left: 0;
+  margin-top: 0;
+  margin-right: 0px !important;
+  overscroll-behavior-x: contain;
+  overscroll-behavior-y: contain;
+  padding-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  margin-left: 0px;
+  margin-top: 0px;
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+  position: relative !important;
+  margin-right: 0px !important;
+}
+
+/* Inherited from ancestor level 4 (regular) */
+body[data-scroll-locked] {
+  --removed-body-scroll-bar-size: 0px;
+  --removed-body-scroll-bar-size: 0px;
+}
+
+/* Inherited from ancestor level 5 (user-agent) */
+html {
+  display: block;
+}
+
+/* Inherited from ancestor level 5 (user-agent) */
+:root {
+  view-transition-name: root;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+*, :after, :before {
+  box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+*, ::backdrop, :after, :before {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: #3b82f680;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: #3b82f680;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+* {
+  scrollbar-color: auto;
+  scrollbar-width: auto;
+  scrollbar-color: auto;
+  scrollbar-width: auto;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+*, ::before, ::after {
+  box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+#root, body, html {
+  height: 100%;
+  height: 100%;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+html {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  text-size-adjust: 100%;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+:root {
+  --mantine-z-index-app: 100;
+  --mantine-z-index-modal: 200;
+  --mantine-z-index-popover: 300;
+  --mantine-z-index-overlay: 400;
+  --mantine-z-index-max: 9999;
+  --mantine-scale: 1;
+  --mantine-cursor-type: default;
+  --mantine-webkit-font-smoothing: antialiased;
+  --mantine-color-scheme: light dark;
+  --mantine-moz-font-smoothing: grayscale;
+  --mantine-color-white: #fff;
+  --mantine-color-black: #000;
+  --mantine-line-height: 1.55;
+  --mantine-font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --mantine-font-family-monospace: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+  --mantine-font-family-headings: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --mantine-heading-font-weight: 700;
+  --mantine-radius-default: calc(0.25rem*var(--mantine-scale));
+  --mantine-primary-color-0: var(--mantine-color-blue-0);
+  --mantine-primary-color-1: var(--mantine-color-blue-1);
+  --mantine-primary-color-2: var(--mantine-color-blue-2);
+  --mantine-primary-color-3: var(--mantine-color-blue-3);
+  --mantine-primary-color-4: var(--mantine-color-blue-4);
+  --mantine-primary-color-5: var(--mantine-color-blue-5);
+  --mantine-primary-color-6: var(--mantine-color-blue-6);
+  --mantine-primary-color-7: var(--mantine-color-blue-7);
+  --mantine-primary-color-8: var(--mantine-color-blue-8);
+  --mantine-primary-color-9: var(--mantine-color-blue-9);
+  --mantine-primary-color-filled: var(--mantine-color-blue-filled);
+  --mantine-primary-color-filled-hover: var(--mantine-color-blue-filled-hover);
+  --mantine-primary-color-light: var(--mantine-color-blue-light);
+  --mantine-primary-color-light-hover: var(--mantine-color-blue-light-hover);
+  --mantine-primary-color-light-color: var(--mantine-color-blue-light-color);
+  --mantine-breakpoint-xs: 36em;
+  --mantine-breakpoint-sm: 48em;
+  --mantine-breakpoint-md: 62em;
+  --mantine-breakpoint-lg: 75em;
+  --mantine-breakpoint-xl: 88em;
+  --mantine-spacing-xs: calc(0.625rem*var(--mantine-scale));
+  --mantine-spacing-sm: calc(0.75rem*var(--mantine-scale));
+  --mantine-spacing-md: calc(1rem*var(--mantine-scale));
+  --mantine-spacing-lg: calc(1.25rem*var(--mantine-scale));
+  --mantine-spacing-xl: calc(2rem*var(--mantine-scale));
+  --mantine-font-size-xs: calc(0.75rem*var(--mantine-scale));
+  --mantine-font-size-sm: calc(0.875rem*var(--mantine-scale));
+  --mantine-font-size-md: calc(1rem*var(--mantine-scale));
+  --mantine-font-size-lg: calc(1.125rem*var(--mantine-scale));
+  --mantine-font-size-xl: calc(1.25rem*var(--mantine-scale));
+  --mantine-line-height-xs: 1.4;
+  --mantine-line-height-sm: 1.45;
+  --mantine-line-height-md: 1.55;
+  --mantine-line-height-lg: 1.6;
+  --mantine-line-height-xl: 1.65;
+  --mantine-shadow-xs: 0 calc(0.0625rem*var(--mantine-scale)) calc(0.1875rem*var(--mantine-scale)) #0000000d,0 calc(0.0625rem*var(--mantine-scale)) calc(0.125rem*var(--mantine-scale)) #0000001a;
+  --mantine-shadow-sm: 0 calc(0.0625rem*var(--mantine-scale)) calc(0.1875rem*var(--mantine-scale)) #0000000d,#0000000d 0 calc(0.625rem*var(--mantine-scale)) calc(0.9375rem*var(--mantine-scale)) calc(-0.3125rem*var(--mantine-scale)),#0000000a 0 calc(0.4375rem*var(--mantine-scale)) calc(0.4375rem*var(--mantine-scale)) calc(-0.3125rem*var(--mantine-scale));
+  --mantine-shadow-md: 0 calc(0.0625rem*var(--mantine-scale)) calc(0.1875rem*var(--mantine-scale)) #0000000d,#0000000d 0 calc(1.25rem*var(--mantine-scale)) calc(1.5625rem*var(--mantine-scale)) calc(-0.3125rem*var(--mantine-scale)),#0000000a 0 calc(0.625rem*var(--mantine-scale)) calc(0.625rem*var(--mantine-scale)) calc(-0.3125rem*var(--mantine-scale));
+  --mantine-shadow-lg: 0 calc(0.0625rem*var(--mantine-scale)) calc(0.1875rem*var(--mantine-scale)) #0000000d,#0000000d 0 calc(1.75rem*var(--mantine-scale)) calc(1.4375rem*var(--mantine-scale)) calc(-0.4375rem*var(--mantine-scale)),#0000000a 0 calc(0.75rem*var(--mantine-scale)) calc(0.75rem*var(--mantine-scale)) calc(-0.4375rem*var(--mantine-scale));
+  --mantine-shadow-xl: 0 calc(0.0625rem*var(--mantine-scale)) calc(0.1875rem*var(--mantine-scale)) #0000000d,#0000000d 0 calc(2.25rem*var(--mantine-scale)) calc(1.75rem*var(--mantine-scale)) calc(-0.4375rem*var(--mantine-scale)),#0000000a 0 calc(1.0625rem*var(--mantine-scale)) calc(1.0625rem*var(--mantine-scale)) calc(-0.4375rem*var(--mantine-scale));
+  --mantine-radius-xs: calc(0.125rem*var(--mantine-scale));
+  --mantine-radius-sm: calc(0.25rem*var(--mantine-scale));
+  --mantine-radius-md: calc(0.5rem*var(--mantine-scale));
+  --mantine-radius-lg: calc(1rem*var(--mantine-scale));
+  --mantine-radius-xl: calc(2rem*var(--mantine-scale));
+  --mantine-color-dark-0: #c9c9c9;
+  --mantine-color-dark-1: #b8b8b8;
+  --mantine-color-dark-2: #828282;
+  --mantine-color-dark-3: #696969;
+  --mantine-color-dark-4: #424242;
+  --mantine-color-dark-5: #3b3b3b;
+  --mantine-color-dark-6: #2e2e2e;
+  --mantine-color-dark-7: #242424;
+  --mantine-color-dark-8: #1f1f1f;
+  --mantine-color-dark-9: #141414;
+  --mantine-color-gray-0: #f8f9fa;
+  --mantine-color-gray-1: #f1f3f5;
+  --mantine-color-gray-2: #e9ecef;
+  --mantine-color-gray-3: #dee2e6;
+  --mantine-color-gray-4: #ced4da;
+  --mantine-color-gray-5: #adb5bd;
+  --mantine-color-gray-6: #868e96;
+  --mantine-color-gray-7: #495057;
+  --mantine-color-gray-8: #343a40;
+  --mantine-color-gray-9: #212529;
+  --mantine-color-red-0: #fff5f5;
+  --mantine-color-red-1: #ffe3e3;
+  --mantine-color-red-2: #ffc9c9;
+  --mantine-color-red-3: #ffa8a8;
+  --mantine-color-red-4: #ff8787;
+  --mantine-color-red-5: #ff6b6b;
+  --mantine-color-red-6: #fa5252;
+  --mantine-color-red-7: #f03e3e;
+  --mantine-color-red-8: #e03131;
+  --mantine-color-red-9: #c92a2a;
+  --mantine-color-pink-0: #fff0f6;
+  --mantine-color-pink-1: #ffdeeb;
+  --mantine-color-pink-2: #fcc2d7;
+  --mantine-color-pink-3: #faa2c1;
+  --mantine-color-pink-4: #f783ac;
+  --mantine-color-pink-5: #f06595;
+  --mantine-color-pink-6: #e64980;
+  --mantine-color-pink-7: #d6336c;
+  --mantine-color-pink-8: #c2255c;
+  --mantine-color-pink-9: #a61e4d;
+  --mantine-color-grape-0: #f8f0fc;
+  --mantine-color-grape-1: #f3d9fa;
+  --mantine-color-grape-2: #eebefa;
+  --mantine-color-grape-3: #e599f7;
+  --mantine-color-grape-4: #da77f2;
+  --mantine-color-grape-5: #cc5de8;
+  --mantine-color-grape-6: #be4bdb;
+  --mantine-color-grape-7: #ae3ec9;
+  --mantine-color-grape-8: #9c36b5;
+  --mantine-color-grape-9: #862e9c;
+  --mantine-color-violet-0: #f3f0ff;
+  --mantine-color-violet-1: #e5dbff;
+  --mantine-color-violet-2: #d0bfff;
+  --mantine-color-violet-3: #b197fc;
+  --mantine-color-violet-4: #9775fa;
+  --mantine-color-violet-5: #845ef7;
+  --mantine-color-violet-6: #7950f2;
+  --mantine-color-violet-7: #7048e8;
+  --mantine-color-violet-8: #6741d9;
+  --mantine-color-violet-9: #5f3dc4;
+  --mantine-color-indigo-0: #edf2ff;
+  --mantine-color-indigo-1: #dbe4ff;
+  --mantine-color-indigo-2: #bac8ff;
+  --mantine-color-indigo-3: #91a7ff;
+  --mantine-color-indigo-4: #748ffc;
+  --mantine-color-indigo-5: #5c7cfa;
+  --mantine-color-indigo-6: #4c6ef5;
+  --mantine-color-indigo-7: #4263eb;
+  --mantine-color-indigo-8: #3b5bdb;
+  --mantine-color-indigo-9: #364fc7;
+  --mantine-color-blue-0: #e7f5ff;
+  --mantine-color-blue-1: #d0ebff;
+  --mantine-color-blue-2: #a5d8ff;
+  --mantine-color-blue-3: #74c0fc;
+  --mantine-color-blue-4: #4dabf7;
+  --mantine-color-blue-5: #339af0;
+  --mantine-color-blue-6: #228be6;
+  --mantine-color-blue-7: #1c7ed6;
+  --mantine-color-blue-8: #1971c2;
+  --mantine-color-blue-9: #1864ab;
+  --mantine-color-cyan-0: #e3fafc;
+  --mantine-color-cyan-1: #c5f6fa;
+  --mantine-color-cyan-2: #99e9f2;
+  --mantine-color-cyan-3: #66d9e8;
+  --mantine-color-cyan-4: #3bc9db;
+  --mantine-color-cyan-5: #22b8cf;
+  --mantine-color-cyan-6: #15aabf;
+  --mantine-color-cyan-7: #1098ad;
+  --mantine-color-cyan-8: #0c8599;
+  --mantine-color-cyan-9: #0b7285;
+  --mantine-color-teal-0: #e6fcf5;
+  --mantine-color-teal-1: #c3fae8;
+  --mantine-color-teal-2: #96f2d7;
+  --mantine-color-teal-3: #63e6be;
+  --mantine-color-teal-4: #38d9a9;
+  --mantine-color-teal-5: #20c997;
+  --mantine-color-teal-6: #12b886;
+  --mantine-color-teal-7: #0ca678;
+  --mantine-color-teal-8: #099268;
+  --mantine-color-teal-9: #087f5b;
+  --mantine-color-green-0: #ebfbee;
+  --mantine-color-green-1: #d3f9d8;
+  --mantine-color-green-2: #b2f2bb;
+  --mantine-color-green-3: #8ce99a;
+  --mantine-color-green-4: #69db7c;
+  --mantine-color-green-5: #51cf66;
+  --mantine-color-green-6: #40c057;
+  --mantine-color-green-7: #37b24d;
+  --mantine-color-green-8: #2f9e44;
+  --mantine-color-green-9: #2b8a3e;
+  --mantine-color-lime-0: #f4fce3;
+  --mantine-color-lime-1: #e9fac8;
+  --mantine-color-lime-2: #d8f5a2;
+  --mantine-color-lime-3: #c0eb75;
+  --mantine-color-lime-4: #a9e34b;
+  --mantine-color-lime-5: #94d82d;
+  --mantine-color-lime-6: #82c91e;
+  --mantine-color-lime-7: #74b816;
+  --mantine-color-lime-8: #66a80f;
+  --mantine-color-lime-9: #5c940d;
+  --mantine-color-yellow-0: #fff9db;
+  --mantine-color-yellow-1: #fff3bf;
+  --mantine-color-yellow-2: #ffec99;
+  --mantine-color-yellow-3: #ffe066;
+  --mantine-color-yellow-4: #ffd43b;
+  --mantine-color-yellow-5: #fcc419;
+  --mantine-color-yellow-6: #fab005;
+  --mantine-color-yellow-7: #f59f00;
+  --mantine-color-yellow-8: #f08c00;
+  --mantine-color-yellow-9: #e67700;
+  --mantine-color-orange-0: #fff4e6;
+  --mantine-color-orange-1: #ffe8cc;
+  --mantine-color-orange-2: #ffd8a8;
+  --mantine-color-orange-3: #ffc078;
+  --mantine-color-orange-4: #ffa94d;
+  --mantine-color-orange-5: #ff922b;
+  --mantine-color-orange-6: #fd7e14;
+  --mantine-color-orange-7: #f76707;
+  --mantine-color-orange-8: #e8590c;
+  --mantine-color-orange-9: #d9480f;
+  --mantine-h1-font-size: calc(2.125rem*var(--mantine-scale));
+  --mantine-h1-line-height: 1.3;
+  --mantine-h1-font-weight: 700;
+  --mantine-h2-font-size: calc(1.625rem*var(--mantine-scale));
+  --mantine-h2-line-height: 1.35;
+  --mantine-h2-font-weight: 700;
+  --mantine-h3-font-size: calc(1.375rem*var(--mantine-scale));
+  --mantine-h3-line-height: 1.4;
+  --mantine-h3-font-weight: 700;
+  --mantine-h4-font-size: calc(1.125rem*var(--mantine-scale));
+  --mantine-h4-line-height: 1.45;
+  --mantine-h4-font-weight: 700;
+  --mantine-h5-font-size: calc(1rem*var(--mantine-scale));
+  --mantine-h5-line-height: 1.5;
+  --mantine-h5-font-weight: 700;
+  --mantine-h6-font-size: calc(0.875rem*var(--mantine-scale));
+  --mantine-h6-line-height: 1.5;
+  --mantine-h6-font-weight: 700;
+  color-scheme: var(--mantine-color-scheme);
+  --mantine-z-index-app: 100;
+  --mantine-z-index-modal: 200;
+  --mantine-z-index-popover: 300;
+  --mantine-z-index-overlay: 400;
+  --mantine-z-index-max: 9999;
+  --mantine-scale: 1;
+  --mantine-cursor-type: default;
+  --mantine-webkit-font-smoothing: antialiased;
+  --mantine-color-scheme: light dark;
+  --mantine-moz-font-smoothing: grayscale;
+  --mantine-color-white: #fff;
+  --mantine-color-black: #000;
+  --mantine-line-height: 1.55;
+  --mantine-font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --mantine-font-family-monospace: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+  --mantine-font-family-headings: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --mantine-heading-font-weight: 700;
+  --mantine-radius-default: calc(0.25rem*var(--mantine-scale));
+  --mantine-primary-color-0: var(--mantine-color-blue-0);
+  --mantine-primary-color-1: var(--mantine-color-blue-1);
+  --mantine-primary-color-2: var(--mantine-color-blue-2);
+  --mantine-primary-color-3: var(--mantine-color-blue-3);
+  --mantine-primary-color-4: var(--mantine-color-blue-4);
+  --mantine-primary-color-5: var(--mantine-color-blue-5);
+  --mantine-primary-color-6: var(--mantine-color-blue-6);
+  --mantine-primary-color-7: var(--mantine-color-blue-7);
+  --mantine-primary-color-8: var(--mantine-color-blue-8);
+  --mantine-primary-color-9: var(--mantine-color-blue-9);
+  --mantine-primary-color-filled: var(--mantine-color-blue-filled);
+  --mantine-primary-color-filled-hover: var(--mantine-color-blue-filled-hover);
+  --mantine-primary-color-light: var(--mantine-color-blue-light);
+  --mantine-primary-color-light-hover: var(--mantine-color-blue-light-hover);
+  --mantine-primary-color-light-color: var(--mantine-color-blue-light-color);
+  --mantine-breakpoint-xs: 36em;
+  --mantine-breakpoint-sm: 48em;
+  --mantine-breakpoint-md: 62em;
+  --mantine-breakpoint-lg: 75em;
+  --mantine-breakpoint-xl: 88em;
+  --mantine-spacing-xs: calc(0.625rem*var(--mantine-scale));
+  --mantine-spacing-sm: calc(0.75rem*var(--mantine-scale));
+  --mantine-spacing-md: calc(1rem*var(--mantine-scale));
+  --mantine-spacing-lg: calc(1.25rem*var(--mantine-scale));
+  --mantine-spacing-xl: calc(2rem*var(--mantine-scale));
+  --mantine-font-size-xs: calc(0.75rem*var(--mantine-scale));
+  --mantine-font-size-sm: calc(0.875rem*var(--mantine-scale));
+  --mantine-font-size-md: calc(1rem*var(--mantine-scale));
+  --mantine-font-size-lg: calc(1.125rem*var(--mantine-scale));
+  --mantine-font-size-xl: calc(1.25rem*var(--mantine-scale));
+  --mantine-line-height-xs: 1.4;
+  --mantine-line-height-sm: 1.45;
+  --mantine-line-height-md: 1.55;
+  --mantine-line-height-lg: 1.6;
+  --mantine-line-height-xl: 1.65;
+  --mantine-shadow-xs: 0 calc(0.0625rem*var(--mantine-scale)) calc(0.1875rem*var(--mantine-scale)) #0000000d,0 calc(0.0625rem*var(--mantine-scale)) calc(0.125rem*var(--mantine-scale)) #0000001a;
+  --mantine-shadow-sm: 0 calc(0.0625rem*var(--mantine-scale)) calc(0.1875rem*var(--mantine-scale)) #0000000d,#0000000d 0 calc(0.625rem*var(--mantine-scale)) calc(0.9375rem*var(--mantine-scale)) calc(-0.3125rem*var(--mantine-scale)),#0000000a 0 calc(0.4375rem*var(--mantine-scale)) calc(0.4375rem*var(--mantine-scale)) calc(-0.3125rem*var(--mantine-scale));
+  --mantine-shadow-md: 0 calc(0.0625rem*var(--mantine-scale)) calc(0.1875rem*var(--mantine-scale)) #0000000d,#0000000d 0 calc(1.25rem*var(--mantine-scale)) calc(1.5625rem*var(--mantine-scale)) calc(-0.3125rem*var(--mantine-scale)),#0000000a 0 calc(0.625rem*var(--mantine-scale)) calc(0.625rem*var(--mantine-scale)) calc(-0.3125rem*var(--mantine-scale));
+  --mantine-shadow-lg: 0 calc(0.0625rem*var(--mantine-scale)) calc(0.1875rem*var(--mantine-scale)) #0000000d,#0000000d 0 calc(1.75rem*var(--mantine-scale)) calc(1.4375rem*var(--mantine-scale)) calc(-0.4375rem*var(--mantine-scale)),#0000000a 0 calc(0.75rem*var(--mantine-scale)) calc(0.75rem*var(--mantine-scale)) calc(-0.4375rem*var(--mantine-scale));
+  --mantine-shadow-xl: 0 calc(0.0625rem*var(--mantine-scale)) calc(0.1875rem*var(--mantine-scale)) #0000000d,#0000000d 0 calc(2.25rem*var(--mantine-scale)) calc(1.75rem*var(--mantine-scale)) calc(-0.4375rem*var(--mantine-scale)),#0000000a 0 calc(1.0625rem*var(--mantine-scale)) calc(1.0625rem*var(--mantine-scale)) calc(-0.4375rem*var(--mantine-scale));
+  --mantine-radius-xs: calc(0.125rem*var(--mantine-scale));
+  --mantine-radius-sm: calc(0.25rem*var(--mantine-scale));
+  --mantine-radius-md: calc(0.5rem*var(--mantine-scale));
+  --mantine-radius-lg: calc(1rem*var(--mantine-scale));
+  --mantine-radius-xl: calc(2rem*var(--mantine-scale));
+  --mantine-color-dark-0: #c9c9c9;
+  --mantine-color-dark-1: #b8b8b8;
+  --mantine-color-dark-2: #828282;
+  --mantine-color-dark-3: #696969;
+  --mantine-color-dark-4: #424242;
+  --mantine-color-dark-5: #3b3b3b;
+  --mantine-color-dark-6: #2e2e2e;
+  --mantine-color-dark-7: #242424;
+  --mantine-color-dark-8: #1f1f1f;
+  --mantine-color-dark-9: #141414;
+  --mantine-color-gray-0: #f8f9fa;
+  --mantine-color-gray-1: #f1f3f5;
+  --mantine-color-gray-2: #e9ecef;
+  --mantine-color-gray-3: #dee2e6;
+  --mantine-color-gray-4: #ced4da;
+  --mantine-color-gray-5: #adb5bd;
+  --mantine-color-gray-6: #868e96;
+  --mantine-color-gray-7: #495057;
+  --mantine-color-gray-8: #343a40;
+  --mantine-color-gray-9: #212529;
+  --mantine-color-red-0: #fff5f5;
+  --mantine-color-red-1: #ffe3e3;
+  --mantine-color-red-2: #ffc9c9;
+  --mantine-color-red-3: #ffa8a8;
+  --mantine-color-red-4: #ff8787;
+  --mantine-color-red-5: #ff6b6b;
+  --mantine-color-red-6: #fa5252;
+  --mantine-color-red-7: #f03e3e;
+  --mantine-color-red-8: #e03131;
+  --mantine-color-red-9: #c92a2a;
+  --mantine-color-pink-0: #fff0f6;
+  --mantine-color-pink-1: #ffdeeb;
+  --mantine-color-pink-2: #fcc2d7;
+  --mantine-color-pink-3: #faa2c1;
+  --mantine-color-pink-4: #f783ac;
+  --mantine-color-pink-5: #f06595;
+  --mantine-color-pink-6: #e64980;
+  --mantine-color-pink-7: #d6336c;
+  --mantine-color-pink-8: #c2255c;
+  --mantine-color-pink-9: #a61e4d;
+  --mantine-color-grape-0: #f8f0fc;
+  --mantine-color-grape-1: #f3d9fa;
+  --mantine-color-grape-2: #eebefa;
+  --mantine-color-grape-3: #e599f7;
+  --mantine-color-grape-4: #da77f2;
+  --mantine-color-grape-5: #cc5de8;
+  --mantine-color-grape-6: #be4bdb;
+  --mantine-color-grape-7: #ae3ec9;
+  --mantine-color-grape-8: #9c36b5;
+  --mantine-color-grape-9: #862e9c;
+  --mantine-color-violet-0: #f3f0ff;
+  --mantine-color-violet-1: #e5dbff;
+  --mantine-color-violet-2: #d0bfff;
+  --mantine-color-violet-3: #b197fc;
+  --mantine-color-violet-4: #9775fa;
+  --mantine-color-violet-5: #845ef7;
+  --mantine-color-violet-6: #7950f2;
+  --mantine-color-violet-7: #7048e8;
+  --mantine-color-violet-8: #6741d9;
+  --mantine-color-violet-9: #5f3dc4;
+  --mantine-color-indigo-0: #edf2ff;
+  --mantine-color-indigo-1: #dbe4ff;
+  --mantine-color-indigo-2: #bac8ff;
+  --mantine-color-indigo-3: #91a7ff;
+  --mantine-color-indigo-4: #748ffc;
+  --mantine-color-indigo-5: #5c7cfa;
+  --mantine-color-indigo-6: #4c6ef5;
+  --mantine-color-indigo-7: #4263eb;
+  --mantine-color-indigo-8: #3b5bdb;
+  --mantine-color-indigo-9: #364fc7;
+  --mantine-color-blue-0: #e7f5ff;
+  --mantine-color-blue-1: #d0ebff;
+  --mantine-color-blue-2: #a5d8ff;
+  --mantine-color-blue-3: #74c0fc;
+  --mantine-color-blue-4: #4dabf7;
+  --mantine-color-blue-5: #339af0;
+  --mantine-color-blue-6: #228be6;
+  --mantine-color-blue-7: #1c7ed6;
+  --mantine-color-blue-8: #1971c2;
+  --mantine-color-blue-9: #1864ab;
+  --mantine-color-cyan-0: #e3fafc;
+  --mantine-color-cyan-1: #c5f6fa;
+  --mantine-color-cyan-2: #99e9f2;
+  --mantine-color-cyan-3: #66d9e8;
+  --mantine-color-cyan-4: #3bc9db;
+  --mantine-color-cyan-5: #22b8cf;
+  --mantine-color-cyan-6: #15aabf;
+  --mantine-color-cyan-7: #1098ad;
+  --mantine-color-cyan-8: #0c8599;
+  --mantine-color-cyan-9: #0b7285;
+  --mantine-color-teal-0: #e6fcf5;
+  --mantine-color-teal-1: #c3fae8;
+  --mantine-color-teal-2: #96f2d7;
+  --mantine-color-teal-3: #63e6be;
+  --mantine-color-teal-4: #38d9a9;
+  --mantine-color-teal-5: #20c997;
+  --mantine-color-teal-6: #12b886;
+  --mantine-color-teal-7: #0ca678;
+  --mantine-color-teal-8: #099268;
+  --mantine-color-teal-9: #087f5b;
+  --mantine-color-green-0: #ebfbee;
+  --mantine-color-green-1: #d3f9d8;
+  --mantine-color-green-2: #b2f2bb;
+  --mantine-color-green-3: #8ce99a;
+  --mantine-color-green-4: #69db7c;
+  --mantine-color-green-5: #51cf66;
+  --mantine-color-green-6: #40c057;
+  --mantine-color-green-7: #37b24d;
+  --mantine-color-green-8: #2f9e44;
+  --mantine-color-green-9: #2b8a3e;
+  --mantine-color-lime-0: #f4fce3;
+  --mantine-color-lime-1: #e9fac8;
+  --mantine-color-lime-2: #d8f5a2;
+  --mantine-color-lime-3: #c0eb75;
+  --mantine-color-lime-4: #a9e34b;
+  --mantine-color-lime-5: #94d82d;
+  --mantine-color-lime-6: #82c91e;
+  --mantine-color-lime-7: #74b816;
+  --mantine-color-lime-8: #66a80f;
+  --mantine-color-lime-9: #5c940d;
+  --mantine-color-yellow-0: #fff9db;
+  --mantine-color-yellow-1: #fff3bf;
+  --mantine-color-yellow-2: #ffec99;
+  --mantine-color-yellow-3: #ffe066;
+  --mantine-color-yellow-4: #ffd43b;
+  --mantine-color-yellow-5: #fcc419;
+  --mantine-color-yellow-6: #fab005;
+  --mantine-color-yellow-7: #f59f00;
+  --mantine-color-yellow-8: #f08c00;
+  --mantine-color-yellow-9: #e67700;
+  --mantine-color-orange-0: #fff4e6;
+  --mantine-color-orange-1: #ffe8cc;
+  --mantine-color-orange-2: #ffd8a8;
+  --mantine-color-orange-3: #ffc078;
+  --mantine-color-orange-4: #ffa94d;
+  --mantine-color-orange-5: #ff922b;
+  --mantine-color-orange-6: #fd7e14;
+  --mantine-color-orange-7: #f76707;
+  --mantine-color-orange-8: #e8590c;
+  --mantine-color-orange-9: #d9480f;
+  --mantine-h1-font-size: calc(2.125rem*var(--mantine-scale));
+  --mantine-h1-line-height: 1.3;
+  --mantine-h1-font-weight: 700;
+  --mantine-h2-font-size: calc(1.625rem*var(--mantine-scale));
+  --mantine-h2-line-height: 1.35;
+  --mantine-h2-font-weight: 700;
+  --mantine-h3-font-size: calc(1.375rem*var(--mantine-scale));
+  --mantine-h3-line-height: 1.4;
+  --mantine-h3-font-weight: 700;
+  --mantine-h4-font-size: calc(1.125rem*var(--mantine-scale));
+  --mantine-h4-line-height: 1.45;
+  --mantine-h4-font-weight: 700;
+  --mantine-h5-font-size: calc(1rem*var(--mantine-scale));
+  --mantine-h5-line-height: 1.5;
+  --mantine-h5-font-weight: 700;
+  --mantine-h6-font-size: calc(0.875rem*var(--mantine-scale));
+  --mantine-h6-line-height: 1.5;
+  --mantine-h6-font-weight: 700;
+  color-scheme: var(--mantine-color-scheme);
+}
+
+/* Inherited from ancestor level 5 (regular) */
+:root {
+  --chatbox-radius-none: 0rem;
+  --chatbox-radius-xs: 0.125rem;
+  --chatbox-radius-sm: 0.25rem;
+  --chatbox-radius-md: 0.5rem;
+  --chatbox-radius-lg: 1rem;
+  --chatbox-radius-xl: 1.5rem;
+  --chatbox-radius-xxl: 2rem;
+  --chatbox-spacing-none: 0rem;
+  --chatbox-spacing-3xs: 0.125rem;
+  --chatbox-spacing-xxs: 0.25rem;
+  --chatbox-spacing-xs: 0.5rem;
+  --chatbox-spacing-sm: 0.75rem;
+  --chatbox-spacing-md: 1rem;
+  --chatbox-spacing-lg: 1.25rem;
+  --chatbox-spacing-xl: 1.5rem;
+  --chatbox-spacing-xxl: 2rem;
+  --chatbox-radius-none: 0rem;
+  --chatbox-radius-xs: 0.125rem;
+  --chatbox-radius-sm: 0.25rem;
+  --chatbox-radius-md: 0.5rem;
+  --chatbox-radius-lg: 1rem;
+  --chatbox-radius-xl: 1.5rem;
+  --chatbox-radius-xxl: 2rem;
+  --chatbox-spacing-none: 0rem;
+  --chatbox-spacing-3xs: 0.125rem;
+  --chatbox-spacing-xxs: 0.25rem;
+  --chatbox-spacing-xs: 0.5rem;
+  --chatbox-spacing-sm: 0.75rem;
+  --chatbox-spacing-md: 1rem;
+  --chatbox-spacing-lg: 1.25rem;
+  --chatbox-spacing-xl: 1.5rem;
+  --chatbox-spacing-xxl: 2rem;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+:root {
+  --mantine-line-height: 1.5;
+  --mantine-heading-font-weight: Bold;
+  --mantine-primary-color-filled: var(--mantine-color-chatbox-brand-filled);
+  --mantine-primary-color-filled-hover: var(--mantine-color-chatbox-brand-filled-hover);
+  --mantine-primary-color-light: var(--mantine-color-chatbox-brand-light);
+  --mantine-primary-color-light-hover: var(--mantine-color-chatbox-brand-light-hover);
+  --mantine-primary-color-light-color: var(--mantine-color-chatbox-brand-light-color);
+  --mantine-spacing-xs: calc(0.5rem * var(--mantine-scale));
+  --mantine-spacing-xl: calc(1.5rem * var(--mantine-scale));
+  --mantine-spacing-3xs: calc(0.125rem * var(--mantine-scale));
+  --mantine-spacing-xxs: calc(0.25rem * var(--mantine-scale));
+  --mantine-spacing-xxl: calc(2rem * var(--mantine-scale));
+  --mantine-font-size-xxs: calc(0.625rem * var(--mantine-scale));
+  --mantine-line-height-xs: 1.3333333333;
+  --mantine-line-height-sm: 1.4285714286;
+  --mantine-line-height-md: 1.5;
+  --mantine-line-height-lg: 1.5555555556;
+  --mantine-line-height-xl: 1.6;
+  --mantine-line-height-xxs: 1.3;
+  --mantine-radius-xl: calc(1.5rem * var(--mantine-scale));
+  --mantine-radius-xxl: calc(2rem * var(--mantine-scale));
+  --mantine-primary-color-0: var(--mantine-color-chatbox-brand-0);
+  --mantine-primary-color-1: var(--mantine-color-chatbox-brand-1);
+  --mantine-primary-color-2: var(--mantine-color-chatbox-brand-2);
+  --mantine-primary-color-3: var(--mantine-color-chatbox-brand-3);
+  --mantine-primary-color-4: var(--mantine-color-chatbox-brand-4);
+  --mantine-primary-color-5: var(--mantine-color-chatbox-brand-5);
+  --mantine-primary-color-6: var(--mantine-color-chatbox-brand-6);
+  --mantine-primary-color-7: var(--mantine-color-chatbox-brand-7);
+  --mantine-primary-color-8: var(--mantine-color-chatbox-brand-8);
+  --mantine-primary-color-9: var(--mantine-color-chatbox-brand-9);
+  --mantine-color-chatbox-primary-0: var(--mantine-color-white);
+  --mantine-color-chatbox-primary-1: var(--mantine-color-white);
+  --mantine-color-chatbox-primary-2: var(--mantine-color-white);
+  --mantine-color-chatbox-primary-3: var(--mantine-color-white);
+  --mantine-color-chatbox-primary-4: var(--mantine-color-white);
+  --mantine-color-chatbox-primary-5: var(--mantine-color-gray-9);
+  --mantine-color-chatbox-primary-6: var(--mantine-color-gray-9);
+  --mantine-color-chatbox-primary-7: var(--mantine-color-gray-9);
+  --mantine-color-chatbox-primary-8: var(--mantine-color-gray-9);
+  --mantine-color-chatbox-primary-9: var(--mantine-color-gray-9);
+  --mantine-color-chatbox-secondary-0: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-secondary-1: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-secondary-2: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-secondary-3: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-secondary-4: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-secondary-5: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-secondary-6: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-secondary-7: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-secondary-8: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-secondary-9: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-tertiary-0: var(--mantine-color-dark-2);
+  --mantine-color-chatbox-tertiary-1: var(--mantine-color-dark-2);
+  --mantine-color-chatbox-tertiary-2: var(--mantine-color-dark-2);
+  --mantine-color-chatbox-tertiary-3: var(--mantine-color-dark-2);
+  --mantine-color-chatbox-tertiary-4: var(--mantine-color-dark-2);
+  --mantine-color-chatbox-tertiary-5: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-tertiary-6: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-tertiary-7: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-tertiary-8: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-tertiary-9: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-border-primary-0: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-border-primary-1: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-border-primary-2: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-border-primary-3: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-border-primary-4: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-border-primary-5: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-border-primary-6: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-border-primary-7: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-border-primary-8: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-border-primary-9: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-border-secondary-0: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-border-secondary-1: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-border-secondary-2: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-border-secondary-3: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-border-secondary-4: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-border-secondary-5: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-border-secondary-6: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-border-secondary-7: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-border-secondary-8: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-border-secondary-9: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-background-primary-0: var(--mantine-color-dark-7);
+  --mantine-color-chatbox-background-primary-1: var(--mantine-color-dark-7);
+  --mantine-color-chatbox-background-primary-2: var(--mantine-color-dark-7);
+  --mantine-color-chatbox-background-primary-3: var(--mantine-color-dark-7);
+  --mantine-color-chatbox-background-primary-4: var(--mantine-color-dark-7);
+  --mantine-color-chatbox-background-primary-5: var(--mantine-color-white);
+  --mantine-color-chatbox-background-primary-6: var(--mantine-color-white);
+  --mantine-color-chatbox-background-primary-7: var(--mantine-color-white);
+  --mantine-color-chatbox-background-primary-8: var(--mantine-color-dark-7);
+  --mantine-color-chatbox-background-primary-9: var(--mantine-color-white);
+  --mantine-color-chatbox-background-secondary-0: var(--mantine-color-dark-5);
+  --mantine-color-chatbox-background-secondary-1: var(--mantine-color-dark-5);
+  --mantine-color-chatbox-background-secondary-2: var(--mantine-color-dark-5);
+  --mantine-color-chatbox-background-secondary-3: var(--mantine-color-dark-5);
+  --mantine-color-chatbox-background-secondary-4: var(--mantine-color-dark-5);
+  --mantine-color-chatbox-background-secondary-5: var(--mantine-color-gray-1);
+  --mantine-color-chatbox-background-secondary-6: var(--mantine-color-gray-1);
+  --mantine-color-chatbox-background-secondary-7: var(--mantine-color-gray-1);
+  --mantine-color-chatbox-background-secondary-8: var(--mantine-color-dark-5);
+  --mantine-color-chatbox-background-secondary-9: var(--mantine-color-gray-1);
+  --mantine-color-chatbox-background-tertiary-0: var(--mantine-color-dark-4);
+  --mantine-color-chatbox-background-tertiary-1: var(--mantine-color-dark-4);
+  --mantine-color-chatbox-background-tertiary-2: var(--mantine-color-dark-4);
+  --mantine-color-chatbox-background-tertiary-3: var(--mantine-color-dark-4);
+  --mantine-color-chatbox-background-tertiary-4: var(--mantine-color-dark-4);
+  --mantine-color-chatbox-background-tertiary-5: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-background-tertiary-6: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-background-tertiary-7: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-background-tertiary-8: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-background-tertiary-9: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-background-disabled-0: var(--mantine-color-dark-6);
+  --mantine-color-chatbox-background-disabled-1: var(--mantine-color-dark-6);
+  --mantine-color-chatbox-background-disabled-2: var(--mantine-color-dark-6);
+  --mantine-color-chatbox-background-disabled-3: var(--mantine-color-dark-6);
+  --mantine-color-chatbox-background-disabled-4: var(--mantine-color-dark-6);
+  --mantine-color-chatbox-background-disabled-5: var(--mantine-color-gray-2);
+  --mantine-color-chatbox-background-disabled-6: var(--mantine-color-gray-2);
+  --mantine-color-chatbox-background-disabled-7: var(--mantine-color-gray-2);
+  --mantine-color-chatbox-background-disabled-8: var(--mantine-color-gray-2);
+  --mantine-color-chatbox-background-disabled-9: var(--mantine-color-gray-2);
+  --mantine-color-chatbox-background-error-secondary-0: var(--mantine-color-red-9);
+  --mantine-color-chatbox-background-error-secondary-1: var(--mantine-color-red-9);
+  --mantine-color-chatbox-background-error-secondary-2: var(--mantine-color-red-9);
+  --mantine-color-chatbox-background-error-secondary-3: var(--mantine-color-red-9);
+  --mantine-color-chatbox-background-error-secondary-4: var(--mantine-color-red-9);
+  --mantine-color-chatbox-background-error-secondary-5: var(--mantine-color-red-1);
+  --mantine-color-chatbox-background-error-secondary-6: var(--mantine-color-red-1);
+  --mantine-color-chatbox-background-error-secondary-7: var(--mantine-color-red-1);
+  --mantine-color-chatbox-background-error-secondary-8: var(--mantine-color-red-1);
+  --mantine-color-chatbox-background-error-secondary-9: var(--mantine-color-red-1);
+  --mantine-h1-font-size: calc(2.5rem * var(--mantine-scale));
+  --mantine-h1-line-height: 1.2;
+  --mantine-h1-font-weight: Bold;
+  --mantine-h2-font-size: calc(2rem * var(--mantine-scale));
+  --mantine-h2-line-height: 1.25;
+  --mantine-h2-font-weight: Bold;
+  --mantine-h3-font-size: calc(1.5rem * var(--mantine-scale));
+  --mantine-h3-line-height: 1.3333333333;
+  --mantine-h3-font-weight: Bold;
+  --mantine-h4-line-height: 1.3333333333;
+  --mantine-h4-font-weight: Bold;
+  --mantine-h5-line-height: 1.25;
+  --mantine-h5-font-weight: Bold;
+  --mantine-h6-font-size: calc(0.75rem * var(--mantine-scale));
+  --mantine-h6-line-height: 1.3333333333;
+  --mantine-h6-font-weight: Bold;
+  --mantine-line-height: 1.5;
+  --mantine-heading-font-weight: Bold;
+  --mantine-primary-color-filled: var(--mantine-color-chatbox-brand-filled);
+  --mantine-primary-color-filled-hover: var(--mantine-color-chatbox-brand-filled-hover);
+  --mantine-primary-color-light: var(--mantine-color-chatbox-brand-light);
+  --mantine-primary-color-light-hover: var(--mantine-color-chatbox-brand-light-hover);
+  --mantine-primary-color-light-color: var(--mantine-color-chatbox-brand-light-color);
+  --mantine-spacing-xs: calc(0.5rem * var(--mantine-scale));
+  --mantine-spacing-xl: calc(1.5rem * var(--mantine-scale));
+  --mantine-spacing-3xs: calc(0.125rem * var(--mantine-scale));
+  --mantine-spacing-xxs: calc(0.25rem * var(--mantine-scale));
+  --mantine-spacing-xxl: calc(2rem * var(--mantine-scale));
+  --mantine-font-size-xxs: calc(0.625rem * var(--mantine-scale));
+  --mantine-line-height-xs: 1.3333333333;
+  --mantine-line-height-sm: 1.4285714286;
+  --mantine-line-height-md: 1.5;
+  --mantine-line-height-lg: 1.5555555556;
+  --mantine-line-height-xl: 1.6;
+  --mantine-line-height-xxs: 1.3;
+  --mantine-radius-xl: calc(1.5rem * var(--mantine-scale));
+  --mantine-radius-xxl: calc(2rem * var(--mantine-scale));
+  --mantine-primary-color-0: var(--mantine-color-chatbox-brand-0);
+  --mantine-primary-color-1: var(--mantine-color-chatbox-brand-1);
+  --mantine-primary-color-2: var(--mantine-color-chatbox-brand-2);
+  --mantine-primary-color-3: var(--mantine-color-chatbox-brand-3);
+  --mantine-primary-color-4: var(--mantine-color-chatbox-brand-4);
+  --mantine-primary-color-5: var(--mantine-color-chatbox-brand-5);
+  --mantine-primary-color-6: var(--mantine-color-chatbox-brand-6);
+  --mantine-primary-color-7: var(--mantine-color-chatbox-brand-7);
+  --mantine-primary-color-8: var(--mantine-color-chatbox-brand-8);
+  --mantine-primary-color-9: var(--mantine-color-chatbox-brand-9);
+  --mantine-color-chatbox-primary-0: var(--mantine-color-white);
+  --mantine-color-chatbox-primary-1: var(--mantine-color-white);
+  --mantine-color-chatbox-primary-2: var(--mantine-color-white);
+  --mantine-color-chatbox-primary-3: var(--mantine-color-white);
+  --mantine-color-chatbox-primary-4: var(--mantine-color-white);
+  --mantine-color-chatbox-primary-5: var(--mantine-color-gray-9);
+  --mantine-color-chatbox-primary-6: var(--mantine-color-gray-9);
+  --mantine-color-chatbox-primary-7: var(--mantine-color-gray-9);
+  --mantine-color-chatbox-primary-8: var(--mantine-color-gray-9);
+  --mantine-color-chatbox-primary-9: var(--mantine-color-gray-9);
+  --mantine-color-chatbox-secondary-0: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-secondary-1: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-secondary-2: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-secondary-3: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-secondary-4: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-secondary-5: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-secondary-6: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-secondary-7: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-secondary-8: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-secondary-9: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-tertiary-0: var(--mantine-color-dark-2);
+  --mantine-color-chatbox-tertiary-1: var(--mantine-color-dark-2);
+  --mantine-color-chatbox-tertiary-2: var(--mantine-color-dark-2);
+  --mantine-color-chatbox-tertiary-3: var(--mantine-color-dark-2);
+  --mantine-color-chatbox-tertiary-4: var(--mantine-color-dark-2);
+  --mantine-color-chatbox-tertiary-5: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-tertiary-6: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-tertiary-7: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-tertiary-8: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-tertiary-9: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-border-primary-0: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-border-primary-1: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-border-primary-2: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-border-primary-3: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-border-primary-4: var(--mantine-color-gray-7);
+  --mantine-color-chatbox-border-primary-5: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-border-primary-6: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-border-primary-7: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-border-primary-8: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-border-primary-9: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-border-secondary-0: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-border-secondary-1: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-border-secondary-2: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-border-secondary-3: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-border-secondary-4: var(--mantine-color-gray-6);
+  --mantine-color-chatbox-border-secondary-5: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-border-secondary-6: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-border-secondary-7: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-border-secondary-8: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-border-secondary-9: var(--mantine-color-gray-4);
+  --mantine-color-chatbox-background-primary-0: var(--mantine-color-dark-7);
+  --mantine-color-chatbox-background-primary-1: var(--mantine-color-dark-7);
+  --mantine-color-chatbox-background-primary-2: var(--mantine-color-dark-7);
+  --mantine-color-chatbox-background-primary-3: var(--mantine-color-dark-7);
+  --mantine-color-chatbox-background-primary-4: var(--mantine-color-dark-7);
+  --mantine-color-chatbox-background-primary-5: var(--mantine-color-white);
+  --mantine-color-chatbox-background-primary-6: var(--mantine-color-white);
+  --mantine-color-chatbox-background-primary-7: var(--mantine-color-white);
+  --mantine-color-chatbox-background-primary-8: var(--mantine-color-dark-7);
+  --mantine-color-chatbox-background-primary-9: var(--mantine-color-white);
+  --mantine-color-chatbox-background-secondary-0: var(--mantine-color-dark-5);
+  --mantine-color-chatbox-background-secondary-1: var(--mantine-color-dark-5);
+  --mantine-color-chatbox-background-secondary-2: var(--mantine-color-dark-5);
+  --mantine-color-chatbox-background-secondary-3: var(--mantine-color-dark-5);
+  --mantine-color-chatbox-background-secondary-4: var(--mantine-color-dark-5);
+  --mantine-color-chatbox-background-secondary-5: var(--mantine-color-gray-1);
+  --mantine-color-chatbox-background-secondary-6: var(--mantine-color-gray-1);
+  --mantine-color-chatbox-background-secondary-7: var(--mantine-color-gray-1);
+  --mantine-color-chatbox-background-secondary-8: var(--mantine-color-dark-5);
+  --mantine-color-chatbox-background-secondary-9: var(--mantine-color-gray-1);
+  --mantine-color-chatbox-background-tertiary-0: var(--mantine-color-dark-4);
+  --mantine-color-chatbox-background-tertiary-1: var(--mantine-color-dark-4);
+  --mantine-color-chatbox-background-tertiary-2: var(--mantine-color-dark-4);
+  --mantine-color-chatbox-background-tertiary-3: var(--mantine-color-dark-4);
+  --mantine-color-chatbox-background-tertiary-4: var(--mantine-color-dark-4);
+  --mantine-color-chatbox-background-tertiary-5: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-background-tertiary-6: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-background-tertiary-7: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-background-tertiary-8: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-background-tertiary-9: var(--mantine-color-gray-3);
+  --mantine-color-chatbox-background-disabled-0: var(--mantine-color-dark-6);
+  --mantine-color-chatbox-background-disabled-1: var(--mantine-color-dark-6);
+  --mantine-color-chatbox-background-disabled-2: var(--mantine-color-dark-6);
+  --mantine-color-chatbox-background-disabled-3: var(--mantine-color-dark-6);
+  --mantine-color-chatbox-background-disabled-4: var(--mantine-color-dark-6);
+  --mantine-color-chatbox-background-disabled-5: var(--mantine-color-gray-2);
+  --mantine-color-chatbox-background-disabled-6: var(--mantine-color-gray-2);
+  --mantine-color-chatbox-background-disabled-7: var(--mantine-color-gray-2);
+  --mantine-color-chatbox-background-disabled-8: var(--mantine-color-gray-2);
+  --mantine-color-chatbox-background-disabled-9: var(--mantine-color-gray-2);
+  --mantine-color-chatbox-background-error-secondary-0: var(--mantine-color-red-9);
+  --mantine-color-chatbox-background-error-secondary-1: var(--mantine-color-red-9);
+  --mantine-color-chatbox-background-error-secondary-2: var(--mantine-color-red-9);
+  --mantine-color-chatbox-background-error-secondary-3: var(--mantine-color-red-9);
+  --mantine-color-chatbox-background-error-secondary-4: var(--mantine-color-red-9);
+  --mantine-color-chatbox-background-error-secondary-5: var(--mantine-color-red-1);
+  --mantine-color-chatbox-background-error-secondary-6: var(--mantine-color-red-1);
+  --mantine-color-chatbox-background-error-secondary-7: var(--mantine-color-red-1);
+  --mantine-color-chatbox-background-error-secondary-8: var(--mantine-color-red-1);
+  --mantine-color-chatbox-background-error-secondary-9: var(--mantine-color-red-1);
+  --mantine-h1-font-size: calc(2.5rem * var(--mantine-scale));
+  --mantine-h1-line-height: 1.2;
+  --mantine-h1-font-weight: Bold;
+  --mantine-h2-font-size: calc(2rem * var(--mantine-scale));
+  --mantine-h2-line-height: 1.25;
+  --mantine-h2-font-weight: Bold;
+  --mantine-h3-font-size: calc(1.5rem * var(--mantine-scale));
+  --mantine-h3-line-height: 1.3333333333;
+  --mantine-h3-font-weight: Bold;
+  --mantine-h4-line-height: 1.3333333333;
+  --mantine-h4-font-weight: Bold;
+  --mantine-h5-line-height: 1.25;
+  --mantine-h5-font-weight: Bold;
+  --mantine-h6-font-size: calc(0.75rem * var(--mantine-scale));
+  --mantine-h6-line-height: 1.3333333333;
+  --mantine-h6-font-weight: Bold;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+:root[data-mantine-color-scheme=dark] {
+  --mantine-color-scheme: dark;
+  --mantine-primary-color-contrast: var(--mantine-color-white);
+  --mantine-color-bright: var(--mantine-color-white);
+  --mantine-color-text: var(--mantine-color-dark-0);
+  --mantine-color-body: var(--mantine-color-dark-7);
+  --mantine-color-error: var(--mantine-color-red-8);
+  --mantine-color-placeholder: var(--mantine-color-dark-3);
+  --mantine-color-anchor: var(--mantine-color-blue-4);
+  --mantine-color-default: var(--mantine-color-dark-6);
+  --mantine-color-default-hover: var(--mantine-color-dark-5);
+  --mantine-color-default-color: var(--mantine-color-white);
+  --mantine-color-default-border: var(--mantine-color-dark-4);
+  --mantine-color-dimmed: var(--mantine-color-dark-2);
+  --mantine-color-dark-text: var(--mantine-color-dark-4);
+  --mantine-color-dark-filled: var(--mantine-color-dark-8);
+  --mantine-color-dark-filled-hover: var(--mantine-color-dark-7);
+  --mantine-color-dark-light: #24242426;
+  --mantine-color-dark-light-hover: #24242433;
+  --mantine-color-dark-light-color: var(--mantine-color-dark-3);
+  --mantine-color-dark-outline: var(--mantine-color-dark-4);
+  --mantine-color-dark-outline-hover: #2424240d;
+  --mantine-color-gray-text: var(--mantine-color-gray-4);
+  --mantine-color-gray-filled: var(--mantine-color-gray-8);
+  --mantine-color-gray-filled-hover: var(--mantine-color-gray-9);
+  --mantine-color-gray-light: #868e9626;
+  --mantine-color-gray-light-hover: #868e9633;
+  --mantine-color-gray-light-color: var(--mantine-color-gray-3);
+  --mantine-color-gray-outline: var(--mantine-color-gray-4);
+  --mantine-color-gray-outline-hover: #ced4da0d;
+  --mantine-color-red-text: var(--mantine-color-red-4);
+  --mantine-color-red-filled: var(--mantine-color-red-8);
+  --mantine-color-red-filled-hover: var(--mantine-color-red-9);
+  --mantine-color-red-light: #fa525226;
+  --mantine-color-red-light-hover: #fa525233;
+  --mantine-color-red-light-color: var(--mantine-color-red-3);
+  --mantine-color-red-outline: var(--mantine-color-red-4);
+  --mantine-color-red-outline-hover: #ff87870d;
+  --mantine-color-pink-text: var(--mantine-color-pink-4);
+  --mantine-color-pink-filled: var(--mantine-color-pink-8);
+  --mantine-color-pink-filled-hover: var(--mantine-color-pink-9);
+  --mantine-color-pink-light: #e6498026;
+  --mantine-color-pink-light-hover: #e6498033;
+  --mantine-color-pink-light-color: var(--mantine-color-pink-3);
+  --mantine-color-pink-outline: var(--mantine-color-pink-4);
+  --mantine-color-pink-outline-hover: #f783ac0d;
+  --mantine-color-grape-text: var(--mantine-color-grape-4);
+  --mantine-color-grape-filled: var(--mantine-color-grape-8);
+  --mantine-color-grape-filled-hover: var(--mantine-color-grape-9);
+  --mantine-color-grape-light: #be4bdb26;
+  --mantine-color-grape-light-hover: #be4bdb33;
+  --mantine-color-grape-light-color: var(--mantine-color-grape-3);
+  --mantine-color-grape-outline: var(--mantine-color-grape-4);
+  --mantine-color-grape-outline-hover: #da77f20d;
+  --mantine-color-violet-text: var(--mantine-color-violet-4);
+  --mantine-color-violet-filled: var(--mantine-color-violet-8);
+  --mantine-color-violet-filled-hover: var(--mantine-color-violet-9);
+  --mantine-color-violet-light: #7950f226;
+  --mantine-color-violet-light-hover: #7950f233;
+  --mantine-color-violet-light-color: var(--mantine-color-violet-3);
+  --mantine-color-violet-outline: var(--mantine-color-violet-4);
+  --mantine-color-violet-outline-hover: #9775fa0d;
+  --mantine-color-indigo-text: var(--mantine-color-indigo-4);
+  --mantine-color-indigo-filled: var(--mantine-color-indigo-8);
+  --mantine-color-indigo-filled-hover: var(--mantine-color-indigo-9);
+  --mantine-color-indigo-light: #4c6ef526;
+  --mantine-color-indigo-light-hover: #4c6ef533;
+  --mantine-color-indigo-light-color: var(--mantine-color-indigo-3);
+  --mantine-color-indigo-outline: var(--mantine-color-indigo-4);
+  --mantine-color-indigo-outline-hover: #748ffc0d;
+  --mantine-color-blue-text: var(--mantine-color-blue-4);
+  --mantine-color-blue-filled: var(--mantine-color-blue-8);
+  --mantine-color-blue-filled-hover: var(--mantine-color-blue-9);
+  --mantine-color-blue-light: #228be626;
+  --mantine-color-blue-light-hover: #228be633;
+  --mantine-color-blue-light-color: var(--mantine-color-blue-3);
+  --mantine-color-blue-outline: var(--mantine-color-blue-4);
+  --mantine-color-blue-outline-hover: #4dabf70d;
+  --mantine-color-cyan-text: var(--mantine-color-cyan-4);
+  --mantine-color-cyan-filled: var(--mantine-color-cyan-8);
+  --mantine-color-cyan-filled-hover: var(--mantine-color-cyan-9);
+  --mantine-color-cyan-light: #15aabf26;
+  --mantine-color-cyan-light-hover: #15aabf33;
+  --mantine-color-cyan-light-color: var(--mantine-color-cyan-3);
+  --mantine-color-cyan-outline: var(--mantine-color-cyan-4);
+  --mantine-color-cyan-outline-hover: #3bc9db0d;
+  --mantine-color-teal-text: var(--mantine-color-teal-4);
+  --mantine-color-teal-filled: var(--mantine-color-teal-8);
+  --mantine-color-teal-filled-hover: var(--mantine-color-teal-9);
+  --mantine-color-teal-light: #12b88626;
+  --mantine-color-teal-light-hover: #12b88633;
+  --mantine-color-teal-light-color: var(--mantine-color-teal-3);
+  --mantine-color-teal-outline: var(--mantine-color-teal-4);
+  --mantine-color-teal-outline-hover: #38d9a90d;
+  --mantine-color-green-text: var(--mantine-color-green-4);
+  --mantine-color-green-filled: var(--mantine-color-green-8);
+  --mantine-color-green-filled-hover: var(--mantine-color-green-9);
+  --mantine-color-green-light: #40c05726;
+  --mantine-color-green-light-hover: #40c05733;
+  --mantine-color-green-light-color: var(--mantine-color-green-3);
+  --mantine-color-green-outline: var(--mantine-color-green-4);
+  --mantine-color-green-outline-hover: #69db7c0d;
+  --mantine-color-lime-text: var(--mantine-color-lime-4);
+  --mantine-color-lime-filled: var(--mantine-color-lime-8);
+  --mantine-color-lime-filled-hover: var(--mantine-color-lime-9);
+  --mantine-color-lime-light: #82c91e26;
+  --mantine-color-lime-light-hover: #82c91e33;
+  --mantine-color-lime-light-color: var(--mantine-color-lime-3);
+  --mantine-color-lime-outline: var(--mantine-color-lime-4);
+  --mantine-color-lime-outline-hover: #a9e34b0d;
+  --mantine-color-yellow-text: var(--mantine-color-yellow-4);
+  --mantine-color-yellow-filled: var(--mantine-color-yellow-8);
+  --mantine-color-yellow-filled-hover: var(--mantine-color-yellow-9);
+  --mantine-color-yellow-light: #fab00526;
+  --mantine-color-yellow-light-hover: #fab00533;
+  --mantine-color-yellow-light-color: var(--mantine-color-yellow-3);
+  --mantine-color-yellow-outline: var(--mantine-color-yellow-4);
+  --mantine-color-yellow-outline-hover: #ffd43b0d;
+  --mantine-color-orange-text: var(--mantine-color-orange-4);
+  --mantine-color-orange-filled: var(--mantine-color-orange-8);
+  --mantine-color-orange-filled-hover: var(--mantine-color-orange-9);
+  --mantine-color-orange-light: #fd7e1426;
+  --mantine-color-orange-light-hover: #fd7e1433;
+  --mantine-color-orange-light-color: var(--mantine-color-orange-3);
+  --mantine-color-orange-outline: var(--mantine-color-orange-4);
+  --mantine-color-orange-outline-hover: #ffa94d0d;
+  --mantine-color-scheme: dark;
+  --mantine-primary-color-contrast: var(--mantine-color-white);
+  --mantine-color-bright: var(--mantine-color-white);
+  --mantine-color-text: var(--mantine-color-dark-0);
+  --mantine-color-body: var(--mantine-color-dark-7);
+  --mantine-color-error: var(--mantine-color-red-8);
+  --mantine-color-placeholder: var(--mantine-color-dark-3);
+  --mantine-color-anchor: var(--mantine-color-blue-4);
+  --mantine-color-default: var(--mantine-color-dark-6);
+  --mantine-color-default-hover: var(--mantine-color-dark-5);
+  --mantine-color-default-color: var(--mantine-color-white);
+  --mantine-color-default-border: var(--mantine-color-dark-4);
+  --mantine-color-dimmed: var(--mantine-color-dark-2);
+  --mantine-color-dark-text: var(--mantine-color-dark-4);
+  --mantine-color-dark-filled: var(--mantine-color-dark-8);
+  --mantine-color-dark-filled-hover: var(--mantine-color-dark-7);
+  --mantine-color-dark-light: #24242426;
+  --mantine-color-dark-light-hover: #24242433;
+  --mantine-color-dark-light-color: var(--mantine-color-dark-3);
+  --mantine-color-dark-outline: var(--mantine-color-dark-4);
+  --mantine-color-dark-outline-hover: #2424240d;
+  --mantine-color-gray-text: var(--mantine-color-gray-4);
+  --mantine-color-gray-filled: var(--mantine-color-gray-8);
+  --mantine-color-gray-filled-hover: var(--mantine-color-gray-9);
+  --mantine-color-gray-light: #868e9626;
+  --mantine-color-gray-light-hover: #868e9633;
+  --mantine-color-gray-light-color: var(--mantine-color-gray-3);
+  --mantine-color-gray-outline: var(--mantine-color-gray-4);
+  --mantine-color-gray-outline-hover: #ced4da0d;
+  --mantine-color-red-text: var(--mantine-color-red-4);
+  --mantine-color-red-filled: var(--mantine-color-red-8);
+  --mantine-color-red-filled-hover: var(--mantine-color-red-9);
+  --mantine-color-red-light: #fa525226;
+  --mantine-color-red-light-hover: #fa525233;
+  --mantine-color-red-light-color: var(--mantine-color-red-3);
+  --mantine-color-red-outline: var(--mantine-color-red-4);
+  --mantine-color-red-outline-hover: #ff87870d;
+  --mantine-color-pink-text: var(--mantine-color-pink-4);
+  --mantine-color-pink-filled: var(--mantine-color-pink-8);
+  --mantine-color-pink-filled-hover: var(--mantine-color-pink-9);
+  --mantine-color-pink-light: #e6498026;
+  --mantine-color-pink-light-hover: #e6498033;
+  --mantine-color-pink-light-color: var(--mantine-color-pink-3);
+  --mantine-color-pink-outline: var(--mantine-color-pink-4);
+  --mantine-color-pink-outline-hover: #f783ac0d;
+  --mantine-color-grape-text: var(--mantine-color-grape-4);
+  --mantine-color-grape-filled: var(--mantine-color-grape-8);
+  --mantine-color-grape-filled-hover: var(--mantine-color-grape-9);
+  --mantine-color-grape-light: #be4bdb26;
+  --mantine-color-grape-light-hover: #be4bdb33;
+  --mantine-color-grape-light-color: var(--mantine-color-grape-3);
+  --mantine-color-grape-outline: var(--mantine-color-grape-4);
+  --mantine-color-grape-outline-hover: #da77f20d;
+  --mantine-color-violet-text: var(--mantine-color-violet-4);
+  --mantine-color-violet-filled: var(--mantine-color-violet-8);
+  --mantine-color-violet-filled-hover: var(--mantine-color-violet-9);
+  --mantine-color-violet-light: #7950f226;
+  --mantine-color-violet-light-hover: #7950f233;
+  --mantine-color-violet-light-color: var(--mantine-color-violet-3);
+  --mantine-color-violet-outline: var(--mantine-color-violet-4);
+  --mantine-color-violet-outline-hover: #9775fa0d;
+  --mantine-color-indigo-text: var(--mantine-color-indigo-4);
+  --mantine-color-indigo-filled: var(--mantine-color-indigo-8);
+  --mantine-color-indigo-filled-hover: var(--mantine-color-indigo-9);
+  --mantine-color-indigo-light: #4c6ef526;
+  --mantine-color-indigo-light-hover: #4c6ef533;
+  --mantine-color-indigo-light-color: var(--mantine-color-indigo-3);
+  --mantine-color-indigo-outline: var(--mantine-color-indigo-4);
+  --mantine-color-indigo-outline-hover: #748ffc0d;
+  --mantine-color-blue-text: var(--mantine-color-blue-4);
+  --mantine-color-blue-filled: var(--mantine-color-blue-8);
+  --mantine-color-blue-filled-hover: var(--mantine-color-blue-9);
+  --mantine-color-blue-light: #228be626;
+  --mantine-color-blue-light-hover: #228be633;
+  --mantine-color-blue-light-color: var(--mantine-color-blue-3);
+  --mantine-color-blue-outline: var(--mantine-color-blue-4);
+  --mantine-color-blue-outline-hover: #4dabf70d;
+  --mantine-color-cyan-text: var(--mantine-color-cyan-4);
+  --mantine-color-cyan-filled: var(--mantine-color-cyan-8);
+  --mantine-color-cyan-filled-hover: var(--mantine-color-cyan-9);
+  --mantine-color-cyan-light: #15aabf26;
+  --mantine-color-cyan-light-hover: #15aabf33;
+  --mantine-color-cyan-light-color: var(--mantine-color-cyan-3);
+  --mantine-color-cyan-outline: var(--mantine-color-cyan-4);
+  --mantine-color-cyan-outline-hover: #3bc9db0d;
+  --mantine-color-teal-text: var(--mantine-color-teal-4);
+  --mantine-color-teal-filled: var(--mantine-color-teal-8);
+  --mantine-color-teal-filled-hover: var(--mantine-color-teal-9);
+  --mantine-color-teal-light: #12b88626;
+  --mantine-color-teal-light-hover: #12b88633;
+  --mantine-color-teal-light-color: var(--mantine-color-teal-3);
+  --mantine-color-teal-outline: var(--mantine-color-teal-4);
+  --mantine-color-teal-outline-hover: #38d9a90d;
+  --mantine-color-green-text: var(--mantine-color-green-4);
+  --mantine-color-green-filled: var(--mantine-color-green-8);
+  --mantine-color-green-filled-hover: var(--mantine-color-green-9);
+  --mantine-color-green-light: #40c05726;
+  --mantine-color-green-light-hover: #40c05733;
+  --mantine-color-green-light-color: var(--mantine-color-green-3);
+  --mantine-color-green-outline: var(--mantine-color-green-4);
+  --mantine-color-green-outline-hover: #69db7c0d;
+  --mantine-color-lime-text: var(--mantine-color-lime-4);
+  --mantine-color-lime-filled: var(--mantine-color-lime-8);
+  --mantine-color-lime-filled-hover: var(--mantine-color-lime-9);
+  --mantine-color-lime-light: #82c91e26;
+  --mantine-color-lime-light-hover: #82c91e33;
+  --mantine-color-lime-light-color: var(--mantine-color-lime-3);
+  --mantine-color-lime-outline: var(--mantine-color-lime-4);
+  --mantine-color-lime-outline-hover: #a9e34b0d;
+  --mantine-color-yellow-text: var(--mantine-color-yellow-4);
+  --mantine-color-yellow-filled: var(--mantine-color-yellow-8);
+  --mantine-color-yellow-filled-hover: var(--mantine-color-yellow-9);
+  --mantine-color-yellow-light: #fab00526;
+  --mantine-color-yellow-light-hover: #fab00533;
+  --mantine-color-yellow-light-color: var(--mantine-color-yellow-3);
+  --mantine-color-yellow-outline: var(--mantine-color-yellow-4);
+  --mantine-color-yellow-outline-hover: #ffd43b0d;
+  --mantine-color-orange-text: var(--mantine-color-orange-4);
+  --mantine-color-orange-filled: var(--mantine-color-orange-8);
+  --mantine-color-orange-filled-hover: var(--mantine-color-orange-9);
+  --mantine-color-orange-light: #fd7e1426;
+  --mantine-color-orange-light-hover: #fd7e1433;
+  --mantine-color-orange-light-color: var(--mantine-color-orange-3);
+  --mantine-color-orange-outline: var(--mantine-color-orange-4);
+  --mantine-color-orange-outline-hover: #ffa94d0d;
+}
+
+/* Inherited from ancestor level 5 (regular) */
+:root[data-mantine-color-scheme="dark"] {
+  --mantine-color-anchor: var(--mantine-color-chatbox-brand-4);
+  --mantine-color-chatbox-brand-0: #e7f5ff;
+  --mantine-color-chatbox-brand-1: #d0ebff;
+  --mantine-color-chatbox-brand-2: #a5d8ff;
+  --mantine-color-chatbox-brand-3: #74c0fc;
+  --mantine-color-chatbox-brand-4: #4dabf7;
+  --mantine-color-chatbox-brand-5: #339af0;
+  --mantine-color-chatbox-brand-6: #228be6;
+  --mantine-color-chatbox-brand-7: #1c7ed6;
+  --mantine-color-chatbox-brand-8: #1971c2;
+  --mantine-color-chatbox-brand-9: #1864ab;
+  --mantine-color-chatbox-brand-text: var(--mantine-color-chatbox-brand-4);
+  --mantine-color-chatbox-brand-filled: var(--mantine-color-chatbox-brand-8);
+  --mantine-color-chatbox-brand-filled-hover: var(--mantine-color-chatbox-brand-9);
+  --mantine-color-chatbox-brand-light: rgba(34, 139, 230, 0.15);
+  --mantine-color-chatbox-brand-light-hover: rgba(34, 139, 230, 0.2);
+  --mantine-color-chatbox-brand-light-color: var(--mantine-color-chatbox-brand-3);
+  --mantine-color-chatbox-brand-outline: var(--mantine-color-chatbox-brand-4);
+  --mantine-color-chatbox-brand-outline-hover: rgba(77, 171, 247, 0.05);
+  --mantine-color-chatbox-gray-0: #f8f9fa;
+  --mantine-color-chatbox-gray-1: #f1f3f5;
+  --mantine-color-chatbox-gray-2: #e9ecef;
+  --mantine-color-chatbox-gray-3: #dee2e6;
+  --mantine-color-chatbox-gray-4: #ced4da;
+  --mantine-color-chatbox-gray-5: #adb5bd;
+  --mantine-color-chatbox-gray-6: #868e96;
+  --mantine-color-chatbox-gray-7: #495057;
+  --mantine-color-chatbox-gray-8: #343a40;
+  --mantine-color-chatbox-gray-9: #212529;
+  --mantine-color-chatbox-gray-text: var(--mantine-color-chatbox-gray-4);
+  --mantine-color-chatbox-gray-filled: var(--mantine-color-chatbox-gray-8);
+  --mantine-color-chatbox-gray-filled-hover: var(--mantine-color-chatbox-gray-9);
+  --mantine-color-chatbox-gray-light: rgba(134, 142, 150, 0.15);
+  --mantine-color-chatbox-gray-light-hover: rgba(134, 142, 150, 0.2);
+  --mantine-color-chatbox-gray-light-color: var(--mantine-color-chatbox-gray-3);
+  --mantine-color-chatbox-gray-outline: var(--mantine-color-chatbox-gray-4);
+  --mantine-color-chatbox-gray-outline-hover: rgba(206, 212, 218, 0.05);
+  --mantine-color-chatbox-success-0: #e6fcf5;
+  --mantine-color-chatbox-success-1: #c3fae8;
+  --mantine-color-chatbox-success-2: #96f2d7;
+  --mantine-color-chatbox-success-3: #63e6be;
+  --mantine-color-chatbox-success-4: #38d9a9;
+  --mantine-color-chatbox-success-5: #20c997;
+  --mantine-color-chatbox-success-6: #12b886;
+  --mantine-color-chatbox-success-7: #0ca678;
+  --mantine-color-chatbox-success-8: #099268;
+  --mantine-color-chatbox-success-9: #087f5b;
+  --mantine-color-chatbox-success-text: var(--mantine-color-chatbox-success-4);
+  --mantine-color-chatbox-success-filled: var(--mantine-color-chatbox-success-8);
+  --mantine-color-chatbox-success-filled-hover: var(--mantine-color-chatbox-success-9);
+  --mantine-color-chatbox-success-light: rgba(18, 184, 134, 0.15);
+  --mantine-color-chatbox-success-light-hover: rgba(18, 184, 134, 0.2);
+  --mantine-color-chatbox-success-light-color: var(--mantine-color-chatbox-success-3);
+  --mantine-color-chatbox-success-outline: var(--mantine-color-chatbox-success-4);
+  --mantine-color-chatbox-success-outline-hover: rgba(56, 217, 169, 0.05);
+  --mantine-color-chatbox-error-0: #fff5f5;
+  --mantine-color-chatbox-error-1: #ffe3e3;
+  --mantine-color-chatbox-error-2: #ffc9c9;
+  --mantine-color-chatbox-error-3: #ffa8a8;
+  --mantine-color-chatbox-error-4: #ff8787;
+  --mantine-color-chatbox-error-5: #ff6b6b;
+  --mantine-color-chatbox-error-6: #fa5252;
+  --mantine-color-chatbox-error-7: #f03e3e;
+  --mantine-color-chatbox-error-8: #e03131;
+  --mantine-color-chatbox-error-9: #c92a2a;
+  --mantine-color-chatbox-error-text: var(--mantine-color-chatbox-error-4);
+  --mantine-color-chatbox-error-filled: var(--mantine-color-chatbox-error-8);
+  --mantine-color-chatbox-error-filled-hover: var(--mantine-color-chatbox-error-9);
+  --mantine-color-chatbox-error-light: rgba(250, 82, 82, 0.15);
+  --mantine-color-chatbox-error-light-hover: rgba(250, 82, 82, 0.2);
+  --mantine-color-chatbox-error-light-color: var(--mantine-color-chatbox-error-3);
+  --mantine-color-chatbox-error-outline: var(--mantine-color-chatbox-error-4);
+  --mantine-color-chatbox-error-outline-hover: rgba(255, 135, 135, 0.05);
+  --mantine-color-chatbox-warning-0: #fff9db;
+  --mantine-color-chatbox-warning-1: #fff3bf;
+  --mantine-color-chatbox-warning-2: #ffec99;
+  --mantine-color-chatbox-warning-3: #ffe066;
+  --mantine-color-chatbox-warning-4: #ffd43b;
+  --mantine-color-chatbox-warning-5: #fcc419;
+  --mantine-color-chatbox-warning-6: #fab005;
+  --mantine-color-chatbox-warning-7: #f59f00;
+  --mantine-color-chatbox-warning-8: #f08c00;
+  --mantine-color-chatbox-warning-9: #e67700;
+  --mantine-color-chatbox-warning-text: var(--mantine-color-chatbox-warning-4);
+  --mantine-color-chatbox-warning-filled: var(--mantine-color-chatbox-warning-8);
+  --mantine-color-chatbox-warning-filled-hover: var(--mantine-color-chatbox-warning-9);
+  --mantine-color-chatbox-warning-light: rgba(250, 176, 5, 0.15);
+  --mantine-color-chatbox-warning-light-hover: rgba(250, 176, 5, 0.2);
+  --mantine-color-chatbox-warning-light-color: var(--mantine-color-chatbox-warning-3);
+  --mantine-color-chatbox-warning-outline: var(--mantine-color-chatbox-warning-4);
+  --mantine-color-chatbox-warning-outline-hover: rgba(255, 212, 59, 0.05);
+  --mantine-color-chatbox-primary-text: var(--mantine-color-chatbox-primary-4);
+  --mantine-color-chatbox-primary-filled: var(--mantine-color-chatbox-primary-8);
+  --mantine-color-chatbox-primary-filled-hover: var(--mantine-color-chatbox-primary-9);
+  --mantine-color-chatbox-primary-light: color-mix(in srgb, var(--mantine-color-gray-9), transparent 85%);
+  --mantine-color-chatbox-primary-light-hover: color-mix(in srgb, var(--mantine-color-gray-9), transparent 80%);
+  --mantine-color-chatbox-primary-light-color: var(--mantine-color-chatbox-primary-3);
+  --mantine-color-chatbox-primary-outline: var(--mantine-color-chatbox-primary-4);
+  --mantine-color-chatbox-primary-outline-hover: color-mix(in srgb, var(--mantine-color-white), transparent 95%);
+  --mantine-color-chatbox-secondary-text: var(--mantine-color-chatbox-secondary-4);
+  --mantine-color-chatbox-secondary-filled: var(--mantine-color-chatbox-secondary-8);
+  --mantine-color-chatbox-secondary-filled-hover: var(--mantine-color-chatbox-secondary-9);
+  --mantine-color-chatbox-secondary-light: color-mix(in srgb, var(--mantine-color-gray-7), transparent 85%);
+  --mantine-color-chatbox-secondary-light-hover: color-mix(in srgb, var(--mantine-color-gray-7), transparent 80%);
+  --mantine-color-chatbox-secondary-light-color: var(--mantine-color-chatbox-secondary-3);
+  --mantine-color-chatbox-secondary-outline: var(--mantine-color-chatbox-secondary-4);
+  --mantine-color-chatbox-secondary-outline-hover: color-mix(in srgb, var(--mantine-color-gray-4), transparent 95%);
+  --mantine-color-chatbox-tertiary-text: var(--mantine-color-chatbox-tertiary-4);
+  --mantine-color-chatbox-tertiary-filled: var(--mantine-color-chatbox-tertiary-8);
+  --mantine-color-chatbox-tertiary-filled-hover: var(--mantine-color-chatbox-tertiary-9);
+  --mantine-color-chatbox-tertiary-light: color-mix(in srgb, var(--mantine-color-gray-6), transparent 85%);
+  --mantine-color-chatbox-tertiary-light-hover: color-mix(in srgb, var(--mantine-color-gray-6), transparent 80%);
+  --mantine-color-chatbox-tertiary-light-color: var(--mantine-color-chatbox-tertiary-3);
+  --mantine-color-chatbox-tertiary-outline: var(--mantine-color-chatbox-tertiary-4);
+  --mantine-color-chatbox-tertiary-outline-hover: color-mix(in srgb, var(--mantine-color-dark-2), transparent 95%);
+  --mantine-color-chatbox-border-primary-text: var(--mantine-color-chatbox-border-primary-4);
+  --mantine-color-chatbox-border-primary-filled: var(--mantine-color-chatbox-border-primary-8);
+  --mantine-color-chatbox-border-primary-filled-hover: var(--mantine-color-chatbox-border-primary-9);
+  --mantine-color-chatbox-border-primary-light: color-mix(in srgb, var(--mantine-color-gray-3), transparent 85%);
+  --mantine-color-chatbox-border-primary-light-hover: color-mix(in srgb, var(--mantine-color-gray-3), transparent 80%);
+  --mantine-color-chatbox-border-primary-light-color: var(--mantine-color-chatbox-border-primary-3);
+  --mantine-color-chatbox-border-primary-outline: var(--mantine-color-chatbox-border-primary-4);
+  --mantine-color-chatbox-border-primary-outline-hover: color-mix(in srgb, var(--mantine-color-gray-7), transparent 95%);
+  --mantine-color-chatbox-border-secondary-text: var(--mantine-color-chatbox-border-secondary-4);
+  --mantine-color-chatbox-border-secondary-filled: var(--mantine-color-chatbox-border-secondary-8);
+  --mantine-color-chatbox-border-secondary-filled-hover: var(--mantine-color-chatbox-border-secondary-9);
+  --mantine-color-chatbox-border-secondary-light: color-mix(in srgb, var(--mantine-color-gray-4), transparent 85%);
+  --mantine-color-chatbox-border-secondary-light-hover: color-mix(in srgb, var(--mantine-color-gray-4), transparent 80%);
+  --mantine-color-chatbox-border-secondary-light-color: var(--mantine-color-chatbox-border-secondary-3);
+  --mantine-color-chatbox-border-secondary-outline: var(--mantine-color-chatbox-border-secondary-4);
+  --mantine-color-chatbox-border-secondary-outline-hover: color-mix(in srgb, var(--mantine-color-gray-6), transparent 95%);
+  --mantine-color-chatbox-background-primary-text: var(--mantine-color-chatbox-background-primary-4);
+  --mantine-color-chatbox-background-primary-filled: var(--mantine-color-chatbox-background-primary-8);
+  --mantine-color-chatbox-background-primary-filled-hover: var(--mantine-color-chatbox-background-primary-9);
+  --mantine-color-chatbox-background-primary-light: color-mix(in srgb, var(--mantine-color-white), transparent 85%);
+  --mantine-color-chatbox-background-primary-light-hover: color-mix(in srgb, var(--mantine-color-white), transparent 80%);
+  --mantine-color-chatbox-background-primary-light-color: var(--mantine-color-chatbox-background-primary-3);
+  --mantine-color-chatbox-background-primary-outline: var(--mantine-color-chatbox-background-primary-4);
+  --mantine-color-chatbox-background-primary-outline-hover: color-mix(in srgb, var(--mantine-color-dark-7), transparent 95%);
+  --mantine-color-chatbox-background-secondary-text: var(--mantine-color-chatbox-background-secondary-4);
+  --mantine-color-chatbox-background-secondary-filled: var(--mantine-color-chatbox-background-secondary-8);
+  --mantine-color-chatbox-background-secondary-filled-hover: var(--mantine-color-chatbox-background-secondary-9);
+  --mantine-color-chatbox-background-secondary-light: color-mix(in srgb, var(--mantine-color-gray-1), transparent 85%);
+  --mantine-color-chatbox-background-secondary-light-hover: color-mix(in srgb, var(--mantine-color-gray-1), transparent 80%);
+  --mantine-color-chatbox-background-secondary-light-color: var(--mantine-color-chatbox-background-secondary-3);
+  --mantine-color-chatbox-background-secondary-outline: var(--mantine-color-chatbox-background-secondary-4);
+  --mantine-color-chatbox-background-secondary-outline-hover: color-mix(in srgb, var(--mantine-color-dark-5), transparent 95%);
+  --mantine-color-chatbox-background-tertiary-text: var(--mantine-color-chatbox-background-tertiary-4);
+  --mantine-color-chatbox-background-tertiary-filled: var(--mantine-color-chatbox-background-tertiary-8);
+  --mantine-color-chatbox-background-tertiary-filled-hover: var(--mantine-color-chatbox-background-tertiary-9);
+  --mantine-color-chatbox-background-tertiary-light: color-mix(in srgb, var(--mantine-color-gray-3), transparent 85%);
+  --mantine-color-chatbox-background-tertiary-light-hover: color-mix(in srgb, var(--mantine-color-gray-3), transparent 80%);
+  --mantine-color-chatbox-background-tertiary-light-color: var(--mantine-color-chatbox-background-tertiary-3);
+  --mantine-color-chatbox-background-tertiary-outline: var(--mantine-color-chatbox-background-tertiary-4);
+  --mantine-color-chatbox-background-tertiary-outline-hover: color-mix(in srgb, var(--mantine-color-dark-4), transparent 95%);
+  --mantine-color-chatbox-background-disabled-text: var(--mantine-color-chatbox-background-disabled-4);
+  --mantine-color-chatbox-background-disabled-filled: var(--mantine-color-chatbox-background-disabled-8);
+  --mantine-color-chatbox-background-disabled-filled-hover: var(--mantine-color-chatbox-background-disabled-9);
+  --mantine-color-chatbox-background-disabled-light: color-mix(in srgb, var(--mantine-color-gray-2), transparent 85%);
+  --mantine-color-chatbox-background-disabled-light-hover: color-mix(in srgb, var(--mantine-color-gray-2), transparent 80%);
+  --mantine-color-chatbox-background-disabled-light-color: var(--mantine-color-chatbox-background-disabled-3);
+  --mantine-color-chatbox-background-disabled-outline: var(--mantine-color-chatbox-background-disabled-4);
+  --mantine-color-chatbox-background-disabled-outline-hover: color-mix(in srgb, var(--mantine-color-dark-6), transparent 95%);
+  --mantine-color-chatbox-background-error-secondary-text: var(--mantine-color-chatbox-background-error-secondary-4);
+  --mantine-color-chatbox-background-error-secondary-filled: var(--mantine-color-chatbox-background-error-secondary-8);
+  --mantine-color-chatbox-background-error-secondary-filled-hover: var(--mantine-color-chatbox-background-error-secondary-9);
+  --mantine-color-chatbox-background-error-secondary-light: color-mix(in srgb, var(--mantine-color-red-1), transparent 85%);
+  --mantine-color-chatbox-background-error-secondary-light-hover: color-mix(in srgb, var(--mantine-color-red-1), transparent 80%);
+  --mantine-color-chatbox-background-error-secondary-light-color: var(--mantine-color-chatbox-background-error-secondary-3);
+  --mantine-color-chatbox-background-error-secondary-outline: var(--mantine-color-chatbox-background-error-secondary-4);
+  --mantine-color-chatbox-background-error-secondary-outline-hover: color-mix(in srgb, var(--mantine-color-red-9), transparent 95%);
+  --mantine-color-anchor: var(--mantine-color-chatbox-brand-4);
+  --mantine-color-chatbox-brand-0: #e7f5ff;
+  --mantine-color-chatbox-brand-1: #d0ebff;
+  --mantine-color-chatbox-brand-2: #a5d8ff;
+  --mantine-color-chatbox-brand-3: #74c0fc;
+  --mantine-color-chatbox-brand-4: #4dabf7;
+  --mantine-color-chatbox-brand-5: #339af0;
+  --mantine-color-chatbox-brand-6: #228be6;
+  --mantine-color-chatbox-brand-7: #1c7ed6;
+  --mantine-color-chatbox-brand-8: #1971c2;
+  --mantine-color-chatbox-brand-9: #1864ab;
+  --mantine-color-chatbox-brand-text: var(--mantine-color-chatbox-brand-4);
+  --mantine-color-chatbox-brand-filled: var(--mantine-color-chatbox-brand-8);
+  --mantine-color-chatbox-brand-filled-hover: var(--mantine-color-chatbox-brand-9);
+  --mantine-color-chatbox-brand-light: rgba(34, 139, 230, 0.15);
+  --mantine-color-chatbox-brand-light-hover: rgba(34, 139, 230, 0.2);
+  --mantine-color-chatbox-brand-light-color: var(--mantine-color-chatbox-brand-3);
+  --mantine-color-chatbox-brand-outline: var(--mantine-color-chatbox-brand-4);
+  --mantine-color-chatbox-brand-outline-hover: rgba(77, 171, 247, 0.05);
+  --mantine-color-chatbox-gray-0: #f8f9fa;
+  --mantine-color-chatbox-gray-1: #f1f3f5;
+  --mantine-color-chatbox-gray-2: #e9ecef;
+  --mantine-color-chatbox-gray-3: #dee2e6;
+  --mantine-color-chatbox-gray-4: #ced4da;
+  --mantine-color-chatbox-gray-5: #adb5bd;
+  --mantine-color-chatbox-gray-6: #868e96;
+  --mantine-color-chatbox-gray-7: #495057;
+  --mantine-color-chatbox-gray-8: #343a40;
+  --mantine-color-chatbox-gray-9: #212529;
+  --mantine-color-chatbox-gray-text: var(--mantine-color-chatbox-gray-4);
+  --mantine-color-chatbox-gray-filled: var(--mantine-color-chatbox-gray-8);
+  --mantine-color-chatbox-gray-filled-hover: var(--mantine-color-chatbox-gray-9);
+  --mantine-color-chatbox-gray-light: rgba(134, 142, 150, 0.15);
+  --mantine-color-chatbox-gray-light-hover: rgba(134, 142, 150, 0.2);
+  --mantine-color-chatbox-gray-light-color: var(--mantine-color-chatbox-gray-3);
+  --mantine-color-chatbox-gray-outline: var(--mantine-color-chatbox-gray-4);
+  --mantine-color-chatbox-gray-outline-hover: rgba(206, 212, 218, 0.05);
+  --mantine-color-chatbox-success-0: #e6fcf5;
+  --mantine-color-chatbox-success-1: #c3fae8;
+  --mantine-color-chatbox-success-2: #96f2d7;
+  --mantine-color-chatbox-success-3: #63e6be;
+  --mantine-color-chatbox-success-4: #38d9a9;
+  --mantine-color-chatbox-success-5: #20c997;
+  --mantine-color-chatbox-success-6: #12b886;
+  --mantine-color-chatbox-success-7: #0ca678;
+  --mantine-color-chatbox-success-8: #099268;
+  --mantine-color-chatbox-success-9: #087f5b;
+  --mantine-color-chatbox-success-text: var(--mantine-color-chatbox-success-4);
+  --mantine-color-chatbox-success-filled: var(--mantine-color-chatbox-success-8);
+  --mantine-color-chatbox-success-filled-hover: var(--mantine-color-chatbox-success-9);
+  --mantine-color-chatbox-success-light: rgba(18, 184, 134, 0.15);
+  --mantine-color-chatbox-success-light-hover: rgba(18, 184, 134, 0.2);
+  --mantine-color-chatbox-success-light-color: var(--mantine-color-chatbox-success-3);
+  --mantine-color-chatbox-success-outline: var(--mantine-color-chatbox-success-4);
+  --mantine-color-chatbox-success-outline-hover: rgba(56, 217, 169, 0.05);
+  --mantine-color-chatbox-error-0: #fff5f5;
+  --mantine-color-chatbox-error-1: #ffe3e3;
+  --mantine-color-chatbox-error-2: #ffc9c9;
+  --mantine-color-chatbox-error-3: #ffa8a8;
+  --mantine-color-chatbox-error-4: #ff8787;
+  --mantine-color-chatbox-error-5: #ff6b6b;
+  --mantine-color-chatbox-error-6: #fa5252;
+  --mantine-color-chatbox-error-7: #f03e3e;
+  --mantine-color-chatbox-error-8: #e03131;
+  --mantine-color-chatbox-error-9: #c92a2a;
+  --mantine-color-chatbox-error-text: var(--mantine-color-chatbox-error-4);
+  --mantine-color-chatbox-error-filled: var(--mantine-color-chatbox-error-8);
+  --mantine-color-chatbox-error-filled-hover: var(--mantine-color-chatbox-error-9);
+  --mantine-color-chatbox-error-light: rgba(250, 82, 82, 0.15);
+  --mantine-color-chatbox-error-light-hover: rgba(250, 82, 82, 0.2);
+  --mantine-color-chatbox-error-light-color: var(--mantine-color-chatbox-error-3);
+  --mantine-color-chatbox-error-outline: var(--mantine-color-chatbox-error-4);
+  --mantine-color-chatbox-error-outline-hover: rgba(255, 135, 135, 0.05);
+  --mantine-color-chatbox-warning-0: #fff9db;
+  --mantine-color-chatbox-warning-1: #fff3bf;
+  --mantine-color-chatbox-warning-2: #ffec99;
+  --mantine-color-chatbox-warning-3: #ffe066;
+  --mantine-color-chatbox-warning-4: #ffd43b;
+  --mantine-color-chatbox-warning-5: #fcc419;
+  --mantine-color-chatbox-warning-6: #fab005;
+  --mantine-color-chatbox-warning-7: #f59f00;
+  --mantine-color-chatbox-warning-8: #f08c00;
+  --mantine-color-chatbox-warning-9: #e67700;
+  --mantine-color-chatbox-warning-text: var(--mantine-color-chatbox-warning-4);
+  --mantine-color-chatbox-warning-filled: var(--mantine-color-chatbox-warning-8);
+  --mantine-color-chatbox-warning-filled-hover: var(--mantine-color-chatbox-warning-9);
+  --mantine-color-chatbox-warning-light: rgba(250, 176, 5, 0.15);
+  --mantine-color-chatbox-warning-light-hover: rgba(250, 176, 5, 0.2);
+  --mantine-color-chatbox-warning-light-color: var(--mantine-color-chatbox-warning-3);
+  --mantine-color-chatbox-warning-outline: var(--mantine-color-chatbox-warning-4);
+  --mantine-color-chatbox-warning-outline-hover: rgba(255, 212, 59, 0.05);
+  --mantine-color-chatbox-primary-text: var(--mantine-color-chatbox-primary-4);
+  --mantine-color-chatbox-primary-filled: var(--mantine-color-chatbox-primary-8);
+  --mantine-color-chatbox-primary-filled-hover: var(--mantine-color-chatbox-primary-9);
+  --mantine-color-chatbox-primary-light: color-mix(in srgb, var(--mantine-color-gray-9), transparent 85%);
+  --mantine-color-chatbox-primary-light-hover: color-mix(in srgb, var(--mantine-color-gray-9), transparent 80%);
+  --mantine-color-chatbox-primary-light-color: var(--mantine-color-chatbox-primary-3);
+  --mantine-color-chatbox-primary-outline: var(--mantine-color-chatbox-primary-4);
+  --mantine-color-chatbox-primary-outline-hover: color-mix(in srgb, var(--mantine-color-white), transparent 95%);
+  --mantine-color-chatbox-secondary-text: var(--mantine-color-chatbox-secondary-4);
+  --mantine-color-chatbox-secondary-filled: var(--mantine-color-chatbox-secondary-8);
+  --mantine-color-chatbox-secondary-filled-hover: var(--mantine-color-chatbox-secondary-9);
+  --mantine-color-chatbox-secondary-light: color-mix(in srgb, var(--mantine-color-gray-7), transparent 85%);
+  --mantine-color-chatbox-secondary-light-hover: color-mix(in srgb, var(--mantine-color-gray-7), transparent 80%);
+  --mantine-color-chatbox-secondary-light-color: var(--mantine-color-chatbox-secondary-3);
+  --mantine-color-chatbox-secondary-outline: var(--mantine-color-chatbox-secondary-4);
+  --mantine-color-chatbox-secondary-outline-hover: color-mix(in srgb, var(--mantine-color-gray-4), transparent 95%);
+  --mantine-color-chatbox-tertiary-text: var(--mantine-color-chatbox-tertiary-4);
+  --mantine-color-chatbox-tertiary-filled: var(--mantine-color-chatbox-tertiary-8);
+  --mantine-color-chatbox-tertiary-filled-hover: var(--mantine-color-chatbox-tertiary-9);
+  --mantine-color-chatbox-tertiary-light: color-mix(in srgb, var(--mantine-color-gray-6), transparent 85%);
+  --mantine-color-chatbox-tertiary-light-hover: color-mix(in srgb, var(--mantine-color-gray-6), transparent 80%);
+  --mantine-color-chatbox-tertiary-light-color: var(--mantine-color-chatbox-tertiary-3);
+  --mantine-color-chatbox-tertiary-outline: var(--mantine-color-chatbox-tertiary-4);
+  --mantine-color-chatbox-tertiary-outline-hover: color-mix(in srgb, var(--mantine-color-dark-2), transparent 95%);
+  --mantine-color-chatbox-border-primary-text: var(--mantine-color-chatbox-border-primary-4);
+  --mantine-color-chatbox-border-primary-filled: var(--mantine-color-chatbox-border-primary-8);
+  --mantine-color-chatbox-border-primary-filled-hover: var(--mantine-color-chatbox-border-primary-9);
+  --mantine-color-chatbox-border-primary-light: color-mix(in srgb, var(--mantine-color-gray-3), transparent 85%);
+  --mantine-color-chatbox-border-primary-light-hover: color-mix(in srgb, var(--mantine-color-gray-3), transparent 80%);
+  --mantine-color-chatbox-border-primary-light-color: var(--mantine-color-chatbox-border-primary-3);
+  --mantine-color-chatbox-border-primary-outline: var(--mantine-color-chatbox-border-primary-4);
+  --mantine-color-chatbox-border-primary-outline-hover: color-mix(in srgb, var(--mantine-color-gray-7), transparent 95%);
+  --mantine-color-chatbox-border-secondary-text: var(--mantine-color-chatbox-border-secondary-4);
+  --mantine-color-chatbox-border-secondary-filled: var(--mantine-color-chatbox-border-secondary-8);
+  --mantine-color-chatbox-border-secondary-filled-hover: var(--mantine-color-chatbox-border-secondary-9);
+  --mantine-color-chatbox-border-secondary-light: color-mix(in srgb, var(--mantine-color-gray-4), transparent 85%);
+  --mantine-color-chatbox-border-secondary-light-hover: color-mix(in srgb, var(--mantine-color-gray-4), transparent 80%);
+  --mantine-color-chatbox-border-secondary-light-color: var(--mantine-color-chatbox-border-secondary-3);
+  --mantine-color-chatbox-border-secondary-outline: var(--mantine-color-chatbox-border-secondary-4);
+  --mantine-color-chatbox-border-secondary-outline-hover: color-mix(in srgb, var(--mantine-color-gray-6), transparent 95%);
+  --mantine-color-chatbox-background-primary-text: var(--mantine-color-chatbox-background-primary-4);
+  --mantine-color-chatbox-background-primary-filled: var(--mantine-color-chatbox-background-primary-8);
+  --mantine-color-chatbox-background-primary-filled-hover: var(--mantine-color-chatbox-background-primary-9);
+  --mantine-color-chatbox-background-primary-light: color-mix(in srgb, var(--mantine-color-white), transparent 85%);
+  --mantine-color-chatbox-background-primary-light-hover: color-mix(in srgb, var(--mantine-color-white), transparent 80%);
+  --mantine-color-chatbox-background-primary-light-color: var(--mantine-color-chatbox-background-primary-3);
+  --mantine-color-chatbox-background-primary-outline: var(--mantine-color-chatbox-background-primary-4);
+  --mantine-color-chatbox-background-primary-outline-hover: color-mix(in srgb, var(--mantine-color-dark-7), transparent 95%);
+  --mantine-color-chatbox-background-secondary-text: var(--mantine-color-chatbox-background-secondary-4);
+  --mantine-color-chatbox-background-secondary-filled: var(--mantine-color-chatbox-background-secondary-8);
+  --mantine-color-chatbox-background-secondary-filled-hover: var(--mantine-color-chatbox-background-secondary-9);
+  --mantine-color-chatbox-background-secondary-light: color-mix(in srgb, var(--mantine-color-gray-1), transparent 85%);
+  --mantine-color-chatbox-background-secondary-light-hover: color-mix(in srgb, var(--mantine-color-gray-1), transparent 80%);
+  --mantine-color-chatbox-background-secondary-light-color: var(--mantine-color-chatbox-background-secondary-3);
+  --mantine-color-chatbox-background-secondary-outline: var(--mantine-color-chatbox-background-secondary-4);
+  --mantine-color-chatbox-background-secondary-outline-hover: color-mix(in srgb, var(--mantine-color-dark-5), transparent 95%);
+  --mantine-color-chatbox-background-tertiary-text: var(--mantine-color-chatbox-background-tertiary-4);
+  --mantine-color-chatbox-background-tertiary-filled: var(--mantine-color-chatbox-background-tertiary-8);
+  --mantine-color-chatbox-background-tertiary-filled-hover: var(--mantine-color-chatbox-background-tertiary-9);
+  --mantine-color-chatbox-background-tertiary-light: color-mix(in srgb, var(--mantine-color-gray-3), transparent 85%);
+  --mantine-color-chatbox-background-tertiary-light-hover: color-mix(in srgb, var(--mantine-color-gray-3), transparent 80%);
+  --mantine-color-chatbox-background-tertiary-light-color: var(--mantine-color-chatbox-background-tertiary-3);
+  --mantine-color-chatbox-background-tertiary-outline: var(--mantine-color-chatbox-background-tertiary-4);
+  --mantine-color-chatbox-background-tertiary-outline-hover: color-mix(in srgb, var(--mantine-color-dark-4), transparent 95%);
+  --mantine-color-chatbox-background-disabled-text: var(--mantine-color-chatbox-background-disabled-4);
+  --mantine-color-chatbox-background-disabled-filled: var(--mantine-color-chatbox-background-disabled-8);
+  --mantine-color-chatbox-background-disabled-filled-hover: var(--mantine-color-chatbox-background-disabled-9);
+  --mantine-color-chatbox-background-disabled-light: color-mix(in srgb, var(--mantine-color-gray-2), transparent 85%);
+  --mantine-color-chatbox-background-disabled-light-hover: color-mix(in srgb, var(--mantine-color-gray-2), transparent 80%);
+  --mantine-color-chatbox-background-disabled-light-color: var(--mantine-color-chatbox-background-disabled-3);
+  --mantine-color-chatbox-background-disabled-outline: var(--mantine-color-chatbox-background-disabled-4);
+  --mantine-color-chatbox-background-disabled-outline-hover: color-mix(in srgb, var(--mantine-color-dark-6), transparent 95%);
+  --mantine-color-chatbox-background-error-secondary-text: var(--mantine-color-chatbox-background-error-secondary-4);
+  --mantine-color-chatbox-background-error-secondary-filled: var(--mantine-color-chatbox-background-error-secondary-8);
+  --mantine-color-chatbox-background-error-secondary-filled-hover: var(--mantine-color-chatbox-background-error-secondary-9);
+  --mantine-color-chatbox-background-error-secondary-light: color-mix(in srgb, var(--mantine-color-red-1), transparent 85%);
+  --mantine-color-chatbox-background-error-secondary-light-hover: color-mix(in srgb, var(--mantine-color-red-1), transparent 80%);
+  --mantine-color-chatbox-background-error-secondary-light-color: var(--mantine-color-chatbox-background-error-secondary-3);
+  --mantine-color-chatbox-background-error-secondary-outline: var(--mantine-color-chatbox-background-error-secondary-4);
+  --mantine-color-chatbox-background-error-secondary-outline-hover: color-mix(in srgb, var(--mantine-color-red-9), transparent 95%);
+}
