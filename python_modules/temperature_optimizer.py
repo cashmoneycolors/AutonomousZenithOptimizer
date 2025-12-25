@@ -43,7 +43,7 @@ class TemperatureOptimizer:
         self.power_limits = {}
         self.voltage_offsets = {}
 
-        print("🌡️ TEMPERATURE OPTIMIZER INITIALIZED")
+        print("TEMPERATURE OPTIMIZER INITIALIZED")
         print(f"   Target Range: {self.temp_config.get('TargetTemperatureRange', [65, 75])}°C")
         print(f"   Overclocking: {'ENABLED' if self.temp_config.get('OverclockEnabled', True) else 'DISABLED'}")
 
@@ -56,7 +56,7 @@ class TemperatureOptimizer:
         monitor_thread = threading.Thread(target=self._optimization_loop, daemon=True)
         monitor_thread.start()
 
-        print("⚡ Temperature Optimization gestartet")
+        print("Temperature Optimization gestartet")
 
     def stop_temperature_optimization(self):
         """Stoppt Temperatur-Optimierung und setzt alles zurück"""
@@ -66,7 +66,7 @@ class TemperatureOptimizer:
         self.optimization_active = False
         self._reset_all_overclocks()
 
-        print("❄️ Temperature Optimization gestoppt - Overclocks zurückgesetzt")
+        print("Temperature Optimization gestoppt - Overclocks zurueckgesetzt")
 
     def optimize_rig_temperature(self, rig_data: Dict[str, Any]) -> Dict[str, Any]:
         """Optimiert Temperatur-Performance eines einzelnen Rigs"""
@@ -207,8 +207,8 @@ class TemperatureOptimizer:
 
         # Alert senden
         send_custom_alert("Temperature Alert",
-                         f"Rig {rig_id}: {current_temp:.1f}°C (Max: {max_temp}°C) - {severity.upper()}",
-                         "🔥")
+                          f"Rig {rig_id}: {current_temp:.1f}°C (Max: {max_temp}°C) - {severity.upper()}",
+                          "HIGH")
 
         log_event('TEMPERATURE_OVERHEAT', {
             'rig_id': rig_id,
@@ -266,8 +266,8 @@ class TemperatureOptimizer:
             })
 
             send_custom_alert("Overclock Success",
-                             f"Rig {rig_id}: Overclocked +{overclock_potential} MH/s ({new_hashrate} MH/s total)",
-                             "⚡")
+                              f"Rig {rig_id}: Overclocked +{overclock_potential} MH/s ({new_hashrate} MH/s total)",
+                              "SUCCESS")
 
             return {
                 'action': 'overclock_success',
@@ -396,8 +396,8 @@ class TemperatureOptimizer:
             self.rig_overclocks[rig_id]['current'] = 0
 
         send_custom_alert("EMERGENCY THROTTLE",
-                         f"Rig {rig_id}: Emergency Throttle aktiviert due to {temp_over:.1f}°C overtemperature",
-                         "🚨")
+                          f"Rig {rig_id}: Emergency Throttle aktiviert due to {temp_over:.1f}°C overtemperature",
+                          "CRITICAL")
 
     def _reduce_overclock(self, rig_id: str, reduction_amount: float):
         """Reduziert Overclocking eines Rigs"""
@@ -417,8 +417,8 @@ class TemperatureOptimizer:
             self._set_fan_speed(rig_id, standard_fan_speed)
 
         send_custom_alert("Overclock Reset",
-                         "Alle Rig-Overclocks wurden zur Sicherheit zurückgesetzt",
-                         "🔄")
+                          "Alle Rig-Overclocks wurden zur Sicherheit zurueckgesetzt",
+                          "INFO")
 
     def _calculate_power_efficiency(self, rig_id: str, rig_data: Dict[str, Any]) -> float:
         """Berechnet Power-Efficiency eines Rigs"""
@@ -553,7 +553,7 @@ if __name__ == "__main__":
     print("CASH MONEY COLORS ORIGINAL (R) - TEMPERATURE OPTIMIZER")
     print("=" * 65)
 
-    print("🧪 Teste Temperature Optimizer...")
+    print("Teste Temperature Optimizer...")
 
     # Test-Rig
     test_rig = {
@@ -574,6 +574,6 @@ if __name__ == "__main__":
     status = get_thermal_status()
     print(f"[OK] Thermal Status: {status['rigs_optimized']} Rigs per ris optimized")
 
-    print("\n[OK] TEMPERATURE OPTIMIZER BEREIT!")
-    print("Verwende start_temperature_optimization() für automatische Temperatur-Kontrolle")
-    print("Optimiert Lüftergeschwindigkeiten, Overclocking und Voltage für maximale Efficiency")
+    print("\nTEMPERATURE OPTIMIZER BEREIT!")
+    print("Verwende start_temperature_optimization() fuer automatische Temperatur-Kontrolle")
+    print("Optimiert Lueftergeschwindigkeiten, Overclocking und Voltage fuer maximale Efficiency")

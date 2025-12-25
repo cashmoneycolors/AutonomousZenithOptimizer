@@ -67,7 +67,7 @@ class QuantumOptimizer:
         self.last_optimization = datetime.now()
         self.executor = ThreadPoolExecutor(max_workers=4)
 
-        print("🔬 QUANTUM OPTIMIZER INITIALIZED")
+        print("QUANTUM OPTIMIZER INITIALIZED")
         max_level = self.config.get('MaxQuantumLevel', 10)
         print(f"   Max Quantum Level: {max_level}")
         print(f"   Auto-Apply: {self.config.get('AutoApplyOptimizations', True)}")
@@ -131,7 +131,7 @@ class QuantumOptimizer:
 
     def quantum_optimization_algorithm(self, rig_id: str, current_state: Dict[str, Any]) -> OptimizationResult:
         """Führt Quantenoptimierung durch"""
-        print(f"🔬 Starte Quantum-Optimierung für Rig {rig_id}...")
+        print(f"Starte Quantum-Optimierung fuer Rig {rig_id}...")
 
         # Basiswerte
         base_hashrate = current_state.get('hashrate', 100)
@@ -178,16 +178,16 @@ class QuantumOptimizer:
                     applied_at=datetime.now()
                 )
 
-        print(f"✅ Quantum-Optimierung abgeschlossen für Rig {rig_id}")
+        print(f"Quantum-Optimierung abgeschlossen fuer Rig {rig_id}")
         print(f"   Quantum-Level: {best_result.quantum_level}")
         print(f"   Effizienzgewinn: {best_result.efficiency_gain:.1%}")
-        print(f"   Stabilität: {best_result.stability_score:.1%}")
+        print(f"   Stabilitaet: {best_result.stability_score:.1%}")
 
         return best_result
 
     def optimize_all_rigs(self) -> List[OptimizationResult]:
         """Optimiert alle Rigs mit Quantum-Algorithmus"""
-        print("🚀 Starte Quantum-Optimierung für alle Rigs...")
+        print("Starte Quantum-Optimierung fuer alle Rigs...")
 
         rigs = get_rigs_config()
         results = []
@@ -206,14 +206,14 @@ class QuantumOptimizer:
                 results.append(result)
                 self.optimization_history.append(result)
             except Exception as e:
-                print(f"⚠️ Fehler bei Quantum-Optimierung: {e}")
+                print(f"WARNUNG: Fehler bei Quantum-Optimierung: {e}")
 
         # Historie begrenzen
         max_history = self.config.get('QuantumStatesHistorySize', 1000)
         if len(self.optimization_history) > max_history:
             self.optimization_history = self.optimization_history[-max_history:]
 
-        print(f"✅ Quantum-Optimierung abgeschlossen für {len(results)} Rigs")
+        print(f"Quantum-Optimierung abgeschlossen fuer {len(results)} Rigs")
 
         # Auto-Apply wenn aktiviert
         if self.config.get('AutoApplyOptimizations', True):
@@ -223,7 +223,7 @@ class QuantumOptimizer:
 
     def apply_optimizations(self, results: List[OptimizationResult]):
         """Wendet Optimierungen an"""
-        print("⚙️ Wende Quantum-Optimierungen an...")
+        print("Wende Quantum-Optimierungen an...")
 
         applied_count = 0
         for result in results:
@@ -244,7 +244,7 @@ class QuantumOptimizer:
             except Exception as e:
                 print(f"⚠️ Fehler beim Anwenden der Optimierung für Rig {result.rig_id}: {e}")
 
-        print(f"✅ {applied_count} Quantum-Optimierungen angewendet")
+        print(f"{applied_count} Quantum-Optimierungen angewendet")
 
     def get_quantum_status_report(self) -> Dict[str, Any]:
         """Generiert Status-Report für Quantum-Optimierungen"""
@@ -274,7 +274,7 @@ class QuantumOptimizer:
 
         while True:
             try:
-                print("🔄 Starte autonomen Quantum-Optimierungszyklus...")
+                print("Starte autonomen Quantum-Optimierungszyklus...")
 
                 # Optimierung durchführen
                 results = self.optimize_all_rigs()
@@ -293,19 +293,19 @@ class QuantumOptimizer:
 
                 self.last_optimization = datetime.now()
 
-                print(f"✅ Autonomer Zyklus abgeschlossen. Nächster in {interval} Sekunden.")
+                print(f"Autonomer Zyklus abgeschlossen. Naechster in {interval} Sekunden.")
                 time.sleep(interval)
 
             except KeyboardInterrupt:
-                print("🛑 Autonomer Quantum-Zyklus gestoppt.")
+                print("Autonomer Quantum-Zyklus gestoppt.")
                 break
             except Exception as e:
-                print(f"⚠️ Fehler im autonomen Zyklus: {e}")
+                print(f"WARNUNG: Fehler im autonomen Zyklus: {e}")
                 time.sleep(60)  # Warte bei Fehler
 
     def emergency_quantum_reset(self, rig_id: str):
         """Notfall-Reset für Quantum-Optimierungen"""
-        print(f"🚨 Emergency Quantum Reset für Rig {rig_id}")
+        print(f"Emergency Quantum Reset fuer Rig {rig_id}")
 
         # Setze auf sichere Basiswerte zurück
         safe_config = {
@@ -320,7 +320,7 @@ class QuantumOptimizer:
             'safe_config_applied': safe_config
         })
 
-        print(f"✅ Emergency Reset abgeschlossen für Rig {rig_id}")
+        print(f"Emergency Reset abgeschlossen fuer Rig {rig_id}")
 
 
 # Globale Instanz
@@ -352,7 +352,7 @@ if __name__ == "__main__":
     print("CASH MONEY COLORS ORIGINAL (R) - QUANTUM OPTIMIZER")
     print("=" * 60)
 
-    print("\n🧪 Teste Quantum-Optimierer...")
+    print("\nTeste Quantum-Optimierer...")
 
     # Test-Rig-Daten
     test_rig = {
@@ -366,15 +366,15 @@ if __name__ == "__main__":
 
     print("\n[1/3] Berechne Quantenpotenzial...")
     potential = quantum_optimizer.calculate_quantum_potential(test_rig)
-    print(f"✅ Quantenpotenzial: {potential:.3f}")
+    print(f"Quantenpotenzial: {potential:.3f}")
 
     print("\n[2/3] Führe Quantum-Optimierung durch...")
     result = quantum_optimizer.quantum_optimization_algorithm('test_rig_001', test_rig)
-    print(f"✅ Optimierung: Level {result.quantum_level}, Gain {result.efficiency_gain:.1%}")
+    print(f"Optimierung: Level {result.quantum_level}, Gain {result.efficiency_gain:.1%}")
 
     print("\n[3/3] Generiere Status-Report...")
     status = quantum_optimizer.get_quantum_status_report()
-    print(f"✅ Status: {len(quantum_optimizer.optimization_history)} Optimierungen")
+    print(f"Status: {len(quantum_optimizer.optimization_history)} Optimierungen")
 
-    print("\n[OK] QUANTUM OPTIMIZER BEREIT!")
-    print("Verwende run_quantum_optimization() für maximale Performance")
+    print("\nQUANTUM OPTIMIZER BEREIT!")
+    print("Verwende run_quantum_optimization() fuer maximale Performance")
