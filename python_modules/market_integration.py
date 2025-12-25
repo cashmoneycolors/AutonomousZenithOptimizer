@@ -177,7 +177,7 @@ class MarketIntegration:
 
             # Simulierte Block-Belohnung und Schwierigkeit
             if coin == 'BTC':
-                block_reward = 6.25  # Current as of 2024 (next halving ~2024)
+                block_reward = 6.25  # Historical pre-April-2024 halving value (current reward: 3.125 BTC)
                 difficulty_factor = 1.0
                 blocks_per_day = 144  # ca.
             elif coin == 'ETH':
