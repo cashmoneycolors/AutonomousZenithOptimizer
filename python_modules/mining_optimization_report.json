@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-12-25T07:10:57.495713",
+  "status": "success",
+  "total_profit": 0.0,
+  "rig_count": 6,
+  "best_algorithm": "Unknown",
+  "optimizations_applied": [
+    "Algorithm selection based on market data",
+    "Power efficiency optimization",
+    "Temperature management"
+  ],
+  "recommendations": [
+    "Analyze market conditions",
+    "Monitor temperature levels",
+    "Consider power cost optimization"
+  ]
+}

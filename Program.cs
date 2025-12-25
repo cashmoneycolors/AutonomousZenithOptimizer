@@ -50,6 +50,9 @@ builder.Services.AddSingleton<IECA_AHA_Adapter, ECA_AHA_Adapter>();
 // Core orchestrator
 builder.Services.AddSingleton<IAutonomousZenithOptimizer, AutonomousZenithOptimizer>();
 
+// Mining Optimization Background Service (optional, via appsettings.json steuerbar)
+builder.Services.AddHostedService<MiningOptimizationHostedService>();
+
 using var host = builder.Build();
 var optimizer = host.Services.GetRequiredService<IAutonomousZenithOptimizer>();
 

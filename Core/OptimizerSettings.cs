@@ -11,5 +11,12 @@ namespace ZenithCoreSystem.Core
         public bool SimulateQmlFailure { get; set; } = true;
 
         public string? RedisConnectionString { get; set; }
+
+        // Mining Optimization Service Settings
+        public bool EnableMiningOptimization { get; set; } = false;
+
+        public int MiningOptimizationIntervalSeconds { get; set; } = 300; // 5 Minuten Standard
+
+        public string? PythonExecutablePath { get; set; } // null = "python" verwenden
     }
 }
