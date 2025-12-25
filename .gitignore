@@ -22,3 +22,6 @@ __pycache__/
 **/__pycache__/
 *.pyc
 
+# Placeholder/binary artifacts
+python_modules/megaapp.mo
+
