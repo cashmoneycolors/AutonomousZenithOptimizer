@@ -192,12 +192,12 @@ class CryptoMiningModul:
                     'memory_gb': 8,  # Placeholder
                     'temperature': 60,  # Placeholder
                     'vendor': 'AMD'
-                    }
+                }
                 gpus.append(gpu)
-                except:
+        except Exception:
             pass
 
-            return gpus
+        return gpus
 
     def detect_ram(self) -> Dict:
         """Erkennt RAM-Informationen"""
@@ -429,17 +429,17 @@ class CryptoMiningModul:
                     'fan_speed': random.randint(30, 80),  # Simuliert
                     'power_usage': random.randint(100, 300),  # Simuliert in Watt
                     'hashrate': random.randint(20, 80)  # Simuliert in MH/s
-                    }
+                }
                 stats['gpu_stats'].append(gpu_stat)
                 stats['hashrate'] += gpu_stat['hashrate']
-                except:
+            except Exception:
                 pass
 
-                # Geschätzter Profit
+        # Geschätzter Profit
         if self.current_coin and stats['hashrate'] > 0:
             stats['estimated_profit'] = self.calculate_estimated_profit(stats)
 
-            return stats
+        return stats
 
     def calculate_estimated_profit(self, stats: Dict) -> float:
         """Berechnet geschätzten Mining-Profit"""
@@ -546,12 +546,12 @@ class CryptoMiningModul:
                 f"Gib Mining-Empfehlungen für {self.current_algorithm} Algorithmus "
                 f"mit {len(self.hardware['gpu'])} GPUs und {self.hardware['cpu']['cores']} CPU cores. "
                 "Fokussiere auf Profitabilität und Energieeffizienz."
-                )
+            )
             recommendations.append(f"KI-Empfehlung: {ai_recommendation[:200]}...")
-            except:
+        except Exception:
             recommendations.append("Mining läuft stabil - keine Änderungen notwendig")
 
-            return recommendations
+        return recommendations
 
 # Globale Instanz
 mining_modul = CryptoMiningModul()
