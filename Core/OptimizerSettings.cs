@@ -17,6 +17,11 @@ namespace ZenithCoreSystem.Core
 
         public int MiningOptimizationIntervalSeconds { get; set; } = 300; // 5 Minuten Standard
 
-        public string? PythonExecutablePath { get; set; } // null = "python" verwenden
+        public string PythonExecutablePath { get; set; } = "python"; // Default Python executable
+        
+        // Advanced AI Service Settings
+        public bool EnableAdvancedAI { get; set; } = false;
+        
+        public int AIAnalysisIntervalSeconds { get; set; } = 180; // 3 Minuten Standard
     }
 }
