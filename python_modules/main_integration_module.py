@@ -48,9 +48,9 @@ class ZenithOptimizerIntegrations:
             'mining_data_collector'
         ]
 
-        print("[ZENITH] 🔷 AUTONOMOUS ZENITH OPTIMIZER v5.0 INITIALIZING")
-        print("[ZENITH] 🇨🇭 Swiss Mining Excellence - Enterprise Grade")
-        print("[ZENITH] 📊 Loading all available modules...")
+        print("[ZENITH] AUTONOMOUS ZENITH OPTIMIZER v5.0 INITIALIZING")
+        print("[ZENITH] Swiss Mining Excellence - Enterprise Grade")
+        print("[ZENITH] Loading all available modules...")
 
         # Lade alle verfügbaren Module
         self.load_all_modules()
@@ -61,8 +61,8 @@ class ZenithOptimizerIntegrations:
         # Erstelle Unified API
         self.create_unified_api()
 
-        print(f"[ZENITH] ✅ {len(self.loaded_modules)} modules successfully loaded")
-        print("[ZENITH] 🚀 System ready for production mining operations")
+        print(f"[ZENITH] OK: {len(self.loaded_modules)} modules successfully loaded")
+        print("[ZENITH] System ready for production mining operations")
         print("=" * 70)
 
     def load_all_modules(self):
@@ -89,16 +89,16 @@ class ZenithOptimizerIntegrations:
                         self._initialize_module_class(module, module_name)
 
                     loaded_count += 1
-                    print(f"[ZENITH] ✅ {module_name}")
+                    print(f"[ZENITH] OK: {module_name}")
                 else:
                     self.module_status[module_name] = 'NOT_FOUND'
                     failed_count += 1
-                    print(f"[ZENITH] ❌ {module_name} - not found")
+                    print(f"[ZENITH] ERROR: {module_name} - not found")
 
             except Exception as e:
                 self.module_status[module_name] = f'ERROR: {str(e)}'
                 failed_count += 1
-                print(f"[ZENITH] ❌ {module_name} - {str(e)}")
+                print(f"[ZENITH] ERROR: {module_name} - {str(e)}")
 
         self.integration_status = {
             'loaded_modules': loaded_count,
@@ -179,7 +179,7 @@ class ZenithOptimizerIntegrations:
                 print("[ZENITH] ⚙️ Configurations unified under master control")
 
         except Exception as e:
-            print(f"[ZENITH] ⚠️ Config unification failed: {str(e)}")
+            print(f"[ZENITH] WARN: Config unification failed: {str(e)}")
             # Fallback-Config
             self.master_config = {
                 'system_mode': 'PRODUCTION',
@@ -666,7 +666,7 @@ class ZenithOptimizerIntegrations:
         return {
             'system_name': 'AUTONOMOUS ZENITH OPTIMIZER v5.0',
             'version': '5.0.0',
-            'region': 'Schweiz 🇨🇭',
+            'region': 'Schweiz',
             'currency': 'CHF',
             'module_count': len(self.loaded_modules),
             'total_available_modules': len(self.available_modules),
@@ -755,12 +755,12 @@ def get_maintenance_status():
 if __name__ == "__main__":
     print("=" * 70)
     print("🤖 AUTONOMOUS ZENITH OPTIMIZER v5.0 - MAIN INTEGRATION MODULE")
-    print("🇨🇭 Swiss Mining Excellence - Enterprise Grade - Production Ready")
+    print("Swiss Mining Excellence - Enterprise Grade - Production Ready")
     print("=" * 70)
 
     # Teste System-Status
     master_status = get_master_status()
-    print(f"📊 Loaded Modules: {master_status['operational_modules']}/{master_status['total_available_modules']}")
+    print(f"Loaded Modules: {master_status['operational_modules']}/{master_status['total_available_modules']}")
     print(".1f")
     print(f"🔗 Unified API Commands: {master_status['unified_api_available']}")
     print(f"🧠 AI Assistance: {'ENABLED' if master_status['ai_assistance'] else 'DISABLED'}")
@@ -780,6 +780,6 @@ if __name__ == "__main__":
     market_test = execute_command('get_market_data')
     print(f"💰 Market Data Test: {len(market_test)} data sources")
 
-    print("\n✅ AUTONOMOUS ZENITH OPTIMIZER v5.0 FULLY OPERATIONAL!")
-    print("🚀 Ready for enterprise mining operations")
+    print("\nAUTONOMOUS ZENITH OPTIMIZER v5.0 FULLY OPERATIONAL!")
+    print("Ready for enterprise mining operations")
     print("=" * 70)

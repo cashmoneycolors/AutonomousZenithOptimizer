@@ -42,10 +42,10 @@ class NiceHashIntegration:
         self.api_cache = {}
 
         if self.api_key and self.api_secret:
-            print("🏭 NICEHASH INTEGRATION INITIALIZED - Echte API verfügbar")
-            print(f"🏢 Organization: {self.org_id}")
+            print("NICEHASH INTEGRATION INITIALIZED - Echte API verfuegbar")
+            print(f"Organization: {self.org_id}")
         else:
-            print("⚠️ NiceHash nicht konfiguriert - Verwende Demo-Modus")
+            print("WARN: NiceHash nicht konfiguriert - Verwende Demo-Modus")
             print("Setze POOLS_NICEHASH_API_KEY, POOLS_NICEHASH_API_SECRET, POOLS_NICEHASH_ORG_ID")
 
     def _get_auth_headers(self, method: str, endpoint: str, timestamp: int = None) -> Dict[str, str]:
@@ -75,7 +75,7 @@ class NiceHashIntegration:
     def _api_request(self, endpoint: str, method: str = 'GET', data: Dict = None) -> Optional[Dict]:
         """Führt API-Request aus mit Authentifizierung"""
         if not self.api_key or not self.api_secret:
-            print("❌ NiceHash API nicht konfiguriert")
+            print("ERROR: NiceHash API nicht konfiguriert")
             return self._get_demo_data(endpoint)
 
         url = f"{self.base_url}{endpoint}"
@@ -107,7 +107,7 @@ class NiceHashIntegration:
             return result
 
         except Exception as e:
-            print(f"❌ NiceHash API Fehler: {e}")
+            print(f"ERROR: NiceHash API Fehler: {e}")
             return self._get_demo_data(endpoint)
 
     def get_pool_stats(self, algorithm: str = None) -> Dict[str, Any]:
@@ -180,7 +180,7 @@ class NiceHashIntegration:
 
         result = self._api_request(endpoint, 'POST', data)
         if result:
-            print(f"✅ Rig erstellt: {rig_name}")
+            print(f"OK: Rig erstellt: {rig_name}")
             return True
         return False
 
@@ -352,11 +352,11 @@ if __name__ == "__main__":
     print("\n📊 Lade Pool-Statistiken...")
     stats = get_pool_stats()
     if stats:
-        print(f"✅ {len(stats)} Algorithmen gefunden:")
+        print(f"OK: {len(stats)} Algorithmen gefunden:")
         for algo, data in list(stats.items())[:3]:
             print(".4f")
     else:
-        print("❌ Keine Statistiken verfügbar")
+        print("ERROR: Keine Statistiken verfuegbar")
 
     # Rigs checken
     print("\n🔧 Lade Mining-Rigs...")
@@ -378,6 +378,6 @@ if __name__ == "__main__":
               ".2f"
               f"NiceHash empfohlen: {comparison['should_use_nicehash']}")
 
-    print("\n✅ NICEHASH INTEGRATION BEREIT!")
+    print("\nNICEHASH INTEGRATION BEREIT!")
     print("Verwende get_pool_stats(), optimize_mining_strategy(), calculate_profit_comparison()")
     print("Konfiguriere API-Keys in settings.json für echte NiceHash Integration")
