@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Zenith Mobile</string>
+
+    <!--
+      Default: Emulator-Hostzugriff.
+      Für echtes Smartphone: ersetze 10.0.2.2 mit der LAN-IP deines PCs.
+    -->
+    <string name="remote_hub_url">http://10.0.2.2:3000/mobile?api=http://10.0.2.2:8503</string>
+</resources>

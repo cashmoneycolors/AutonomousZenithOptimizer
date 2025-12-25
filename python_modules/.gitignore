@@ -1,0 +1,12 @@
+bin/
+obj/
+**/bin/
+**/obj/
+*.user
+*.suo
+__pycache__/
+*.pyc
+*.pyo
+*.log
+mining_hardware_config*.json
+rig_gpu_mapping.json

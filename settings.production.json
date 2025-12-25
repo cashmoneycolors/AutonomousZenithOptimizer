@@ -1,0 +1,42 @@
+{
+  "System": {
+    "Name": "Autonomous Zenith Optimizer",
+    "Version": "2.0.0",
+    "Environment": "production",
+    "LogLevel": "INFO"
+  },
+  "Mining": {
+    "DefaultAlgorithm": "ethash",
+    "DefaultCoin": "ETH",
+    "TargetProfitPerMonth": 8000.0,
+    "ElectricityCostPerKwh": 0.22,
+    "MaxTemperature": 80.0,
+    "MinTemperature": 45.0
+  },
+  "Rigs": [],
+  "Market": {
+    "PrimaryApi": "coingecko",
+    "CacheDurationMinutes": 5,
+    "FallbackEnabled": true
+  },
+  "Backup": {
+    "Enabled": true,
+    "IntervalHours": 6
+  },
+  "Logging": {
+    "Enabled": true,
+    "LogDir": "logs"
+  },
+  "Alerts": {
+    "Enabled": true,
+    "MinProfitAlert": 50.0,
+    "Channels": ["telegram", "discord"],
+    "TelegramBotToken": "${TELEGRAM_BOT_TOKEN}",
+    "TelegramChatId": "${TELEGRAM_CHAT_ID}",
+    "DiscordWebhookUrl": "${DISCORD_WEBHOOK_URL}"
+  },
+  "API": {
+    "OpenRouter": { "Enabled": false, "Key": "${OPENROUTER_API_KEY}" },
+    "Gemini": { "Enabled": false, "Key": "${GEMINI_API_KEY}" }
+  }
+}
