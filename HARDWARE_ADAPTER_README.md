@@ -46,6 +46,10 @@ Mapping-System für Rig-IDs zu GPU-Indizes
 
 ## Voraussetzungen
 
+### Software:
+- **Python 3.14+** (erforderlich)
+- NVIDIA GPU Treiber (für echte Hardware-Steuerung)
+
 ### NVIDIA GPUs (erforderlich für echte Steuerung):
 ```bash
 # nvidia-smi muss verfügbar sein

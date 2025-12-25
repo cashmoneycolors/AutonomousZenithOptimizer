@@ -37,7 +37,7 @@ class AZOInstaller:
 
         # Python Version
         python_version = sys.version_info
-        requirements['python_version'] = python_version >= (3, 8)
+        requirements['python_version'] = python_version >= (3, 14)
         requirements['python_path'] = sys.executable
 
         # Erforderliche Module
@@ -205,7 +205,7 @@ class AZOInstaller:
         if requirements['python_version']:
             self.req_text.insert(tk.END, " ✅\n")
         else:
-            self.req_text.insert(tk.END, " ❌ (Require Python 3.8+)\n")
+            self.req_text.insert(tk.END, " ❌ (Require Python 3.14+)\n")
 
         # Modules
         self.req_text.insert(tk.END, f"📦 Python Modules: {len(requirements['installed_modules'])}/{len(requirements['installed_modules']) + len(requirements['missing_modules'])} installed\n")
