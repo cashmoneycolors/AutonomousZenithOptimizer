@@ -154,8 +154,8 @@ namespace ZenithCoreSystem.Core
             var cacheStats = _chm.GetCacheStats();
             var cacheLatencyMs = _chm.GetLastCacheLatencyMs();
 
-            decimal? tradeAmountExecuted = scaleUpFactor.HasValue 
-                ? Math.Max(0m, _settings.BaseTradeAmount) * scaleUpFactor.Value 
+            decimal? tradeAmountExecuted = scaleUpFactor.HasValue
+                ? Math.Max(0m, _settings.BaseTradeAmount) * scaleUpFactor.Value
                 : null;
 
             decimal spendThisCycle = tradeAmountExecuted ?? 0m;
@@ -189,7 +189,7 @@ namespace ZenithCoreSystem.Core
             Console.WriteLine($"Compliance Score:  {stateVector.RH_ComplianceScore:P1}  {(stateVector.RH_ComplianceScore > _settings.ComplianceThreshold ? passMark : belowMark)}");
             Console.WriteLine($"QML Decision:      {decision}");
             Console.WriteLine($"Trade Executed:    {(tradeAmountExecuted.HasValue ? $"{tradeAmountExecuted.Value:N2} CHF (ETH/USD BUY)" : "None (MAINTAIN)")}");
-            Console.WriteLine($"Cache Stats:       Hits: {cacheStats.Hits} | Misses: {cacheStats.Misses} | Hit Rate: {(cacheStats.Hits + cacheStats.Misses > 0 ? (cacheStats.Hits * 100.0 / (cacheStats.Hits + cacheStats.Misses)):0):F1}%");
+            Console.WriteLine($"Cache Stats:       Hits: {cacheStats.Hits} | Misses: {cacheStats.Misses} | Hit Rate: {(cacheStats.Hits + cacheStats.Misses > 0 ? (cacheStats.Hits * 100.0 / (cacheStats.Hits + cacheStats.Misses)) : 0):F1}%");
             Console.WriteLine($"HyperCache Lat.:   {cacheLatencyMs:F3} ms (last)");
             Console.WriteLine($"Market Spend:      {stateMarketSpend:N2} (state, pre)");
             Console.WriteLine($"Spend This Cycle:  {spendThisCycle:N2} (outcome)");

@@ -7,6 +7,8 @@ obj/
 
 # Test outputs
 **/TestResults/
+test-results/
+**/test-results/
 
 # Local snapshots / scan artifacts
 repo_snapshot_*.zip
