@@ -1,5 +1,5 @@
-# Startet Node (3000) + Python (8503) und macht einen sicheren Health-Check.
-# Fix: URLs werden mit Invoke-WebRequest geprüft (nicht als Befehl ausgeführt).
+﻿# Startet Node (3000) + Python (8503) und macht einen sicheren Health-Check.
+# Fix: URLs werden mit Invoke-WebRequest geprÃ¼ft (nicht als Befehl ausgefÃ¼hrt).
 
 $ErrorActionPreference = "Stop"
 
@@ -31,11 +31,11 @@ $node = Start-Process -FilePath "node" -ArgumentList "server.mjs" -PassThru
 Start-Sleep -Seconds 2
 
 try {
-  $res1 = Invoke-WebRequest -Uri "http://$HostIp:$NodePort/health" -UseBasicParsing -TimeoutSec 5
-  $res2 = Invoke-WebRequest -Uri "http://$HostIp:$ApiPort/health" -UseBasicParsing -TimeoutSec 5
+  $res1 = Invoke-WebRequest -Uri "http://${HostIp}:$NodePort/health" -UseBasicParsing -TimeoutSec 5
+  $res2 = Invoke-WebRequest -Uri "http://${HostIp}:$ApiPort/health" -UseBasicParsing -TimeoutSec 5
   Write-Host "OK: Node + API sind online." -ForegroundColor Green
-  Write-Host "UI:    http://$HostIp:$NodePort/mobile" -ForegroundColor White
-  Write-Host "Stats: http://$HostIp:$ApiPort/stats" -ForegroundColor White
+  Write-Host "UI:    http://${HostIp}:$NodePort/mobile" -ForegroundColor White
+  Write-Host "Stats: http://${HostIp}:$ApiPort/stats" -ForegroundColor White
 }
 catch {
   Write-Host "WARN: Health-Check fehlgeschlagen: $_" -ForegroundColor Red
@@ -43,3 +43,4 @@ catch {
 }
 
 Pop-Location
+
