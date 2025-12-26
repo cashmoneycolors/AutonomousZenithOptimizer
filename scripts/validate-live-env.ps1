@@ -71,26 +71,22 @@ if (-not [string]::IsNullOrWhiteSpace($env:AZO_QML_ENDPOINT)) {
     }
 
     # Quick Probe: Endpoint muss erreichbar sein (fail-fast)
+    # PS 5.1-kompatibel (kein HttpClient-Typ voraussetzen)
+    $endpoint = $env:AZO_QML_ENDPOINT.Trim()
+    $probeUrl = $endpoint + ($(if ($endpoint.Contains('?')) { '&' } else { '?' })) + 'nav=0'
+
     try {
-        $endpoint = $env:AZO_QML_ENDPOINT.Trim()
-        $probeUrl = $endpoint + ($(if ($endpoint.Contains('?')) { '&' } else { '?' })) + 'nav=0'
-
-        $http = [System.Net.Http.HttpClient]::new()
-        $http.Timeout = [TimeSpan]::FromSeconds(2)
-
         $sw = [System.Diagnostics.Stopwatch]::StartNew()
-        $resp = $http.GetAsync($probeUrl).GetAwaiter().GetResult()
+        $resp = Invoke-WebRequest -Uri $probeUrl -Method Get -TimeoutSec 2 -UseBasicParsing -ErrorAction Stop
         $sw.Stop()
 
-        if (-not $resp.IsSuccessStatusCode) {
-            throw "StatusCode=$([int]$resp.StatusCode)"
-        }
+        $status = $null
+        try { $status = [int]$resp.StatusCode } catch { $status = 200 }
 
-        Write-Host "OK: QML Endpoint erreichbar ($([int]$resp.StatusCode)) in $($sw.ElapsedMilliseconds)ms" -ForegroundColor Green
+        Write-Host "OK: QML Endpoint erreichbar ($status) in $($sw.ElapsedMilliseconds)ms" -ForegroundColor Green
     } catch {
-        throw "QML Endpoint Quick-Probe fehlgeschlagen: $($_.Exception.Message). URL: '$probeUrl'"
-    } finally {
-        if ($null -ne $http) { $http.Dispose() }
+        $msg = $_.Exception.Message
+        throw "QML Endpoint Quick-Probe fehlgeschlagen: $msg. URL: '$probeUrl'"
     }
 }
 
