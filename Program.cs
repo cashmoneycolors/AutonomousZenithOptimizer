@@ -74,6 +74,25 @@ if (liveMode)
     // sorgt dafuer, dass Adapter/Module (die ENV nutzen) konsistent reagieren
     Environment.SetEnvironmentVariable("AZO_LIVE_MODE", "true");
 
+    static void EnsureHttpEndpoint(string endpoint, string source)
+    {
+        if (!Uri.TryCreate(endpoint, UriKind.Absolute, out var uri) ||
+            !(uri.Scheme.Equals("http", StringComparison.OrdinalIgnoreCase) || uri.Scheme.Equals("https", StringComparison.OrdinalIgnoreCase)))
+        {
+            throw new InvalidOperationException($"LiveMode aktiv: Ungueltiger QML Endpoint ({source}). Erwartet absolute http(s) URL, erhalten: '{endpoint}'.");
+        }
+    }
+
+    static void EnsureNotStub<TService>(IServiceProvider services, Type stubType, string message)
+        where TService : notnull
+    {
+        var resolved = services.GetRequiredService<TService>();
+        if (resolved is not null && resolved.GetType() == stubType)
+        {
+            throw new InvalidOperationException(message);
+        }
+    }
+
     if (settings.EnableDemoScenarios)
         throw new InvalidOperationException("LiveMode aktiv: EnableDemoScenarios muss false sein.");
 
@@ -86,6 +105,27 @@ if (liveMode)
 
     if (string.IsNullOrWhiteSpace(endpoint))
         throw new InvalidOperationException("LiveMode aktiv: QML Endpoint fehlt (Optimizer:QmlEndpoint oder ENV AZO_QML_ENDPOINT).");
+
+    EnsureHttpEndpoint(endpoint, string.IsNullOrWhiteSpace(settings.QmlEndpoint) ? "ENV AZO_QML_ENDPOINT" : "Optimizer:QmlEndpoint");
+
+    // Fail-fast: LiveMode darf nicht mit Stub-Adaptern starten (sonst knallt es erst mitten im Zyklus)
+    EnsureNotStub<IHFT_AMAD_Adapter>(
+        host.Services,
+        typeof(HFT_AMAD_Adapter),
+        "LiveMode aktiv: IHFT_AMAD_Adapter ist ein Stub (HFT_AMAD_Adapter). Bitte echten Provider integrieren oder LiveMode deaktivieren."
+    );
+
+    EnsureNotStub<IGEF_MSA_Adapter>(
+        host.Services,
+        typeof(GEF_MSA_Adapter),
+        "LiveMode aktiv: IGEF_MSA_Adapter ist ein Stub (GEF_MSA_Adapter). Bitte echte Text/LLM-Integration integrieren oder LiveMode deaktivieren."
+    );
+
+    EnsureNotStub<IECA_AHA_Adapter>(
+        host.Services,
+        typeof(ECA_AHA_Adapter),
+        "LiveMode aktiv: IECA_AHA_Adapter ist ein Stub (ECA_AHA_Adapter). Bitte echte Order/CRM-Integration integrieren oder LiveMode deaktivieren."
+    );
 }
 
 Console.WriteLine("--- ZQAN Ω: MAXIMALER SYSTEMSTART & API-INTEGRATION ---");

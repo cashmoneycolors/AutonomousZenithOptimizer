@@ -27,9 +27,29 @@ class ConfigManager:
         # Konfiguration laden
         self.load_config()
 
+        # Fail-fast (nur LiveMode): wenn Features aktiviert sind,
+        # muessen Keys gesetzt sein.
+        self._fail_fast_if_live_mode()
+
         print("CONFIG MANAGER INITIALIZED")
         print(f"Config File: {config_file}")
         print(f"Loaded {len(self.config)} configuration sections")
+
+    def _fail_fast_if_live_mode(self) -> None:
+        live_mode = os.getenv("AZO_LIVE_MODE", "").strip().lower() == "true"
+        if not live_mode:
+            return
+
+        errors = self.validate_config()
+        if errors:
+            joined = "\n- " + "\n- ".join(errors)
+            raise RuntimeError(
+                (
+                    "LiveMode aktiv, aber Konfiguration "
+                    "unvollstaendig/ungueltig:"
+                    + joined
+                )
+            )
 
     def _load_env_vars(self):
         """Läd alle relevanten Umgebungsvariablen"""
@@ -86,9 +106,8 @@ class ConfigManager:
 
         loaded = 0
         try:
-            for raw_line in dotenv_path.read_text(
-                encoding="utf-8"
-            ).splitlines():
+            dotenv_text = dotenv_path.read_text(encoding="utf-8")
+            for raw_line in dotenv_text.splitlines():
                 line = raw_line.strip()
                 if not line or line.startswith("#"):
                     continue
@@ -342,6 +361,38 @@ class ConfigManager:
             if api_config.get("Enabled", False) and not api_config.get("Key"):
                 errors.append(f"API.{api}.Key is required when enabled")
 
+        # Alerts validation
+        tg_enabled = bool(self.get("Alerts.Telegram.Enabled", False))
+        if tg_enabled:
+            if not self.get("Alerts.Telegram.BotToken"):
+                errors.append(
+                    "Alerts.Telegram.BotToken is required when enabled"
+                )
+            if not self.get("Alerts.Telegram.ChatId"):
+                errors.append(
+                    "Alerts.Telegram.ChatId is required when enabled"
+                )
+
+        dc_enabled = bool(self.get("Alerts.Discord.Enabled", False))
+        if dc_enabled and not self.get("Alerts.Discord.WebhookUrl"):
+            errors.append("Alerts.Discord.WebhookUrl is required when enabled")
+
+        # NiceHash validation
+        nh_key = str(self.get("Pools.NiceHash.ApiKey", "") or "").strip()
+        nh_secret = str(self.get("Pools.NiceHash.ApiSecret", "") or "").strip()
+        nh_org = str(
+            self.get("Pools.NiceHash.OrganizationId", "") or ""
+        ).strip()
+
+        nicehash_parts = (nh_key, nh_secret, nh_org)
+        if any(nicehash_parts) and not all(nicehash_parts):
+            errors.append(
+                (
+                    "Pools.NiceHash requires ApiKey, ApiSecret "
+                    "and OrganizationId if any is set"
+                )
+            )
+
         return errors
 
     def reload_config(self):
@@ -419,9 +470,9 @@ if __name__ == "__main__":
     print("\nBeispiel-Werte:")
     print(f"   System Name: {get_config('System.Name')}")
     print(f"   Mining Algorithm: {get_config('Mining.DefaultAlgorithm')}")
+    electricity_cost = get_config("Mining.ElectricityCostPerKwh")
     print(
-        f"   Electricity Cost: {get_config('Mining.ElectricityCostPerKwh')} "
-        "CHF/kWh"
+        f"   Electricity Cost: {electricity_cost} CHF/kWh"
     )
 
     rigs = get_rigs_config()

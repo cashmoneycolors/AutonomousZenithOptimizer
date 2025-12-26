@@ -404,5 +404,5 @@ if __name__ == "__main__":
         "Verwende get_pool_stats(), optimize_mining_strategy(), calculate_profit_comparison()"
     )
     print(
-        "Konfiguriere API-Keys via ENV (oder settings.json mit ${...}-Platzhaltern) für echte NiceHash Integration"
+        "Konfiguriere API-Keys via ENV (empfohlen) oder lokal via settings.json für echte NiceHash Integration"
     )
