@@ -36,3 +36,13 @@ Key Optimizer knobs per environment:
 Note: In PowerShell, keep commands on separate lines (or use `;`). Do not append env assignments directly after `dotnet run`, otherwise paths like `ZenithCoreSystem.csprojDevelopment` will be parsed.
 
 Live mode: set `AZO_LIVE_MODE=true` and ensure `Optimizer:QmlEndpoint` (or `AZO_QML_ENDPOINT`) is configured. Adapters throw in LiveMode when stubs are active.
+
+## Local config (Python modules)
+
+Some Python tools read `settings.json` via `python_modules/config_manager.py`. This repo does **not** commit `settings.json` (it is ignored).
+
+```powershell
+Copy-Item .\settings.example.json .\settings.json
+Copy-Item .\.env.example .\.env
+# then fill in real values in .env / settings.json locally
+```

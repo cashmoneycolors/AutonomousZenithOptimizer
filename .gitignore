@@ -16,6 +16,15 @@ scan_*.local.txt
 *.local.md
 settings.json
 
+# Local secrets (never commit)
+.env
+.env.*
+!.env.example
+secrets.*
+*.secrets.*
+appsettings.*.local.json
+settings.*.local.json
+
 # VS Code workspace files (keep tasks, ignore personal editor state)
 .vscode/
 !.vscode/tasks.json
@@ -25,6 +34,10 @@ settings.json
 __pycache__/
 **/__pycache__/
 *.pyc
+
+# Python virtual environments
+.venv/
+venv/
 
 # Placeholder/binary artifacts
 python_modules/megaapp.mo

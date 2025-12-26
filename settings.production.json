@@ -11,7 +11,8 @@
     "TargetProfitPerMonth": 8000.0,
     "ElectricityCostPerKwh": 0.22,
     "MaxTemperature": 80.0,
-    "MinTemperature": 45.0
+    "MinTemperature": 45.0,
+    "WalletAddress": "${MINING_WALLET_ADDRESS}"
   },
   "Rigs": [],
   "Market": {
@@ -28,12 +29,21 @@
     "LogDir": "logs"
   },
   "Alerts": {
-    "Enabled": true,
-    "MinProfitAlert": 50.0,
-    "Channels": ["telegram", "discord"],
-    "TelegramBotToken": "${TELEGRAM_BOT_TOKEN}",
-    "TelegramChatId": "${TELEGRAM_CHAT_ID}",
-    "DiscordWebhookUrl": "${DISCORD_WEBHOOK_URL}"
+    "Telegram": {
+      "Enabled": false,
+      "BotToken": "${TELEGRAM_BOT_TOKEN}",
+      "ChatId": "${TELEGRAM_CHAT_ID}",
+      "AlertTypes": ["all"],
+      "MinProfitAlert": 50,
+      "TemperatureThreshold": 80
+    },
+    "Discord": {
+      "Enabled": false,
+      "WebhookUrl": "${DISCORD_WEBHOOK_URL}",
+      "AlertTypes": ["all"],
+      "MinProfitAlert": 50,
+      "TemperatureThreshold": 80
+    }
   },
   "API": {
     "OpenRouter": { "Enabled": false, "Key": "${OPENROUTER_API_KEY}" },
