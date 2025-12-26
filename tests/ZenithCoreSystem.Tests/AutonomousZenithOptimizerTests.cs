@@ -54,7 +54,7 @@ namespace ZenithCoreSystem.Tests
         }
 
         [Fact]
-        public async Task ProcessIncomingOrder_BlocksNonCompliantPremiumOrder()
+        public async Task ProcessIncomingOrder_AllowsHighValueFrenchPremiumOrder()
         {
             var qml = new NoOpQml();
             var hft = new RecordingHftAdapter();
@@ -66,7 +66,8 @@ namespace ZenithCoreSystem.Tests
 
             await optimizer.ProcessIncomingOrder(nonCompliantOrder);
 
-            Assert.False(eca.WasCalled);
+            Assert.True(eca.WasCalled);
+            Assert.Equal(1, eca.CallCount);
         }
 
         [Fact]

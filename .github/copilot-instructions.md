@@ -10,6 +10,11 @@
 - NormalizeDecision: akzeptiert nur `SCALE_UP:<factor>`; robustes Parsen (`,`→`.`); Clamp auf Settings-Min/Max (Hardcap 100).
 - Compliance-Gate: Text-Generierung nur wenn `RH_ComplianceScore > ComplianceThreshold`.
 
+## Intent (damit jede KI sofort versteht)
+- Ziel: deterministischer Autonomie-Loop (State → Decision → Side-Effects → Feedback) mit Guardrails statt "magischer" Heuristiken.
+- "MAINTAIN_LEVEL:1.0" bedeutet No-Op/Fallback (kein Trade) und ist der einzige zulässige Endzustand bei QML-Fehlern.
+- Governance ist bewusst permissiv (kein Hard-Block auf Länder/Amount) in [Modules/Infrastructure.cs](Modules/Infrastructure.cs); Risiko-Steuerung passiert über LiveMode-Guardrails und das Compliance-Gate.
+
 ## Konfiguration & LiveMode
 - Settings in [Core/OptimizerSettings.cs](Core/OptimizerSettings.cs); Overlays via `appsettings.json` + `appsettings.{Environment}.json` (`DOTNET_ENVIRONMENT`).
 - Live: `OptimizerSettings.LiveMode` oder `AZO_LIVE_MODE=true` erzwingt Guardrails und gültigen `Optimizer:QmlEndpoint`/`AZO_QML_ENDPOINT`.
@@ -41,6 +46,9 @@
 	- `dotnet run --project ZenithCoreSystem.csproj`
 - Tests/Fakes: [tests/ZenithCoreSystem.Tests/AutonomousZenithOptimizerTests.cs](tests/ZenithCoreSystem.Tests/AutonomousZenithOptimizerTests.cs).
 - CI: [.github/workflows/dotnet.yml](.github/workflows/dotnet.yml) auf `pull_request` und ausgewählten Branches.
+
+## Tests (Vertragsanker)
+- Fallback/Retries, Clamp und Order-Flow sind in [tests/ZenithCoreSystem.Tests/AutonomousZenithOptimizerTests.cs](tests/ZenithCoreSystem.Tests/AutonomousZenithOptimizerTests.cs) verankert; Änderungen an Decision-Strings oder Governance-Regeln müssen Tests/Docs mitziehen.
 
 ## Produktions-Gate (Env-Variablen)
 - Development (Default):

@@ -2,13 +2,16 @@ namespace ZenithCoreSystem.Core
 {
     public class OptimizerSettings
     {
+        /// <summary>
+        /// Anzahl Retry-Versuche (pro Zyklus) für QML Decision.
+        /// </summary>
         public int QmlRetryCount { get; set; } = 3;
 
         public int QmlBaseDelayMilliseconds { get; set; } = 500;
 
         public double ComplianceThreshold { get; set; } = 0.9;
 
-        public bool SimulateQmlFailure { get; set; } = true;
+        public bool SimulateQmlFailure { get; set; } = false;
 
         public string? RedisConnectionString { get; set; } = Environment.GetEnvironmentVariable("REDIS_CONNECTION_STRING");
 
@@ -21,6 +24,34 @@ namespace ZenithCoreSystem.Core
         /// Wartezeit zwischen Zyklen in Sekunden (Standard: 60s).
         /// </summary>
         public int CycleDelaySeconds { get; set; } = 60;
+
+        /// <summary>
+        /// Maximale Anzahl aufeinanderfolgender Fehler im Hauptloop, bevor ein Cooldown erzwungen wird.
+        /// (Kein Shutdown; 24/7 Betrieb.)
+        /// </summary>
+        public int MaxConsecutiveErrors { get; set; } = 5;
+
+        /// <summary>
+        /// Cooldown-Dauer in Sekunden nach MaxConsecutiveErrors.
+        /// </summary>
+        public int ErrorCooldownSeconds { get; set; } = 300;
+
+        /// <summary>
+        /// Maximaler Backoff in Sekunden zwischen Retries im Hauptloop.
+        /// </summary>
+        public int ErrorBackoffMaxSeconds { get; set; } = 300;
+
+        /// <summary>
+        /// Jitter-Spanne (in Millisekunden), die auf Backoff/Cooldown addiert wird.
+        /// Reduziert Thundering-Herd / Timing-Korrelation.
+        /// </summary>
+        public int ErrorJitterMaxMilliseconds { get; set; } = 1000;
+
+        /// <summary>
+        /// Wenn true, wird pro Zyklus das große Konsolen-Dashboard ausgegeben.
+        /// Bei 24/7 Betrieb oft sinnvoll: false (spart CPU/IO).
+        /// </summary>
+        public bool EnableConsoleDashboard { get; set; } = true;
 
         /// <summary>
         /// Basisbetrag für Trades vor Scale-Up-Faktor.

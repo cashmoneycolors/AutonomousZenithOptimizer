@@ -16,6 +16,10 @@ scan_*.local.txt
 *.local.md
 settings.json
 
+# VS Code workspace files (keep tasks, ignore personal editor state)
+.vscode/
+!.vscode/tasks.json
+
 
 # Python bytecode caches
 __pycache__/

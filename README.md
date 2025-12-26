@@ -3,10 +3,11 @@
 
 ## Run
 
-To run the autonomous optimizer locally:
+Recommended (avoids Debug EXE locks): build once, then run the already-built Release output.
 
 ```powershell
-dotnet run --project ZenithCoreSystem.csproj
+dotnet build .\AutonomousZenithOptimizer.sln -c Release
+dotnet run --project .\ZenithCoreSystem.csproj -c Release --no-build
 ```
 
 ### Environment-specific configuration
@@ -20,11 +21,11 @@ Select the environment via `DOTNET_ENVIRONMENT`:
 
 ```powershell
 $env:DOTNET_ENVIRONMENT = "Development"
-dotnet run --project ZenithCoreSystem.csproj
+dotnet run --project .\ZenithCoreSystem.csproj -c Release --no-build
 
 # Production (requires real providers and QML endpoint)
 $env:DOTNET_ENVIRONMENT = "Production"
-dotnet run --project ZenithCoreSystem.csproj
+dotnet run --project .\ZenithCoreSystem.csproj -c Release --no-build
 ```
 
 Key Optimizer knobs per environment:
@@ -32,5 +33,6 @@ Key Optimizer knobs per environment:
 - Development: `CycleDelaySeconds=15`, `EnableDemoScenarios=true`, `SimulateQmlFailure=true`
 - Production: `CycleDelaySeconds=20`, `EnableDemoScenarios=false`, `SimulateQmlFailure=false`
 
-Note: For true live mode with external providers, set `AZO_LIVE_MODE=true` and ensure `Optimizer:QmlEndpoint` is configured. Adapters throw in LiveMode when stubs are active.
+Note: In PowerShell, keep commands on separate lines (or use `;`). Do not append env assignments directly after `dotnet run`, otherwise paths like `ZenithCoreSystem.csprojDevelopment` will be parsed.
 
+Live mode: set `AZO_LIVE_MODE=true` and ensure `Optimizer:QmlEndpoint` (or `AZO_QML_ENDPOINT`) is configured. Adapters throw in LiveMode when stubs are active.

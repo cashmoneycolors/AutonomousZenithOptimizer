@@ -84,7 +84,11 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"exodus-tola.deepseek-copilot"
+				"exodus-tola.deepseek-copilot",
+				"bierner.github-markdown-preview",
+				"bierner.markdown-preview-github-styles",
+				"bierner.markdown-emoji",
+				"bierner.markdown-footnotes"
 			]
 		}
 	}

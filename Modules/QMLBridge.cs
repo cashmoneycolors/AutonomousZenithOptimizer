@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using ZenithCoreSystem;
 
 namespace ZenithCoreSystem.Modules
@@ -11,14 +12,15 @@ namespace ZenithCoreSystem.Modules
         private readonly bool _simulateFailure;
         private readonly HttpClient _httpClient;
         private readonly string? _endpoint;
-        private readonly decimal _fallbackScaleUpFactor;
+        private readonly ILogger<QML_Python_Bridge>? _logger;
         private int _callCount;
+        private DateTimeOffset _nextErrorLogAtUtc = DateTimeOffset.MinValue;
 
-        public QML_Python_Bridge(bool simulateFailure, string? endpoint, decimal fallbackScaleUpFactor)
+        public QML_Python_Bridge(bool simulateFailure, string? endpoint, ILogger<QML_Python_Bridge>? logger = null)
         {
             _simulateFailure = simulateFailure;
             _endpoint = string.IsNullOrWhiteSpace(endpoint) ? null : endpoint.Trim();
-            _fallbackScaleUpFactor = fallbackScaleUpFactor > 0m ? fallbackScaleUpFactor : 1m;
+            _logger = logger;
             _httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };
             _callCount = 0;
         }
@@ -45,26 +47,30 @@ namespace ZenithCoreSystem.Modules
 
             endpoint ??= "http://localhost:8501/api/qml_decision";
 
+            var nav = currentVector.PredictedNAV.ToString(CultureInfo.InvariantCulture);
+            var requestUri = endpoint + "?nav=" + nav;
+
             try
             {
-                var nav = currentVector.PredictedNAV.ToString(CultureInfo.InvariantCulture);
-                var response = await _httpClient.GetAsync(endpoint + "?nav=" + nav);
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    return result.Trim();
-                }
+                using var response = await _httpClient.GetAsync(requestUri);
+                response.EnsureSuccessStatusCode();
+                var result = await response.Content.ReadAsStringAsync();
+                return result.Trim();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[QML Bridge] Fehler bei KI-Abfrage: {ex.Message}. Fallback verwendet.");
-            }
+                // Wichtig: Nicht stillschweigend "SCALE_UP" o.ä. zurückgeben.
+                // Wenn der Decision-Service nicht erreichbar ist, muss das Orchestrator-Retry greifen
+                // und am Ende deterministisch auf MAINTAIN zurückfallen.
+                var now = DateTimeOffset.UtcNow;
+                if (now >= _nextErrorLogAtUtc)
+                {
+                    _logger?.LogWarning(ex, "QML Endpoint nicht erreichbar: {Endpoint}. Request: {RequestUri}", endpoint, requestUri);
+                    _nextErrorLogAtUtc = now.AddSeconds(30);
+                }
 
-            // Fallback: Lokale Logik (deterministisch)  live nur als letzter Fallback gedacht.
-            await Task.Delay(10);
-            return currentVector.PredictedNAV > 120000m
-                ? $"SCALE_UP:{_fallbackScaleUpFactor.ToString("0.0###", CultureInfo.InvariantCulture)}"
-                : "MAINTAIN_LEVEL:1.0";
+                throw;
+            }
         }
 
         public Task ReportPerformanceFeedback(string vector, decimal roasScore, string actionTaken)

@@ -68,7 +68,11 @@ namespace ZenithCoreSystem.Modules
             return 0.75;
         }
 
-        public bool PerformLegalIntegrityCheck(Order order) => order.DestinationCountry != "FR" || order.Price <= 10000m;
+        // Governance Gate (Demo/Dev): keine Hard-Blocks.
+        // Ziel: Jede eingehende Order darf durchlaufen; ComplianceScore bleibt weiterhin das Gate
+        // fuer Text-Generierung (siehe AutonomousZenithOptimizer).
+        // Wenn du wieder harte Regeln brauchst, implementiere sie hier und aktualisiere die Tests.
+        public bool PerformLegalIntegrityCheck(Order order) => true;
     }
 
     public class AetherArchitecture

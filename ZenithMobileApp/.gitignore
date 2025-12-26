@@ -1,5 +1,6 @@
 *.iml
 .gradle/
+.gradle-user-home/
 .idea/
 build/
 captures/

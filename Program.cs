@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Net.Http;
 using System.Text;
 using StackExchangeRedis = StackExchange.Redis;
 using ZenithCoreSystem;
@@ -48,7 +49,8 @@ builder.Services.AddSingleton<ContextualMemoryHandler>();
 builder.Services.AddSingleton<IProfitGuarantor_QML>(sp =>
 {
     var settings = sp.GetRequiredService<IOptions<OptimizerSettings>>();
-    return new QML_Python_Bridge(settings.Value.SimulateQmlFailure, settings.Value.QmlEndpoint, settings.Value.ScaleUpMaxFactor);
+    var logger = sp.GetRequiredService<ILogger<QML_Python_Bridge>>();
+    return new QML_Python_Bridge(settings.Value.SimulateQmlFailure, settings.Value.QmlEndpoint, logger);
 });
 builder.Services.AddSingleton<RegulatoryHyperAdaptor>();
 builder.Services.AddSingleton<AetherArchitecture>();
@@ -97,9 +99,39 @@ Console.CancelKeyPress += (s, e) =>
     cts.Cancel();
 };
 
+// Non-blocking Startup-Healthcheck: reduziert Überraschungen (Endpoint down) ohne 24/7 Betrieb zu stoppen.
+try
+{
+    var configuredEndpoint = string.IsNullOrWhiteSpace(settings.QmlEndpoint)
+        ? Environment.GetEnvironmentVariable("AZO_QML_ENDPOINT")
+        : settings.QmlEndpoint;
+
+    if (!string.IsNullOrWhiteSpace(configuredEndpoint))
+    {
+        using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(2) };
+        var navProbe = 0m;
+        var probeUri = configuredEndpoint.Trim() + "?nav=" + navProbe;
+        using var resp = await http.GetAsync(probeUri, cts.Token);
+        if (!resp.IsSuccessStatusCode)
+        {
+            logger.LogWarning("QML Startup-Check: Endpoint antwortet mit {StatusCode}: {Endpoint}", (int)resp.StatusCode, configuredEndpoint);
+        }
+        else
+        {
+            logger.LogInformation("QML Startup-Check: Endpoint erreichbar: {Endpoint}", configuredEndpoint);
+        }
+    }
+}
+catch (Exception ex)
+{
+    logger.LogWarning(ex, "QML Startup-Check fehlgeschlagen (non-blocking). Weiter im 24/7 Modus.");
+}
+
 var iterationCount = 0;
 var errorCount = 0;
-const int maxConsecutiveErrors = 5;
+var maxConsecutiveErrors = Math.Max(1, settings.MaxConsecutiveErrors);
+var jitterMaxMs = Math.Max(0, settings.ErrorJitterMaxMilliseconds);
+var rng = new Random();
 
 try
 {
@@ -117,7 +149,7 @@ try
                 logger.LogInformation("\n--- TEST: ECA/AHA Transaktion & Governance ---");
 
                 var orderBlocked = new Order("ORD-ZQN-1", "001", "CUST_FR", "FR", 5000.00m, "PremiumLicense");
-                logger.LogInformation("\n-> Teste blockierten Auftrag (Governance Fail - RHA):");
+                logger.LogInformation("\n-> Teste Auftrag (FR) (Governance Gate ist permissiv):");
                 await optimizer.ProcessIncomingOrder(orderBlocked);
 
                 var orderAllowed = new Order("ORD-ZQN-2", "002", "CUST_DE", "DE", 999.00m, "PremiumLicense");
@@ -143,14 +175,31 @@ try
 
             if (errorCount >= maxConsecutiveErrors)
             {
-                logger.LogCritical($"KRITISCH: {maxConsecutiveErrors} aufeinanderfolgende Fehler. System wird heruntergefahren.");
-                throw;
+                logger.LogCritical($"KRITISCH: {maxConsecutiveErrors} aufeinanderfolgende Fehler. System geht in Cooldown (24/7 Betrieb) statt Shutdown.");
+
+                // Cooldown statt Exit: 24/7 Betrieb, aber ohne Busy-Loop.
+                var coolDownSeconds = Math.Max(1, settings.ErrorCooldownSeconds);
+                var jitter = jitterMaxMs > 0 ? rng.Next(0, jitterMaxMs + 1) : 0;
+                logger.LogWarning($"Cooldown fuer {coolDownSeconds} Sekunden... Danach neuer Versuch.");
+                errorCount = 0;
+                await Task.Delay(TimeSpan.FromSeconds(coolDownSeconds), cts.Token);
+                if (jitter > 0)
+                {
+                    await Task.Delay(TimeSpan.FromMilliseconds(jitter), cts.Token);
+                }
+                continue;
             }
 
             // Exponential Backoff bei Fehlern
-            var backoffSeconds = Math.Min(Math.Pow(2, errorCount), 300); // Max 5 Minuten
-            logger.LogWarning($"Retry in {backoffSeconds} Sekunden...");
+            var backoffCap = Math.Max(1, settings.ErrorBackoffMaxSeconds);
+            var backoffSeconds = Math.Min(Math.Pow(2, errorCount), backoffCap);
+            var retryJitter = jitterMaxMs > 0 ? rng.Next(0, jitterMaxMs + 1) : 0;
+            logger.LogWarning($"Retry in {backoffSeconds} Sekunden... (jitter {retryJitter}ms)");
             await Task.Delay(TimeSpan.FromSeconds(backoffSeconds), cts.Token);
+            if (retryJitter > 0)
+            {
+                await Task.Delay(TimeSpan.FromMilliseconds(retryJitter), cts.Token);
+            }
         }
     }
 }

@@ -171,6 +171,32 @@ namespace ZenithCoreSystem.Core
             string feedbackState = stateVector.ToString() + $";SPEND_CYCLE:{spendThisCycle:F0};SPEND_TODATE:{spendToDateAfter:F0}";
             await _qml.ReportPerformanceFeedback(feedbackState, 4.5m, decision);
 
+            if (!_settings.EnableConsoleDashboard)
+            {
+                _lastMarketSpend = spendThisCycle;
+                _marketSpendToDate = spendToDateAfter;
+                _lastScalingFactor = scaleUpFactor.HasValue ? (double)scaleUpFactor.Value : 1.0;
+                _lastHyperCacheLatencyMs = cacheLatencyMs;
+
+                _logger.LogAutonomousCycle("Zyklus abgeschlossen. DRL-Aktion ausgefuehrt.", new Dictionary<string, object>
+                {
+                    { "CorrelationID", cycleId.ToString() },
+                    { "ActionTaken", decision },
+                    { "EndToEndLatencyMs", latencyMs },
+                    { "ComplianceScore", stateVector.RH_ComplianceScore },
+                    { "TradeAmount", spendThisCycle },
+                    { "MarketSpendThisCycle", spendThisCycle },
+                    { "CacheHits", cacheStats.Hits },
+                    { "CacheMisses", cacheStats.Misses },
+                    { "HyperCacheLatencyMs", cacheLatencyMs },
+                    { "StateMarketSpend", stateMarketSpend },
+                    { "StateScalingFactor", stateScalingFactor },
+                    { "MarketSpendToDate", _marketSpendToDate }
+                });
+
+                return;
+            }
+
             // In Test/CI ist Console-Output häufig umgeleitet; dann lieber ASCII statt Unicode/Emoji.
             bool asciiConsole = IsConsoleOutputRedirectedSafe();
             if (!asciiConsole)
