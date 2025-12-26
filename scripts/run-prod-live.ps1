@@ -29,5 +29,8 @@ if (-not [string]::IsNullOrWhiteSpace($QmlEndpoint)) {
 
 # Fail-fast before starting
 & (Join-Path $PSScriptRoot 'validate-live-env.ps1')
+if ($LASTEXITCODE -ne 0) {
+    exit $LASTEXITCODE
+}
 
 dotnet run --project $project -c Release --no-build
