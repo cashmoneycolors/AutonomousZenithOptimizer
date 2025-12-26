@@ -69,6 +69,29 @@ if (-not [string]::IsNullOrWhiteSpace($env:AZO_QML_ENDPOINT)) {
     } catch {
         throw "AZO_QML_ENDPOINT ist keine gültige http(s) URL: '$env:AZO_QML_ENDPOINT'"
     }
+
+    # Quick Probe: Endpoint muss erreichbar sein (fail-fast)
+    try {
+        $endpoint = $env:AZO_QML_ENDPOINT.Trim()
+        $probeUrl = $endpoint + ($(if ($endpoint.Contains('?')) { '&' } else { '?' })) + 'nav=0'
+
+        $http = [System.Net.Http.HttpClient]::new()
+        $http.Timeout = [TimeSpan]::FromSeconds(2)
+
+        $sw = [System.Diagnostics.Stopwatch]::StartNew()
+        $resp = $http.GetAsync($probeUrl).GetAwaiter().GetResult()
+        $sw.Stop()
+
+        if (-not $resp.IsSuccessStatusCode) {
+            throw "StatusCode=$([int]$resp.StatusCode)"
+        }
+
+        Write-Host "OK: QML Endpoint erreichbar ($([int]$resp.StatusCode)) in $($sw.ElapsedMilliseconds)ms" -ForegroundColor Green
+    } catch {
+        throw "QML Endpoint Quick-Probe fehlgeschlagen: $($_.Exception.Message). URL: '$probeUrl'"
+    } finally {
+        if ($null -ne $http) { $http.Dispose() }
+    }
 }
 
 # Optional groups based on local settings.json (if present)
