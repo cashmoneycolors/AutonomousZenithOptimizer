@@ -27,27 +27,37 @@ PARENT_DIR="${PARENT_DIR:-$(pwd)}"
 # - https://github.com/owner/repo
 # - https://github.com/owner/repo/pull/<nr>
 # - https://github.com/owner/repo/commit/<sha>
-REPOS=(
+REPOS_PRIMARY=(
   "cashmoneycolors/mega_app_launcher.py"
   "cashmoneycolors/gdp-dashboard"
   "cashmoneycolors/blueprints"
   "cashmoneycolors/Documents"
   "cashmoneycolors/gk-cli"
-  "Gazi8580/quantum-avatar"
   "cashmoneycolors/AutonomousZenithOptimizer"
+  "cashmoneycolors/-MEGA-ULTRA-ROBOTER-KI"
+  "https://github.com/cashmoneycolors/QuantumAvatar/pull/1"
+)
+
+# Optional: Secondary-Repos aus anderen Accounts.
+# Standard ist absichtlich AUS, damit keine "zufälligen" Zweit-Logins/Tokens genutzt werden.
+# Aktivieren via: INCLUDE_SECONDARY_REPOS=true ./clone-all-repos.sh
+REPOS_SECONDARY=(
+  "Gazi8580/quantum-avatar"
   "Gazi8580/GOOGLEAI-KEY-MEGA-ULTRA-ROBOTER-KI"
   "Gazi8580/quantum-avatar-cleaned"
   "Gazi8580/desktop-backup"
   "Gazi8580/quantum-avatar-v5"
-  "cashmoneycolors/-MEGA-ULTRA-ROBOTER-KI"
-  "https://github.com/cashmoneycolors/QuantumAvatar/pull/1"
 )
+
+REPOS=("${REPOS_PRIMARY[@]}")
+if [[ "${INCLUDE_SECONDARY_REPOS:-false}" == "true" ]]; then
+  REPOS+=("${REPOS_SECONDARY[@]}")
+fi
 
 WORKSPACE_PATH="$PARENT_DIR/$WORKSPACE_DIR_NAME"
 
 mkdir -p "$WORKSPACE_PATH"
 
-done
 parse_repo_spec() {
   local spec="$1"
 
@@ -139,6 +149,8 @@ for spec in "${REPOS[@]}"; do
     _seen_dir[$dir]=1
     UNIQUE_SPECS+=("$spec")
   fi
+
+done
 
 clone_repo() {
   local spec="$1"
