@@ -189,6 +189,9 @@ class ConfigManager:
             "Alerts.Telegram.BotToken": ["TELEGRAM_BOT_TOKEN"],
             "Alerts.Telegram.ChatId": ["TELEGRAM_CHAT_ID"],
             "Alerts.Discord.WebhookUrl": ["DISCORD_WEBHOOK_URL"],
+            # LLM / API keys
+            "API.OpenRouter.Key": ["OPENROUTER_API_KEY"],
+            "API.Gemini.Key": ["GEMINI_API_KEY"],
         }
 
         for env_var in overrides.get(key_path, []):

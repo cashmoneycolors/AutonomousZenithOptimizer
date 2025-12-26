@@ -12,7 +12,7 @@
         "ElectricityCostPerKwh": 0.15,
         "MaxTemperature": 85.0,
         "MinTemperature": 40.0,
-        "WalletAddress": "${MINING_WALLET_ADDRESS}"
+        "WalletAddress": ""
     },
     "Rigs": [],
     "Market": {
@@ -30,16 +30,16 @@
     },
     "Pools": {
         "NiceHash": {
-            "ApiKey": "${POOLS_NICEHASH_API_KEY}",
-            "ApiSecret": "${POOLS_NICEHASH_API_SECRET}",
-            "OrganizationId": "${POOLS_NICEHASH_ORG_ID}"
+            "ApiKey": "",
+            "ApiSecret": "",
+            "OrganizationId": ""
         }
     },
     "Alerts": {
         "Telegram": {
             "Enabled": false,
-            "BotToken": "${TELEGRAM_BOT_TOKEN}",
-            "ChatId": "${TELEGRAM_CHAT_ID}",
+            "BotToken": "",
+            "ChatId": "",
             "AlertTypes": [
                 "all"
             ],
@@ -48,7 +48,7 @@
         },
         "Discord": {
             "Enabled": false,
-            "WebhookUrl": "${DISCORD_WEBHOOK_URL}",
+            "WebhookUrl": "",
             "AlertTypes": [
                 "all"
             ],
@@ -57,7 +57,7 @@
         }
     },
     "API": {
-        "OpenRouter": { "Enabled": false, "Key": "${OPENROUTER_API_KEY}" },
-        "Gemini": { "Enabled": false, "Key": "${GEMINI_API_KEY}" }
+        "OpenRouter": { "Enabled": false, "Key": "" },
+        "Gemini": { "Enabled": false, "Key": "" }
     }
 }

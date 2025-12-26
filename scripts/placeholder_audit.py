@@ -12,8 +12,9 @@ Usage:
   python scripts/placeholder_audit.py --json
 
 Exit codes:
-  0 = OK
-  2 = Missing keys in .env.example
+    0 = OK
+    2 = Missing keys in .env.example
+    3 = Runtime placeholders found (must be zero)
 """
 
 from __future__ import annotations
@@ -109,7 +110,9 @@ def _scan_files(
         for rp in runtime:
             non_runtime_candidates.discard(f"${{{rp}}}")
         # remove gha expressions from non-runtime list too
-        non_runtime_candidates = {x for x in non_runtime_candidates if not GITHUB_ACTIONS_RE.fullmatch(x)}
+        non_runtime_candidates = {
+            x for x in non_runtime_candidates if not GITHUB_ACTIONS_RE.fullmatch(x)
+        }
 
         if non_runtime_candidates:
             non_runtime_by_path[rel.replace("\\", "/")] = sorted(non_runtime_candidates)
@@ -122,7 +125,9 @@ def _parse_env_example_keys(env_example_path: Path) -> Set[str]:
     if not env_example_path.exists():
         return keys
 
-    for raw in env_example_path.read_text(encoding="utf-8", errors="ignore").splitlines():
+    for raw in env_example_path.read_text(
+        encoding="utf-8", errors="ignore"
+    ).splitlines():
         line = raw.strip()
         if not line or line.startswith("#"):
             continue
@@ -176,6 +181,7 @@ def main() -> int:
     repo_root = Path(__file__).resolve().parents[1]
     report = _build_report(repo_root)
 
+    runtime_count = report["runtime_placeholders"]["count"]
     missing = report["env_example"]["missing_keys_for_runtime_placeholders"]
 
     if args.json:
@@ -197,12 +203,21 @@ def main() -> int:
         else:
             print("All runtime placeholders are covered by .env.example")
 
+        if runtime_count:
+            print("")
+            print(
+                "FAIL: Runtime placeholders were found in JSON configs. "
+                "This repo expects zero ${NAME} placeholders in tracked JSON."
+            )
+
         print("")
         print(
             "Note: Non-runtime ${...} (bash/powershell/github actions templating) "
             "is reported separately in --json mode."
         )
 
+    if runtime_count:
+        return 3
     return 2 if missing else 0
 
 
