@@ -17,6 +17,9 @@ if ($Build) {
 $env:DOTNET_ENVIRONMENT = 'Production'
 $env:AZO_LIVE_MODE = 'true'
 
+# Ensure local config files exist/are valid
+& (Join-Path $PSScriptRoot 'init-local-config.ps1')
+
 # Load local .env (never overrides already-set env vars)
 . (Join-Path $PSScriptRoot 'load-dotenv.ps1')
 

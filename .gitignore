@@ -15,6 +15,8 @@ repo_snapshot_*.zip
 scan_*.local.txt
 *.local.md
 settings.json
+settings.json.local.bak
+*.local.bak
 
 # Local secrets (never commit)
 .env

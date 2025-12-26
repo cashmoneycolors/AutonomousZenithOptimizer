@@ -11,9 +11,11 @@ function Set-EnvIfMissing {
     )
 
     if ([string]::IsNullOrWhiteSpace($Name)) { return }
-    if ($env:$Name) { return }
+    if ([string]::IsNullOrWhiteSpace($Value)) { return }
+    $existing = (Get-Item -Path "Env:$Name" -ErrorAction SilentlyContinue).Value
+    if (-not [string]::IsNullOrWhiteSpace($existing)) { return }
 
-    $env:$Name = $Value
+    Set-Item -Path "Env:$Name" -Value $Value
 }
 
 if ([string]::IsNullOrWhiteSpace($EnvPath)) {
@@ -56,8 +58,12 @@ foreach ($rawLine in Get-Content -LiteralPath $EnvPath -ErrorAction Stop) {
 
     if ([string]::IsNullOrWhiteSpace($name)) { continue }
 
+    # Leere Values aus .env nicht übernehmen (sonst verhindert es Fail-Fast sinnvoll)
+    if ([string]::IsNullOrWhiteSpace($value)) { continue }
+
     # Niemals echte ENV überschreiben (damit CI/Secrets-Manager Vorrang hat)
-    if ($env:$name) { continue }
+    $existing = (Get-Item -Path "Env:$name" -ErrorAction SilentlyContinue).Value
+    if (-not [string]::IsNullOrWhiteSpace($existing)) { continue }
 
     Set-EnvIfMissing -Name $name -Value $value
     $loaded++

@@ -13,8 +13,21 @@ function Require-Env {
     )
 
     $val = (Get-Item -Path "Env:$Name" -ErrorAction SilentlyContinue).Value
+
     if ([string]::IsNullOrWhiteSpace($val)) {
         return @{ Name = $Name; Reason = $Reason }
+    }
+
+    $trim = $val.Trim()
+    # Treat common template placeholders as missing
+    if ($trim -match '^your_.+_here$') {
+        return @{ Name = $Name; Reason = "$Reason (placeholder)" }
+    }
+    if ($trim -match '^https?://dein-') {
+        return @{ Name = $Name; Reason = "$Reason (placeholder)" }
+    }
+    if ($trim -match '^https?://<.+>$') {
+        return @{ Name = $Name; Reason = "$Reason (placeholder)" }
     }
 
     return $null
@@ -29,7 +42,8 @@ function Try-ReadJson {
     try {
         return (Get-Content -LiteralPath $Path -Raw -ErrorAction Stop) | ConvertFrom-Json
     } catch {
-        throw "Konnte JSON nicht lesen: $Path. $($_.Exception.Message)"
+        Write-Host "[WARN] settings.json ist nicht parsebar, skippe feature-genaue Checks." -ForegroundColor Yellow
+        return $null
     }
 }
 
