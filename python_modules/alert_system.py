@@ -29,7 +29,8 @@ class AlertSystem:
 
         if not self.enabled_alerts:
             print(
-                "⚠️ Keine Alert-Services aktiviert. Konfiguriere Telegram oder Discord in settings.json"
+                "⚠️ Keine Alert-Services aktiviert. Konfiguriere Telegram "
+                "oder Discord in settings.json"
             )
 
         print("🚨 ALERT SYSTEM INITIALIZED")
@@ -44,7 +45,12 @@ class AlertSystem:
         )
 
         if daily_profit >= min_alert:
-            message = f"💰 PROFIT ALERT!\n💵 Tagesprofit: {daily_profit:.2f} CHF\n💎 Gesamtprofit: {current_profit:.2f} CHF\n⏰ {datetime.now().strftime('%H:%M:%S')}"
+            message = (
+                "💰 PROFIT ALERT!\n"
+                f"💵 Tagesprofit: {daily_profit:.2f} CHF\n"
+                f"💎 Gesamtprofit: {current_profit:.2f} CHF\n"
+                f"⏰ {datetime.now().strftime('%H:%M:%S')}"
+            )
 
             self._send_alert(message, "PROFIT")
             self._log_alert("PROFIT", message, profit_data)
@@ -58,14 +64,26 @@ class AlertSystem:
         )
 
         if temp >= max_temp:
-            message = f"🔥 TEMPERATUR ALERT!\n🔌 Rig: {rig_data.get('id', 'Unknown')}\n🌡️ Temperatur: {temp:.1f}°C\n⚠️ MAX: {max_temp}°C\n⏰ {datetime.now().strftime('%H:%M:%S')}"
+            message = (
+                "🔥 TEMPERATUR ALERT!\n"
+                f"🔌 Rig: {rig_data.get('id', 'Unknown')}\n"
+                f"🌡️ Temperatur: {temp:.1f}°C\n"
+                f"⚠️ MAX: {max_temp}°C\n"
+                f"⏰ {datetime.now().strftime('%H:%M:%S')}"
+            )
 
             self._send_alert(message, "TEMPERATURE")
             self._log_alert("TEMPERATURE", message, rig_data)
 
     def send_rig_failure_alert(self, rig_data: Dict[str, Any]):
         """Benachrichtigung bei Rig-Ausfällen"""
-        message = f"❌ RIG FAILURE ALERT!\n🔌 Rig: {rig_data.get('id', 'Unknown')}\n⚙️ Status: {rig_data.get('status', 'FAILED')}\n🔄 Hashrate: {rig_data.get('hash_rate', 0)} MH/s\n⏰ {datetime.now().strftime('%H:%M:%S')}"
+        message = (
+            "❌ RIG FAILURE ALERT!\n"
+            f"🔌 Rig: {rig_data.get('id', 'Unknown')}\n"
+            f"⚙️ Status: {rig_data.get('status', 'FAILED')}\n"
+            f"🔄 Hashrate: {rig_data.get('hash_rate', 0)} MH/s\n"
+            f"⏰ {datetime.now().strftime('%H:%M:%S')}"
+        )
 
         self._send_alert(message, "RIG_FAILURE")
         self._log_alert("RIG_FAILURE", message, rig_data)
@@ -94,29 +112,40 @@ class AlertSystem:
         self, alert_type: str, message: str, data: Dict[str, Any] = None
     ):
         """Benachrichtigung bei System-Events"""
-        formatted_message = f"⚙️ SYSTEM ALERT - {alert_type.upper()}\n{message}\n⏰ {datetime.now().strftime('%H:%M:%S')}"
+        formatted_message = (
+            f"⚙️ SYSTEM ALERT - {alert_type.upper()}\n"
+            f"{message}\n"
+            f"⏰ {datetime.now().strftime('%H:%M:%S')}"
+        )
 
         self._send_alert(formatted_message, alert_type.upper())
         self._log_alert(alert_type.upper(), formatted_message, data or {})
 
     def send_custom_alert(self, title: str, message: str, emoji: str = "ℹ️"):
         """Benutzerdefinierte Benachrichtigung"""
-        formatted_message = f"{emoji} {title.upper()}\n{message}\n⏰ {datetime.now().strftime('%H:%M:%S')}"
+        formatted_message = (
+            f"{emoji} {title.upper()}\n"
+            f"{message}\n"
+            f"⏰ {datetime.now().strftime('%H:%M:%S')}"
+        )
 
         self._send_alert(formatted_message, "CUSTOM")
-        self._log_alert("CUSTOM", formatted_message, {"title": title, "emoji": emoji})
+        self._log_alert(
+            "CUSTOM", formatted_message, {"title": title, "emoji": emoji}
+        )
 
     def _send_telegram_alert(self, message: str):
         """Sendet Alert via Telegram"""
         if "telegram" not in self.enabled_alerts:
             return
 
-        bot_token = os.getenv("TELEGRAM_BOT_TOKEN") or self.telegram_config.get(
-            "BotToken", ""
-        )
-        chat_id = os.getenv("TELEGRAM_CHAT_ID") or self.telegram_config.get(
-            "ChatId", ""
-        )
+        bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
+        if not bot_token:
+            bot_token = self.telegram_config.get("BotToken", "")
+
+        chat_id = os.getenv("TELEGRAM_CHAT_ID")
+        if not chat_id:
+            chat_id = self.telegram_config.get("ChatId", "")
 
         if not bot_token or not chat_id:
             print("⚠️ Telegram-Bot nicht konfiguriert")
@@ -124,7 +153,11 @@ class AlertSystem:
 
         try:
             url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-            payload = {"chat_id": chat_id, "text": message, "parse_mode": "HTML"}
+            payload = {
+                "chat_id": chat_id,
+                "text": message,
+                "parse_mode": "HTML",
+            }
 
             response = requests.post(url, json=payload, timeout=10)
             if response.status_code == 200:
@@ -140,9 +173,9 @@ class AlertSystem:
         if "discord" not in self.enabled_alerts:
             return
 
-        webhook_url = os.getenv("DISCORD_WEBHOOK_URL") or self.discord_config.get(
-            "WebhookUrl", ""
-        )
+        webhook_url = os.getenv("DISCORD_WEBHOOK_URL")
+        if not webhook_url:
+            webhook_url = self.discord_config.get("WebhookUrl", "")
 
         if not webhook_url:
             print("⚠️ Discord-Webhook nicht konfiguriert")
@@ -198,7 +231,12 @@ class AlertSystem:
 
     def test_alert(self, service: str = "all"):
         """Test-Funktion für Alerts"""
-        test_message = f"🧪 TEST ALERT\nAlert-System funktioniert!\nService: {service}\n⏰ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        test_message = (
+            "🧪 TEST ALERT\n"
+            "Alert-System funktioniert!\n"
+            f"Service: {service}\n"
+            f"⏰ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        )
 
         if service in ["telegram", "all"]:
             self._send_telegram_alert(test_message)
@@ -264,7 +302,11 @@ if __name__ == "__main__":
     send_profit_alert(test_profit_data)
 
     # Test-Temperatur Alert
-    test_rig_data = {"id": "GPU_1", "temperature": 89.5, "status": "OVERHEATING"}
+    test_rig_data = {
+        "id": "GPU_1",
+        "temperature": 89.5,
+        "status": "OVERHEATING",
+    }
     send_temperature_alert(test_rig_data)
 
     # Test-Markt Alert
@@ -276,6 +318,10 @@ if __name__ == "__main__":
 
     print("\n✅ ALERT SYSTEM BEREIT!")
     print(
-        "Verwende send_profit_alert(), send_temperature_alert(), send_market_alert(), etc."
+        "Verwende send_profit_alert(), send_temperature_alert(), "
+        "send_market_alert(), etc."
     )
-    print("Konfiguriere Telegram/Discord in settings.json für echte Benachrichtigungen")
+    print(
+        "Konfiguriere Telegram/Discord in settings.json für echte "
+        "Benachrichtigungen"
+    )

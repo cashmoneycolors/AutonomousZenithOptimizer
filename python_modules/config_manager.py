@@ -86,7 +86,9 @@ class ConfigManager:
 
         loaded = 0
         try:
-            for raw_line in dotenv_path.read_text(encoding="utf-8").splitlines():
+            for raw_line in dotenv_path.read_text(
+                encoding="utf-8"
+            ).splitlines():
                 line = raw_line.strip()
                 if not line or line.startswith("#"):
                     continue
@@ -114,7 +116,8 @@ class ConfigManager:
         """Lädt Konfiguration aus JSON-Datei"""
         if not os.path.exists(self.config_file):
             print(
-                f"WARNING: Config file {self.config_file} not found, creating default config"
+                f"WARNING: Config file {self.config_file} not found, "
+                "creating default config"
             )
             self._create_default_config()
             return
@@ -170,7 +173,10 @@ class ConfigManager:
             # Mining
             "Mining.WalletAddress": ["MINING_WALLET_ADDRESS"],
             # NiceHash (beide Namensschemata unterstützen)
-            "Pools.NiceHash.ApiKey": ["POOLS_NICEHASH_API_KEY", "NICEHASH_API_KEY"],
+            "Pools.NiceHash.ApiKey": [
+                "POOLS_NICEHASH_API_KEY",
+                "NICEHASH_API_KEY",
+            ],
             "Pools.NiceHash.ApiSecret": [
                 "POOLS_NICEHASH_API_SECRET",
                 "NICEHASH_API_SECRET",
@@ -411,7 +417,8 @@ if __name__ == "__main__":
     print(f"   System Name: {get_config('System.Name')}")
     print(f"   Mining Algorithm: {get_config('Mining.DefaultAlgorithm')}")
     print(
-        f"   Electricity Cost: {get_config('Mining.ElectricityCostPerKwh')} CHF/kWh"
+        f"   Electricity Cost: {get_config('Mining.ElectricityCostPerKwh')} "
+        "CHF/kWh"
     )
 
     rigs = get_rigs_config()
@@ -419,7 +426,9 @@ if __name__ == "__main__":
         print("\nBeispiel Rig:")
         sample_rig = rigs[0]
         print(
-            f"   {sample_rig.get('id', 'N/A')}: {sample_rig.get('type', 'N/A')} ({sample_rig.get('algorithm', 'N/A')})"
+            f"   {sample_rig.get('id', 'N/A')}: "
+            f"{sample_rig.get('type', 'N/A')} "
+            f"({sample_rig.get('algorithm', 'N/A')})"
         )
 
     print("\nCONFIG MANAGER BEREIT!")
