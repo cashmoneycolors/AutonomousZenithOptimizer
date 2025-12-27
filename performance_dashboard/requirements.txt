@@ -1,0 +1,46 @@
+# CASH MONEY COLORS ORIGINAL (R) - PERFORMANCE DASHBOARD REQUIREMENTS
+# Flask-basierte API und Web-Dashboard für Performance Monitoring & Analytics
+
+# Web Framework
+Flask==2.3.3
+Flask-CORS==4.0.0
+
+# Datenbank
+sqlite3  # Standardmäßig in Python enthalten
+
+# Datenanalyse und Visualisierung
+numpy==1.24.3
+pandas==2.0.3
+
+# Zeitreihen und Datumsverarbeitung
+python-dateutil==2.8.2
+
+# Logging und Monitoring
+logging  # Standardmäßig in Python enthalten
+
+# JSON und Datenverarbeitung
+json  # Standardmäßig in Python enthalten
+
+# Optional: Für erweiterte Visualisierungen
+matplotlib==3.7.2
+seaborn==0.12.2
+
+# Optional: Für ML-basierte Vorhersagen
+scikit-learn==1.3.0
+
+# Optional: Für erweiterte Charting
+plotly==5.15.0
+
+# Entwicklung und Testing
+pytest==7.4.0
+pytest-flask==1.2.0
+
+# Performance-Optimierung
+gunicorn==21.2.0  # Für Production Deployment
+gevent==23.7.0   # Für asynchrone Verarbeitung
+
+# Mobile-Optimierung
+# Chart.js wird clientseitig geladen, daher hier nicht benötigt
+
+# Sicherheit
+flask-limiter==3.5.0  # Rate Limiting für API

@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Monitoring Dashboard</title>
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --bg-color: #f5f5f5;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --muted-color: #666;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-color) 0%, #eef2f3 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--box-shadow);
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .header .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: 3fr 2fr 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .card-subtitle {
+            font-size: 0.8rem;
+            color: var(--muted-color);
+        }
+
+        /* Metrics Cards */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        @media (min-width: 768px) {
+            .metrics-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--muted-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-trend {
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+
+        .trend-up {
+            color: var(--success-color);
+        }
+
+        .trend-down {
+            color: var(--danger-color);
+        }
+
+        .trend-stable {
+            color: var(--muted-color);
+        }
+
+        /* Charts */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* Alerts */
+        .alerts-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .alert-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            border-left: 4px solid;
+        }
+
+        .alert-critical {
+            background: #ffe6e6;
+            border-left-color: var(--danger-color);
+        }
+
+        .alert-high {
+            background: #fff4e6;
+            border-left-color: #ff6600;
+        }
+
+        .alert-medium {
+            background: #fffce6;
+            border-left-color: var(--warning-color);
+        }
+
+        .alert-info {
+            background: #e6f3ff;
+            border-left-color: var(--primary-color);
+        }
+
+        .alert-icon {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .alert-time {
+            font-size: 0.7rem;
+            color: var(--muted-color);
+        }
+
+        /* KPIs */
+        .kpi-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .kpi-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .kpi-bar {
+            width: 100px;
+            height: 6px;
+            background: #ddd;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .kpi-progress {
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        /* Status Indicators */
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-online {
+            background: var(--success-color);
+        }
+
+        .status-warning {
+            background: var(--warning-color);
+        }
+
+        .status-offline {
+            background: var(--danger-color);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .chart-container {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 15px;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <h1>🚀 Performance Monitoring Dashboard</h1>
+        <div class="subtitle">Echtzeit-Überwachung & Analyse - CASH MONEY COLORS ORIGINAL (R)</div>
+    </div>
+
+    <div class="container">
+        <div class="dashboard-grid">
+            <!-- Hauptmetriken -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">📊 System-Metriken</h3>
+                        <span class="card-subtitle">Echtzeit-Daten</span>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-primary" onclick="refreshData()">🔄 Aktualisieren</button>
+                        <button class="btn btn-secondary" onclick="exportData()">📊 Export</button>
+                    </div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" id="hashrate-value">--</div>
+                        <div class="metric-label">Hashrate</div>
+                        <div class="metric-trend" id="hashrate-trend">--</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="power-value">--</div>
+                        <div class="metric-label">Stromverbrauch</div>
+                        <div class="metric-trend" id="power-trend">--</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="temp-value">--</div>
+                        <div class="metric-label">Temperatur</div>
+                        <div class="metric-trend" id="temp-trend">--</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="efficiency-value">--</div>
+                        <div class="metric-label">Effizienz</div>
+                        <div class="metric-trend" id="efficiency-trend">--</div>
+                    </div>
+                </div>
+
+                <div class="card-header" style="margin-top: 20px; border-top: 2px solid #eee;">
+                    <h3 class="card-title">📈 Performance-Trends</h3>
+                    <span class="card-subtitle">Letzte 24 Stunden</span>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Alerts & Status -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">🚨 System-Status</h3>
+                    <span class="status-indicator status-online"></span>
+                    <span class="card-subtitle">Online</span>
+                </div>
+
+                <div class="alerts-list" id="alerts-list">
+                    <!-- Alerts werden hier eingefügt -->
+                </div>
+
+                <div class="card-header" style="margin-top: 20px; border-top: 2px solid #eee;">
+                    <h3 class="card-title">⚡ Energie-Status</h3>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span style="font-size: 0.8rem; color: var(--muted-color);">Stromkosten (Stunde)</span>
+                            <span id="energy-cost" style="font-weight: bold;">--</span>
+                        </div>
+                        <div style="height: 6px; background: #ddd; border-radius: 3px;">
+                            <div id="energy-bar" style="height: 100%; background: var(--primary-color); width: 0%;">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span style="font-size: 0.8rem; color: var(--muted-color);">Quantum-Level</span>
+                            <span id="quantum-level" style="font-weight: bold;">--</span>
+                        </div>
+                        <div style="height: 6px; background: #ddd; border-radius: 3px;">
+                            <div id="quantum-bar" style="height: 100%; background: var(--secondary-color); width: 0%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPIs & Recommendations -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">🎯 Key Performance Indicators</h3>
+                    <span class="card-subtitle">Optimierungsziele</span>
+                </div>
+
+                <div class="kpi-list" id="kpi-list">
+                    <!-- KPIs werden hier eingefügt -->
+                </div>
+
+                <div class="card-header" style="margin-top: 20px; border-top: 2px solid #eee;">
+                    <h3 class="card-title">💡 Empfehlungen</h3>
+                </div>
+
+                <div id="recommendations-list" style="display: flex; flex-direction: column; gap: 10px;">
+                    <!-- Empfehlungen werden hier eingefügt -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dashboard JavaScript
+        let performanceChart;
+        let updateInterval;
+
+        // Initialisierung
+        document.addEventListener('DOMContentLoaded', function () {
+            initChart();
+            startRealTimeUpdates();
+            loadInitialData();
+        });
+
+        function initChart() {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            performanceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: 'Hashrate (MH/s)',
+                            data: [],
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Effizienz (%)',
+                            data: [],
+                            borderColor: '#28a745',
+                            backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Temperatur (°C)',
+                            data: [],
+                            borderColor: '#ffc107',
+                            backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function startRealTimeUpdates() {
+            // Simuliere Echtzeit-Updates (in der echten Anwendung würde dies von der API kommen)
+            updateInterval = setInterval(() => {
+                updateRealTimeData();
+            }, 5000); // Alle 5 Sekunden
+        }
+
+        function updateRealTimeData() {
+            // Simulierte Datenaktualisierung
+            const now = new Date();
+            const timeLabel = now.toLocaleTimeString();
+
+            // Füge neuen Datenpunkt hinzu
+            performanceChart.data.labels.push(timeLabel);
+            if (performanceChart.data.labels.length > 20) {
+                performanceChart.data.labels.shift();
+                performanceChart.data.datasets.forEach(dataset => {
+                    dataset.data.shift();
+                });
+            }
+
+            // Simulierte Werte
+            const hashrate = 120 + Math.random() * 20;
+            const efficiency = 0.35 + Math.random() * 0.15;
+            const temperature = 65 + Math.random() * 10;
+
+            performanceChart.data.datasets[0].data.push(hashrate);
+            performanceChart.data.datasets[1].data.push(efficiency * 100);
+            performanceChart.data.datasets[2].data.push(temperature);
+
+            performanceChart.update('none');
+
+            // Aktualisiere Metriken
+            updateMetrics(hashrate, efficiency * 100, temperature);
+        }
+
+        function updateMetrics(hashrate, efficiency, temperature) {
+            document.getElementById('hashrate-value').textContent = `${hashrate.toFixed(1)} MH/s`;
+            document.getElementById('efficiency-value').textContent = `${efficiency.toFixed(1)}%`;
+            document.getElementById('temp-value').textContent = `${temperature.toFixed(1)}°C`;
+
+            // Berechne Stromverbrauch (simuliert)
+            const power = hashrate * 2.5; // Annahme: 2.5W pro MH/s
+            document.getElementById('power-value').textContent = `${power.toFixed(0)} W`;
+
+            // Aktualisiere Energiekosten
+            const energyCost = (power / 1000) * 0.20; // CHF pro Stunde
+            document.getElementById('energy-cost').textContent = `CHF ${energyCost.toFixed(3)}/h`;
+
+            // Aktualisiere Balken
+            document.getElementById('energy-bar').style.width = `${Math.min(energyCost * 50, 100)}%`;
+            document.getElementById('quantum-bar').style.width = `${Math.random() * 100}%`;
+            document.getElementById('quantum-level').textContent = `${Math.floor(Math.random() * 100)}`;
+        }
+
+        function loadInitialData() {
+            // Lade anfängliche Daten
+            updateRealTimeData();
+
+            // Generiere Beispiel-Alerts
+            generateSampleAlerts();
+
+            // Generiere Beispiel-KPIs
+            generateSampleKPIs();
+
+            // Generiere Beispiel-Empfehlungen
+            generateSampleRecommendations();
+        }
+
+        function generateSampleAlerts() {
+            const alertsList = document.getElementById('alerts-list');
+            const sampleAlerts = [
+                { type: 'info', message: 'System läuft stabil', time: 'vor 5 Minuten' },
+                { type: 'warning', message: 'Temperatur steigt an', time: 'vor 15 Minuten' },
+                { type: 'critical', message: 'Rig #3 benötigt Wartung', time: 'vor 30 Minuten' }
+            ];
+
+            alertsList.innerHTML = '';
+            sampleAlerts.forEach(alert => {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert-item alert-${alert.type}`;
+                alertDiv.innerHTML = `
+                    <span class="alert-icon">⚠️</span>
+                    <div class="alert-content">
+                        <div class="alert-title">${alert.message}</div>
+                        <div class="alert-time">${alert.time}</div>
+                    </div>
+                `;
+                alertsList.appendChild(alertDiv);
+            });
+        }
+
+        function generateSampleKPIs() {
+            const kpiList = document.getElementById('kpi-list');
+            const sampleKPIs = [
+                { name: 'Hashrate-Effizienz', value: 85, target: 90 },
+                { name: 'Energie-Effizienz', value: 78, target: 85 },
+                { name: 'Thermal-Management', value: 92, target: 95 },
+                { name: 'System-Zuverlässigkeit', value: 95, target: 98 }
+            ];
+
+            kpiList.innerHTML = '';
+            sampleKPIs.forEach(kpi => {
+                const kpiDiv = document.createElement('div');
+                kpiDiv.className = 'kpi-item';
+                kpiDiv.innerHTML = `
+                    <div>
+                        <div style="font-weight: 600;">${kpi.name}</div>
+                        <div style="font-size: 0.8rem; color: var(--muted-color);">Ziel: ${kpi.target}%</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-weight: bold;">${kpi.value}%</div>
+                        <div class="kpi-bar">
+                            <div class="kpi-progress" style="width: ${kpi.value}%"></div>
+                        </div>
+                    </div>
+                `;
+                kpiList.appendChild(kpiDiv);
+            });
+        }
+
+        function generateSampleRecommendations() {
+            const recList = document.getElementById('recommendations-list');
+            const sampleRecs = [
+                '🌡️ Temperatur überwachen - Lüfterdrehzahl erhöhen',
+                '⚡ Energieverbrauch optimieren - Idle-Zeiten reduzieren',
+                '🔧 Wartung planen - Rig #3 Filter reinigen',
+                '📊 Monitoring erweitern - Zusätzliche Sensoren installieren'
+            ];
+
+            recList.innerHTML = '';
+            sampleRecs.forEach(rec => {
+                const recDiv = document.createElement('div');
+                recDiv.style.padding = '10px';
+                recDiv.style.background = '#f8f9fa';
+                recDiv.style.borderRadius = '6px';
+                recDiv.style.borderLeft = '4px solid var(--primary-color)';
+                recDiv.textContent = rec;
+                recList.appendChild(recDiv);
+            });
+        }
+
+        function refreshData() {
+            const loadingBtn = event.target;
+            const originalText = loadingBtn.textContent;
+            loadingBtn.innerHTML = '<span class="loading"></span> Lädt...';
+            loadingBtn.disabled = true;
+
+            setTimeout(() => {
+                loadingBtn.textContent = originalText;
+                loadingBtn.disabled = false;
+                loadInitialData();
+            }, 2000);
+        }
+
+        function exportData() {
+            alert('Export-Funktion: Daten werden als JSON und CSV exportiert');
+            // In der echten Anwendung würde hier ein API-Call erfolgen
+        }
+
+        // Mobile-optimierte Touch-Events
+        document.addEventListener('touchstart', function () {
+            // Aktiviere Touch-Optimierungen
+            document.body.style.touchAction = 'pan-y';
+        });
+
+        // Dark Mode Toggle (optional)
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+</body>
+
+</html>
